@@ -1,0 +1,18 @@
+--- 
+title: "Análisis Estadístico del Dataset de Seguros"
+author: "Fernando Cabrera y Keisy Polo"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+description: "Análisis exploratorio de datos y pruebas de hipótesis paramétricas y no paramétricas aplicadas a un conjunto de datos de pólizas de seguros."
+---
+
+# Introducción 
+
+El presente trabajo tiene como objetivo realizar un análisis estadístico completo sobre un conjunto de datos relacionado con pólizas de seguros, el cual contiene 1,200,000 registros de clientes y 21 variables entre características demográficas, socioeconómicas, de salud y de comportamiento. Entre estas variables se encuentran, por ejemplo, la edad, el ingreso anual, el estado civil, el nivel educativo, la ocupación, el puntaje de salud, el puntaje crediticio, el historial de reclamos previos, los hábitos de fumar y de ejercicio, así como el tipo de póliza contratada, con el fin de comprender el comportamiento de estas variables y su posible relación con el monto de la prima de seguro (Premium Amount), que constituye la variable de interés principal del estudio.
+
+Para alcanzar este objetivo, se lleva a cabo inicialmente un análisis exploratorio de datos (EDA), que permite conocer la estructura del dataset, identificar y tratar los valores faltantes presentes en varias de las variables, y caracterizar tanto las variables numéricas como categóricas de forma individual, así como en conjunto con la variable respuesta y entre sí. Posteriormente, se plantean y resuelven diversas preguntas mediante pruebas de hipótesis paramétricas y no paramétricas, con el objetivo de confirmar estadísticamente algunos de los patrones observados durante el análisis exploratorio, evaluando así la posible relación entre las variables del dataset y el monto de la prima de seguro.
+

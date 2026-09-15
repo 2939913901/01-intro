@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.RDataTmp
+.RDataTmp1
+_book
+_bookdown_files
+bookdown-demo_files/
+rsconnect
+data/
+*.csv
