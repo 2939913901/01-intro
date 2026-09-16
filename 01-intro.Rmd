@@ -37,6 +37,7 @@ library(dplyr)
 library(car)
 library(rstatix)
 library(coin)
+library(nortest)
 ```
 
 Importemos el dataframe
@@ -1469,21 +1470,645 @@ H₀: las tres poblaciones (Divorced, Married, Single) provienen de la misma dis
 H₁: al menos una población proviene de una distribución distinta.
 
 
+Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Marital Status, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
+
+```{r}
+
+divorced <- df %>% filter(Marital_Status == "Divorced") %>% pull(Premium_Amount)
+married  <- df %>% filter(Marital_Status == "Married")  %>% pull(Premium_Amount)
+single   <- df %>% filter(Marital_Status == "Single")   %>% pull(Premium_Amount)
+```
+
+
+Antes de decidir qué tipo de prueba aplicar para comparar los tres estados civiles, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada grupo. Para ello, se emplea la prueba de Lilliefors, ya que no presenta restricciones en cuanto al número de observaciones y permite empates.
+
+```{r}
+lillie.test(divorced)
+lillie.test(married)
+lillie.test(single)
+```
+Con una confianza del 95%, la prueba de Lilliefors muestra que las distribuciones del Premium Amount para los clientes Divorced (D = 0.11686, p-valor < 0.001), Married (D = 0.11649, p-valor < 0.001) y Single (D = 0.11617, p-valor < 0.001) no provienen de una distribución normal, ya que en los tres casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+
+Dado que no se cumple el supuesto de normalidad en ninguno de los tres grupos, no es adecuado aplicar una prueba paramétrica (ANOVA) para comparar medias. En su lugar, se opta por una prueba no paramétrica que compara la tendencia central de las distribuciones. Se replantea entonces la hipótesis en términos de mediana (η), coherente con lo que efectivamente evalúa la prueba de Kruskal-Wallis:
+
+Sea η₁, η₂ y η₃ las medianas de Premium Amount para los clientes Divorced, Married y Single, respectivamente:
+
+H₀: η₁ = η₂ = η₃
+H₁: al menos una mediana es diferente
+
+Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los tres grupos mediante la prueba de Levene.
+
+```{r}
+leveneTest(Premium_Amount ~ Marital_Status, data = df, center = "median")
+```
+
+
+Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre los tres estados civiles (F(2) = 0.8382, p-valor = 0.4325), ya que el p-valor es mayor al nivel de significancia establecido. Esto confirma que se cumple el supuesto de homogeneidad de varianzas, por lo que se puede continuar con la prueba de Kruskal-Wallis sin inconvenientes.
+
+
+```{r}
+kruskal.test(Premium_Amount ~ Marital_Status, data = df)
+```
+Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre los tres estados civiles (χ²(2) = 1.1676, p-valor = 0.5578), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀.
+
+A pesar de no encontrar una diferencia estadísticamente significativa, se calcula el tamaño del efecto para complementar el análisis.
+
+```{r}
+df %>%
+  kruskal_effsize(Premium_Amount ~ Marital_Status)
+```
+
+El tamaño del efecto obtenido fue de 0, lo que confirma que no hay ningún efecto entre los estados civiles sobre el Premium Amount. Esto va en línea con el resultado de Kruskal-Wallis: ni hay diferencia significativa, ni tampoco relevancia práctica entre los grupos Divorced, Married y Single.
+
+En conclusión, con una confianza del 95%, tanto la prueba de Kruskal-Wallis (χ²(2) = 1.1676, p-valor = 0.5578) como el tamaño del efecto (valor de 0) indican que no existen diferencias significativas ni relevancia práctica en el Premium Amount entre los tres estados civiles, por lo que no se rechaza H₀.
+
+
+Pregunta 10: ¿Existen diferencias significativas en el Premium Amount promedio entre los cuatro niveles educativos (High School, Bachelor's, Master's, PhD)?
+
+
+H₀: las cuatro poblaciones (High School, Bachelor's, Master's, PhD) provienen de la misma distribución.
+H₁: al menos una población proviene de una distribución distinta.
+
+Para dar inicio al análisis, se separan los valores de Premium Amount en cuatro grupos según la variable Education Level, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
+
+```{r}
+df <- df %>%
+  rename(Education_Level = `Education Level`)
+
+hs <- df %>% filter(Education_Level == "High School") %>% pull(Premium_Amount)
+bachelors <- df %>% filter(Education_Level == "Bachelor's") %>% pull(Premium_Amount)
+masters <- df %>% filter(Education_Level == "Master's") %>% pull(Premium_Amount)
+phd <- df %>% filter(Education_Level == "PhD") %>% pull(Premium_Amount)
+```
+
+Antes de decidir qué tipo de prueba aplicar para comparar los cuatro niveles educativos, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada uno de los cuatro grupos. Para ello, se emplea la prueba de Lilliefors.
+
+```{r}
+lillie.test(hs)
+lillie.test(bachelors)
+lillie.test(masters)
+lillie.test(phd)
+```
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que las distribuciones del Premium Amount para los cuatro niveles educativos: High School (D = 0.11531, p-valor < 0.001), Bachelor's (D = 0.11557, p-valor < 0.001), Master's (D = 0.11667, p-valor < 0.001) y PhD (D = 0.11736, p-valor < 0.001), no provienen de una distribución normal, ya que en los cuatro casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+
+Dado que no se cumple el supuesto de normalidad en ninguno de los cuatro grupos, no es adecuado aplicar una prueba paramétrica (ANOVA) para comparar medias. Se replantea entonces la hipótesis en términos de mediana (η), coherente con lo que evalúa la prueba de Kruskal-Wallis:
+
+Sea η₁, η₂, η₃ y η₄ las medianas de Premium Amount para High School, Bachelor's, Master's y PhD, respectivamente:
+
+H₀: η₁ = η₂ = η₃ = η₄
+H₁: al menos una mediana es diferente
+
+Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los cuatro grupos mediante la prueba de Levene.
+
+```{r}
+leveneTest(Premium_Amount ~ Education_Level, data = df, center = "median")
+```
+
+Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre los cuatro niveles educativos (F(3) = 2.1127, p-valor = 0.09627), ya que el p-valor es mayor al nivel de significancia establecido. Esto confirma que se cumple el supuesto de homogeneidad de varianzas, por lo que se puede continuar con la prueba de Kruskal-Wallis sin inconvenientes.
+
+
+```{r}
+kruskal.test(Premium_Amount ~ Education_Level, data = df)
+```
+
+Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre los cuatro niveles educativos (χ²(3) = 3.8043, p-valor = 0.2834), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀.
+
+Calculamos el tamaño del efecto:
+
+```{r}
+df %>%
+  kruskal_effsize(Premium_Amount ~ Education_Level)
+```
+
+El tamaño del efecto obtenido fue prácticamente cero (0.00000067), lo que confirma que no hay ningún efecto real entre los niveles educativos sobre el Premium Amount. Esto va en línea con el resultado de Kruskal-Wallis: ni hay diferencia significativa, ni tampoco relevancia práctica entre High School, Bachelor's, Master's y PhD.
+
+
+Finalmente, con una confianza del 95%, tanto la prueba de Kruskal-Wallis (χ²(3) = 3.8043, p-valor = 0.2834) como el tamaño del efecto (prácticamente nulo) indican que no existen diferencias significativas ni relevancia práctica en el Premium Amount entre los cuatro niveles educativos, por lo que no se rechaza H₀.
+
+
+Pregunta 11: ¿Existen diferencias significativas en el Premium Amount promedio entre las categorías de Occupation (Employed, Self-Employed, Unemployed, No especificado)?
+
+H₀: las cuatro poblaciones (Employed, Self-Employed, Unemployed, No especificado) provienen de la misma distribución.
+H₁: al menos una población proviene de una distribución distinta.
+
+
+Para dar inicio al análisis, se separan los valores de Premium Amount en cuatro grupos según la variable Occupation, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
+
+```{r}
+empleado <- df %>% filter(Occupation == "Employed") %>% pull(Premium_Amount)
+independiente <- df %>% filter(Occupation == "Self-Employed") %>% pull(Premium_Amount)
+desempleado <- df %>% filter(Occupation == "Unemployed") %>% pull(Premium_Amount)
+noespecificado <- df %>% filter(Occupation == "No especificado") %>% pull(Premium_Amount)
+```
+
+
+Antes de decidir qué tipo de prueba aplicar para comparar las cuatro categorías de ocupación, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada una. Para ello, se emplea la prueba de Lilliefors.
+
+
+```{r}
+lillie.test(empleado)
+lillie.test(independiente)
+lillie.test(desempleado)
+lillie.test(noespecificado)
+```
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que las distribuciones del Premium Amount para las cuatro categorías de ocupación: Employed (D = 0.11518, p-valor < 0.001), Self-Employed (D = 0.11603, p-valor < 0.001), Unemployed (D = 0.11644, p-valor < 0.001) y No especificado (D = 0.11706, p-valor < 0.001), no provienen de una distribución normal, ya que en los cuatro casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+Dado que no se cumple el supuesto de normalidad en ninguno de los cuatro grupos, no es adecuado aplicar una prueba paramétrica (ANOVA) para comparar medias. Se replantea entonces la hipótesis en términos de mediana (η), coherente con lo que evalúa la prueba de Kruskal-Wallis:
+
+Sea η₁, η₂, η₃ y η₄ las medianas de Premium Amount para Employed, Self-Employed, Unemployed y No especificado, respectivamente:
+
+H₀: η₁ = η₂ = η₃ = η₄
+H₁: al menos una mediana es diferente
+
+Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los cuatro grupos mediante la prueba de Levene.
+
+
+```{r}
+leveneTest(Premium_Amount ~ Occupation, data = df, center = "median")
+```
+
+
+Con una confianza del 95%, la prueba de Levene indica que sí existen diferencias estadísticamente significativas en la varianza del Premium Amount entre las cuatro categorías de ocupación (F(3) = 14.607, p-valor < 0.001), ya que el p-valor es menor al nivel de significancia establecido. Esto indica que no se cumple el supuesto de homogeneidad de varianzas entre los grupos.
+
+
+Dado que no se cumple el supuesto de normalidad ni el de homogeneidad de varianzas entre los cuatro grupos, la interpretación de la prueba de Kruskal-Wallis se mantiene en términos de distribución general y no específicamente de medianas:
+
+H₀: las cuatro poblaciones (Employed, Self-Employed, Unemployed, No especificado) provienen de la misma distribución.
+H₁: al menos una población proviene de una distribución distinta.
+
+
+```{r}
+kruskal.test(Premium_Amount ~ Occupation, data = df)
+```
+
+
+Con una confianza del 95%, la prueba de Kruskal-Wallis indica que existen diferencias estadísticamente significativas en el Premium Amount entre las cuatro categorías de ocupación (χ²(3) = 58.061, p-valor < 0.001), ya que el p-valor es considerablemente menor al nivel de significancia establecido. Por lo tanto, se rechaza H₀.
+
+
+Calculamos el tamaño del efecto:
+
+```{r}
+df %>%
+  kruskal_effsize(Premium_Amount ~ Occupation)
+```
+
+El tamaño del efecto obtenido fue prácticamente nulo (0.0000459), lo que indica que, a pesar de la significancia estadística encontrada, la diferencia entre las categorías de ocupación no tiene relevancia práctica sobre el Premium Amount. Esto es consistente con lo observado en preguntas anteriores (como Health Score): con un tamaño de muestra tan grande (1,200,000 observaciones), incluso diferencias mínimas pueden resultar estadísticamente significativas sin que esto implique una asociación relevante en la práctica.
+
+
+Sin embargo, dado que la prueba de Kruskal-Wallis resultó significativa, se procede a realizar una prueba post-hoc de comparaciones múltiples por pares (Wilcoxon), con ajuste de Bonferroni, con el fin de identificar cuál o cuáles pares específicos de categorías presentan diferencias significativas entre sí.
+
+
+```{r}
+pairwise.wilcox.test(x = df$Premium_Amount,
+                      g = df$Occupation,
+                      exact = FALSE,
+                      p.adjust.method = "bonferroni")
+```
 
 
 
-<<<<<<< HEAD
-como estas?
-=======g
-eres muy bonita
+Los resultados de la prueba de Wilcoxon por pares con ajuste de Bonferroni muestran que la categoría "No especificado" es la que genera las diferencias significativas encontradas: presenta diferencias estadísticamente significativas frente a Employed (p ajustado < 0.001), frente a Self-Employed (p ajustado < 0.001) y frente a Unemployed (p ajustado < 0.001). En cambio, no se encuentran diferencias significativas entre Employed y Self-Employed (p ajustado = 0.22), entre Employed y Unemployed (p ajustado = 0.15), ni entre Self-Employed y Unemployed (p ajustado = 1.00).
+
+Esto confirma lo observado anteriormente: la diferencia detectada por Kruskal-Wallis no proviene de una distinción real entre los clientes según su situación laboral (Employed, Self-Employed, Unemployed se comportan de forma prácticamente idéntica entre sí), sino específicamente del grupo de clientes cuya ocupación no fue especificada originalmente en los datos. En cualquier caso, como ya se mostró con el tamaño del efecto (prácticamente nulo), esta diferencia carece de relevancia práctica.
+
+En conclusión, con una confianza del 95%, la prueba de Kruskal-Wallis (χ²(3) = 58.061, p-valor < 0.001) indica diferencias estadísticamente significativas en el Premium Amount entre las categorías de ocupación, atribuibles principalmente a la categoría "No especificado" según la prueba de Wilcoxon por pares. Sin embargo, el tamaño del efecto (prácticamente nulo) confirma que esta diferencia no tiene relevancia práctica, y es consistente con el hecho de que, dado el gran tamaño de la muestra, incluso diferencias mínimas pueden alcanzar significancia estadística sin representar una asociación real entre las variables.
 
 
-gracias, tú también eres muy lindo
-
-pero tu mucho más
->>>>>>> 38a4df2379e10c3c52f460d03f5a861b943cdb19
 
 
+Pregunta 12: ¿Existen diferencias significativas en el Premium Amount promedio entre las tres ubicaciones (Rural, Suburban, Urban)?
+
+
+
+H₀: las tres poblaciones (Rural, Suburban, Urban) provienen de la misma distribución.
+H₁: al menos una población proviene de una distribución distinta.
+
+
+
+Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Location, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
+
+```{r}
+rural <- df %>% filter(Location == "Rural") %>% pull(Premium_Amount)
+suburbano <- df %>% filter(Location == "Suburban") %>% pull(Premium_Amount)
+urbano <- df %>% filter(Location == "Urban") %>% pull(Premium_Amount)
+```
+
+Antes de decidir qué tipo de prueba aplicar para comparar las tres ubicaciones, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada una. Para ello, se emplea la prueba de Lilliefors.
+
+```{r}
+lillie.test(rural)
+lillie.test(suburbano)
+lillie.test(urbano)
+```
+
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que las distribuciones del Premium Amount para las tres ubicaciones: Rural (D = 0.11651, p-valor < 0.001), Suburban (D = 0.11614, p-valor < 0.001) y Urban (D = 0.11607, p-valor < 0.001), no provienen de una distribución normal, ya que en los tres casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+Dado que no se cumple el supuesto de normalidad en ninguno de los tres grupos, no es adecuado aplicar una prueba paramétrica (ANOVA) para comparar medias. Se replantea entonces la hipótesis en términos de mediana (η), coherente con lo que evalúa la prueba de Kruskal-Wallis:
+
+Sea η₁, η₂ y η₃ las medianas de Premium Amount para Rural, Suburban y Urban, respectivamente:
+
+H₀: η₁ = η₂ = η₃
+H₁: al menos una mediana es diferente
+
+Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los tres grupos mediante la prueba de Levene.
+
+```{r}
+leveneTest(Premium_Amount ~ Location, data = df, center = "median")
+```
+
+Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre las tres ubicaciones (F(2) = 0.5194, p-valor = 0.5949), ya que el p-valor es mayor al nivel de significancia establecido. Esto confirma que se cumple el supuesto de homogeneidad de varianzas, por lo que se puede continuar con la prueba de Kruskal-Wallis sin inconvenientes.
+
+```{r}
+kruskal.test(Premium_Amount ~ Location, data = df)
+```
+
+Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre las tres ubicaciones (χ²(2) = 3.4297, p-valor = 0.18), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀.
+
+Ahora calculamos el tamaño del efecto:
+
+```{r}
+df %>%
+  kruskal_effsize(Premium_Amount ~ Location)
+```
+
+
+El tamaño del efecto obtenido fue prácticamente nulo (0.0000012), lo que confirma que no hay ningún efecto real entre las ubicaciones sobre el Premium Amount. Esto va en línea con el resultado de Kruskal-Wallis: ni hay diferencia significativa, ni tampoco relevancia práctica entre los grupos Rural, Suburban y Urban.
+
+
+En conclusión, con una confianza del 95%, tanto la prueba de Kruskal-Wallis (χ²(2) = 3.4297, p-valor = 0.18) como el tamaño del efecto (prácticamente nulo) indican que no existen diferencias significativas ni relevancia práctica en el Premium Amount entre las tres ubicaciones, por lo que no se rechaza H₀.
+
+
+
+Pregunta 13: ¿Existen diferencias significativas en el Premium Amount promedio entre las categorías de Customer Feedback (Poor, Average, Good)?
+
+
+H₀: las tres poblaciones (Poor, Average, Good) provienen de la misma distribución.
+H₁: al menos una población proviene de una distribución distinta.
+
+
+Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Customer Feedback, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
+
+```{r}
+df <- df %>%
+  rename(Customer_Feedback = `Customer Feedback`)
+
+malo <- df %>% filter(Customer_Feedback == "Poor") %>% pull(Premium_Amount)
+promedio <- df %>% filter(Customer_Feedback == "Average") %>% pull(Premium_Amount)
+bueno <- df %>% filter(Customer_Feedback == "Good") %>% pull(Premium_Amount)
+```
+
+Antes de decidir qué tipo de prueba aplicar para comparar las tres categorías de Customer Feedback, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada una. Para ello, se emplea la prueba de Lilliefors.
+
+```{r}
+lillie.test(malo)
+lillie.test(promedio)
+lillie.test(bueno)
+```
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que las distribuciones del Premium Amount para las tres categorías de Customer Feedback: Poor (D = 0.11688, p-valor < 0.001), Average (D = 0.11484, p-valor < 0.001) y Good (D = 0.11732, p-valor < 0.001), no provienen de una distribución normal, ya que en los tres casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+Dado que no se cumple el supuesto de normalidad en ninguno de los tres grupos, no es adecuado aplicar una prueba paramétrica (ANOVA) para comparar medias. Se replantea entonces la hipótesis en términos de mediana (η), coherente con lo que evalúa la prueba de Kruskal-Wallis:
+
+Sea η₁, η₂ y η₃ las medianas de Premium Amount para Poor, Average y Good, respectivamente:
+
+H₀: η₁ = η₂ = η₃
+H₁: al menos una mediana es diferente
+
+Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los tres grupos mediante la prueba de Levene.
+
+
+```{r}
+leveneTest(Premium_Amount ~ Customer_Feedback, data = df, center = "median")
+```
+
+
+Con una confianza del 95%, la prueba de Levene indica que sí existen diferencias estadísticamente significativas en la varianza del Premium Amount entre las tres categorías de Customer Feedback (F(2) = 7.126, p-valor = 0.000804), ya que el p-valor es menor al nivel de significancia establecido. Esto indica que no se cumple el supuesto de homogeneidad de varianzas entre los grupos.
+
+Dado que no se cumple el supuesto de normalidad ni el de homogeneidad de varianzas entre los tres grupos, la interpretación de la prueba de Kruskal-Wallis se mantiene en términos de distribución general y no específicamente de medianas:
+
+H₀: las tres poblaciones (Poor, Average, Good) provienen de la misma distribución.
+H₁: al menos una población proviene de una distribución distinta.
+
+```{r}
+kruskal.test(Premium_Amount ~ Customer_Feedback, data = df)
+```
+Con una confianza del 95%, la prueba de Kruskal-Wallis indica que existen diferencias estadísticamente significativas en el Premium Amount entre las tres categorías de Customer Feedback (χ²(2) = 88.009, p-valor < 0.001), ya que el p-valor es considerablemente menor al nivel de significancia establecido. Por lo tanto, se rechaza H₀.
+
+
+Calculamos el tamaño del efecto:
+```{r}
+df %>%
+  kruskal_effsize(Premium_Amount ~ Customer_Feedback)
+```
+
+El tamaño del efecto obtenido fue prácticamente nulo (0.0000717), lo que indica que, a pesar de la significancia estadística encontrada, la diferencia entre las categorías de Customer Feedback no tiene relevancia práctica sobre el Premium Amount. Esto es consistente con el patrón observado en Occupation: con un tamaño de muestra tan grande (1,200,000 observaciones), incluso diferencias mínimas pueden resultar estadísticamente significativas sin que esto implique una asociación relevante en la práctica.
+
+Dado que la prueba de Kruskal-Wallis resultó significativa, se procede a realizar una prueba post-hoc de comparaciones múltiples por pares (Wilcoxon), con ajuste de Bonferroni, con el fin de identificar cuál o cuáles pares específicos de categorías presentan diferencias significativas entre sí.
+
+```{r}
+pairwise.wilcox.test(x = df$Premium_Amount, g = df$Customer_Feedback, exact = FALSE, p.adjust.method = "bonferroni")
+```
+
+Los resultados de la prueba de Wilcoxon por pares con ajuste de Bonferroni muestran que la categoría "Average" es la que genera las diferencias significativas encontradas: presenta diferencias estadísticamente significativas frente a Good (p ajustado < 0.001) y frente a Poor (p ajustado < 0.001). En cambio, no se encuentra una diferencia significativa entre Good y Poor (p ajustado = 0.55).
+
+Esto confirma lo observado anteriormente: la diferencia detectada por Kruskal-Wallis no proviene de una distinción entre una opinión positiva y una negativa (Good y Poor se comportan de forma similar entre sí), sino específicamente del grupo de clientes cuyo feedback fue clasificado como "Average". En cualquier caso, como ya se mostró con el tamaño del efecto (prácticamente nulo), esta diferencia carece de relevancia práctica
+
+En conclusión, con una confianza del 95%, la prueba de Kruskal-Wallis (χ²(2) = 88.009, p-valor < 0.001) indica diferencias estadísticamente significativas en el Premium Amount entre las categorías de Customer Feedback, atribuibles principalmente a la categoría "Average" según la prueba de Wilcoxon por pares. Sin embargo, el tamaño del efecto (prácticamente nulo) confirma que esta diferencia no tiene relevancia práctica, y es consistente con el hecho de que, dado el gran tamaño de la muestra, incluso diferencias mínimas pueden alcanzar significancia estadística sin representar una asociación real entre las variables.
+
+
+
+Pregunta 14: ¿Existen diferencias significativas en el Premium Amount promedio entre los tres tipos de propiedad (Apartment, Condo, House)?
+
+
+
+H₀: las tres poblaciones (Apartment, Condo, House) provienen de la misma distribución.
+H₁: al menos una población proviene de una distribución distinta.
+
+
+Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Property Type, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
+
+```{r}
+
+
+apartamento <- df %>% filter(Property_Type == "Apartment") %>% pull(Premium_Amount)
+condominio <- df %>% filter(Property_Type == "Condo") %>% pull(Premium_Amount)
+casa <- df %>% filter(Property_Type == "House") %>% pull(Premium_Amount)
+```
+
+
+Antes de decidir qué tipo de prueba aplicar para comparar los tres tipos de propiedad, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada uno. Para ello, se emplea la prueba de Lilliefors.
+
+```{r}
+lillie.test(apartamento)
+lillie.test(condominio)
+lillie.test(casa)
+```
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que las distribuciones del Premium Amount para los tres tipos de propiedad: Apartment (D = 0.11589, p-valor < 0.001), Condo (D = 0.11701, p-valor < 0.001) y House (D = 0.11582, p-valor < 0.001), no provienen de una distribución normal, ya que en los tres casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+Dado que no se cumple el supuesto de normalidad en ninguno de los tres grupos, no es adecuado aplicar una prueba paramétrica (ANOVA) para comparar medias. Se replantea entonces la hipótesis en términos de mediana (η), coherente con lo que evalúa la prueba de Kruskal-Wallis:
+
+Sea η₁, η₂ y η₃ las medianas de Premium Amount para Apartment, Condo y House, respectivamente:
+
+H₀: η₁ = η₂ = η₃
+H₁: al menos una mediana es diferente
+
+Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los tres grupos mediante la prueba de Levene.
+
+
+```{r}
+leveneTest(Premium_Amount ~ Property_Type, data = df, center = "median")
+```
+
+Con una confianza del 95%, la prueba de Levene indica que sí existen diferencias estadísticamente significativas en la varianza del Premium Amount entre los tres tipos de propiedad (F(2) = 5.7774, p-valor = 0.003097), ya que el p-valor es menor al nivel de significancia establecido. Esto indica que no se cumple el supuesto de homogeneidad de varianzas entre los grupos.
+
+Dado que no se cumple el supuesto de normalidad ni el de homogeneidad de varianzas entre los tres grupos, la interpretación de la prueba de Kruskal-Wallis se mantiene en términos de distribución general y no específicamente de medianas:
+
+H₀: las tres poblaciones (Apartment, Condo, House) provienen de la misma distribución.
+H₁: al menos una población proviene de una distribución distinta.
+
+
+
+```{r}
+kruskal.test(Premium_Amount ~ Property_Type, data = df)
+```
+Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre los tres tipos de propiedad (χ²(2) = 1.7384, p-valor = 0.4193), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀.
+
+Sin embargo, calculamos el tamaño del efecto:
+
+```{r}
+df %>%
+  kruskal_effsize(Premium_Amount ~ Property_Type)
+```
+
+El tamaño del efecto obtenido fue de 0, lo que confirma que no hay ningún efecto real entre los tipos de propiedad sobre el Premium Amount. Esto va en línea con el resultado de Kruskal-Wallis: ni hay diferencia significativa, ni tampoco relevancia práctica entre los grupos Apartment, Condo y House.
+
+
+En conclusión, con una confianza del 95%, tanto la prueba de Kruskal-Wallis (χ²(2) = 1.7384, p-valor = 0.4193) como el tamaño del efecto (valor de 0) indican que no existen diferencias significativas ni relevancia práctica en el Premium Amount entre los tres tipos de propiedad, por lo que no se rechaza H₀.
+
+
+Pregunta 15: ¿Existe una correlación significativa entre Age y Premium Amount?
+
+
+Sea ρ el coeficiente de correlación poblacional entre Age y Premium Amount.
+
+H₀: ρ = 0 (no existe correlación entre las variables)
+H₁: ρ ≠ 0 (existe correlación entre las variables)
+
+
+Como Premium Amount ya sabemos que no es normal (lo hemos confirmado en todas las preguntas anteriores), solo falta verificar Age. Esto decide si usamos Pearson o Spearman.
+
+```{r}
+lillie.test(df$Age)
+```
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que ni Age (D = 0.06621, p-valor < 0.001) ni Premium Amount (D = 0.11624, p-valor < 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Age y Premium Amount.
+
+```{r}
+cor.test(df$Age, df$Premium_Amount, method = "spearman")
+```
+
+Con una confianza del 95%, la prueba de correlación de Spearman indica que existe una correlación estadísticamente significativa entre Age y Premium Amount (S = 2.8867e+17, p-valor = 0.01129, rho = -0.0023), ya que el p-valor es menor al nivel de significancia establecido. Por lo tanto, se rechaza H₀. Sin embargo, el valor del coeficiente de correlación (rho = -0.0023) es extremadamente bajo, lo que indica que, a pesar de ser significativa desde el punto de vista estadístico, la relación entre ambas variables es prácticamente nula en términos prácticos.
+
+En conclusión,con una confianza del 95%, la prueba de correlación de Spearman detecta una asociación estadísticamente significativa entre Age y Premium Amount (rho = -0.0023, p-valor = 0.01129), pero el coeficiente de correlación es tan cercano a cero que carece de relevancia práctica, en línea con el patrón detectado en el resto del análisis: dado el gran tamaño de la muestra, incluso relaciones prácticamente inexistentes pueden alcanzar significancia estadística.
+
+
+
+Pregunta 16: ¿Existe una correlación significativa entre Annual Income y Premium Amount?
+
+
+
+Sea ρ el coeficiente de correlación poblacional entre Annual Income y Premium Amount.
+
+H₀: ρ = 0 (no existe correlación entre las variables)
+H₁: ρ ≠ 0 (existe correlación entre las variables)
+
+
+Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Annual Income. Para ello, se aplica la prueba de Lilliefors.
+
+```{r}
+lillie.test(df$Annual_Income)
+```
+
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que ni Annual Income (D = 0.15271, p-valor < 0.001) ni Premium Amount (D = 0.11624, p-valor < 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Annual Income y Premium Amount.
+
+```{r}
+cor.test(df$Annual_Income, df$Premium_Amount, method = "spearman")
+```
+
+Con una confianza del 95%, la prueba de correlación de Spearman indica que existe una correlación estadísticamente significativa entre Annual Income y Premium Amount (S = 3.0523e+17, p-valor < 0.001, rho = -0.0598), ya que el p-valor es considerablemente menor al nivel de significancia establecido. Por lo tanto, se rechaza H₀. Sin embargo, el valor del coeficiente de correlación (rho = -0.0598) sigue siendo bastante bajo, aunque un poco mayor que en el caso de Age, lo que indica que, a pesar de ser significativa desde el punto de vista estadístico, la relación entre ambas variables continúa siendo prácticamente nula en términos prácticos.
+
+En conclusión, con una confianza del 95%, la prueba de correlación de Spearman detecta una asociación estadísticamente significativa entre Annual Income y Premium Amount (rho = -0.0598, p-valor < 0.001), pero el coeficiente de correlación es demasiado bajo para tener relevancia práctica, en línea con el patrón detectado en el resto del análisis: dado el gran tamaño de la muestra, incluso relaciones muy débiles pueden alcanzar significancia estadística.
+
+
+
+Pregunta 17: ¿Existe una correlación significativa entre Previous Claims y Premium Amount?
+
+Sea ρ el coeficiente de correlación poblacional entre Previous Claims y Premium Amount.
+
+H₀: ρ = 0 (no existe correlación entre las variables)
+H₁: ρ ≠ 0 (existe correlación entre las variables)
+
+
+Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Previous Claims. Para ello, se aplica la prueba de Lilliefors.
+
+```{r}
+df <- df %>%
+  rename(Previous_Claims = `Previous Claims`)
+
+lillie.test(df$Previous_Claims)
+```
+Con una confianza del 95%, la prueba de Lilliefors muestra que ni Previous Claims (D = 0.32895, p-valor < 0.001) ni Premium Amount (D = 0.11624, p-valor < 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido. El valor de D en Previous Claims es notablemente más alto que en las variables anteriores, lo cual es coherente con su fuerte sesgo hacia la derecha observado en el EDA (la mayoría de los clientes concentrados en 0 reclamos).
+
+Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Previous Claims y Premium Amount.
+
+```{r}
+cor.test(df$Previous_Claims, df$Premium_Amount, method = "spearman")
+```
+
+Se rechaza H₀ dado que la prueba de Spearman resulta significativa (rho = 0.0391, p-valor < 0.001). Como ha ocurrido con las demás variables numéricas analizadas, este resultado es producto del tamaño de la muestra más que de una asociación real entre la cantidad de reclamos previos y el monto de la prima.
+
+
+En conclusión, con una confianza del 95%, la prueba de correlación de Spearman detecta una asociación estadísticamente significativa entre Previous Claims y Premium Amount (rho = 0.0391, p-valor < 0.001), sin embargo, se trata de un coeficiente tan bajo que no representa una relación de relevancia práctica. Esto reafirma el patrón visto a lo largo del análisis: el gran tamaño de la muestra permite que asociaciones prácticamente inexistentes terminen siendo estadísticamente significativas.
+
+
+Pregunta 18: ¿Existe una correlación significativa entre Vehicle Age y Premium Amount?
+
+
+
+Sea ρ el coeficiente de correlación poblacional entre Vehicle Age y Premium Amount.
+
+H₀: ρ = 0 (no existe correlación entre las variables)
+H₁: ρ ≠ 0 (existe correlación entre las variables)
+
+
+
+Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Vehicle Age. Para ello, se aplica la prueba de Lilliefors.
+
+```{r}
+
+lillie.test(df$Vehicle_Age)
+```
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que ni Vehicle Age (D = 0.083798, p-valor < 0.001) ni Premium Amount (D = 0.11624, p-valor < 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Vehicle Age y Premium Amount.
+
+```{r}
+cor.test(df$Vehicle_Age, df$Premium_Amount, method = "spearman")
+```
+
+La prueba de correlación de Spearman entre Vehicle Age y Premium Amount arroja un p-valor de 0.3402, considerablemente mayor al nivel de significancia establecido, por lo que no se rechaza H₀. El coeficiente obtenido (rho = 0.0009) es prácticamente cero, confirmando que no existe ninguna relación entre la antigüedad del vehículo y el monto de la prima.
+
+
+En conclusión, con una confianza del 95%, no hay evidencia suficiente para afirmar que existe una correlación entre Vehicle Age y Premium Amount (rho = 0.0009, p-valor = 0.3402), por lo que no se rechaza H₀. A diferencia de las variables anteriores, aquí ni siquiera el gran tamaño de la muestra fue suficiente para alcanzar significancia estadística, lo que refuerza la ausencia de relación entre estas dos variables.
+
+
+
+Pregunta 19: ¿Existe una correlación significativa entre Credit Score y Premium Amount?
+
+
+Sea ρ el coeficiente de correlación poblacional entre Credit Score y Premium Amount.
+
+H₀: ρ = 0 (no existe correlación entre las variables)
+H₁: ρ ≠ 0 (existe correlación entre las variables)
+
+
+Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Credit Score. Para ello, se aplica la prueba de Lilliefors.
+
+```{r}
+df <- df %>%
+  rename(Credit_Score = `Credit Score`)
+
+lillie.test(df$Credit_Score)
+```
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que ni Credit Score (D = 0.064415, p-valor < 0.001) ni Premium Amount (D = 0.11624, p-valor < 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Credit Score y Premium Amount.
+
+```{r}
+cor.test(df$Credit_Score, df$Premium_Amount, method = "spearman")
+```
+
+La prueba de correlación de Spearman entre Credit Score y Premium Amount resulta significativa (S = 2.9989e+17, p-valor < 0.001, rho = -0.0413), por lo que se rechaza H₀. No obstante, el coeficiente sigue siendo muy bajo, en la misma línea que Annual Income y Previous Claims, indicando que aunque existe significancia estadística, la relación real entre el puntaje crediticio y el monto de la prima es insignificante.
+
+
+En conclusión, con una confianza del 95%, se rechaza H₀ ante la correlación significativa detectada entre Credit Score y Premium Amount (rho = -0.0413, p-valor < 0.001), pero dado lo cercano a cero del coeficiente, esta asociación no tiene ningún valor práctico y responde una vez más al tamaño masivo de la muestra.
+
+
+Pregunta 20: ¿Existe una correlación significativa entre Insurance Duration y Premium Amount?
+
+
+
+Sea ρ el coeficiente de correlación poblacional entre Insurance Duration y Premium Amount.
+
+H₀: ρ = 0 (no existe correlación entre las variables)
+H₁: ρ ≠ 0 (existe correlación entre las variables)
+
+
+Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Insurance Duration. Para ello, se aplica la prueba de Lilliefors.
+
+```{r}
+
+lillie.test(df$Insurance_Duration)
+```
+
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que ni Insurance Duration (D = 0.11518, p-valor < 0.001) ni Premium Amount (D = 0.11624, p-valor < 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Insurance Duration y Premium Amount.
+
+
+```{r}
+cor.test(df$Insurance_Duration, df$Premium_Amount, method = "spearman")
+```
+
+La prueba de correlación de Spearman entre Insurance Duration y Premium Amount arroja un p-valor de 0.9381, muy por encima del nivel de significancia establecido, por lo que no se rechaza H₀. El coeficiente obtenido (rho = -0.00007) es esencialmente cero, mostrando que no hay absolutamente ninguna asociación entre la duración de la póliza y el monto de la prima.
+
+En conclusión, con una confianza del 95%, no se encuentra evidencia de correlación entre Insurance Duration y Premium Amount (rho = -0.00007, p-valor = 0.9381), por lo que no se rechaza H₀. De todas las variables numéricas analizadas hasta ahora, esta es la que presenta el coeficiente más cercano a cero, dejando claro que la duración de la póliza no tiene ninguna incidencia sobre el monto que paga el cliente.
+
+
+Pregunta 21: ¿Existe una correlación significativa entre Number of Dependents y Premium Amount?
+
+
+Sea ρ el coeficiente de correlación poblacional entre Number of Dependents y Premium Amount.
+
+H₀: ρ = 0 (no existe correlación entre las variables)
+H₁: ρ ≠ 0 (existe correlación entre las variables)
+
+
+Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Number of Dependents. Para ello, se aplica la prueba de Lilliefors.
+
+```{r}
+df <- df %>%
+  rename(Number_of_Dependents = `Number of Dependents`)
+
+lillie.test(df$Number_of_Dependents)
+```
+
+Con una confianza del 95%, la prueba de Lilliefors muestra que ni Number of Dependents (D = 0.20221, p-valor < 0.001) ni Premium Amount (D = 0.11624, p-valor < 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.
+
+Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Number of Dependents y Premium Amount.
+
+```{r}
+cor.test(df$Number_of_Dependents, df$Premium_Amount, method = "spearman")
+```
+
+La prueba de correlación de Spearman entre Number of Dependents y Premium Amount arroja un p-valor de 0.6703, muy por encima del nivel de significancia establecido, por lo que no se rechaza H₀. El coeficiente obtenido (rho = -0.0004) es esencialmente cero, mostrando que no hay ninguna asociación entre la cantidad de dependientes de un cliente y el monto de su prima.
+
+
+En conclusión, con una confianza del 95%, no se encuentra evidencia de correlación entre Number of Dependents y Premium Amount (rho = -0.0004, p-valor = 0.6703), por lo que no se rechaza H₀. Al igual que ocurrió con Insurance Duration y Vehicle Age, esta variable no muestra ningún tipo de relación con el monto de la prima.
 
 
 
