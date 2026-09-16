@@ -1211,6 +1211,7 @@ Una vez verificados los supuestos, se procede a aplicar la prueba de Kruskal-Wal
 ```{r}
 kruskal.test(Premium_Amount ~ Policy_Type, data = df)
 ```
+
 Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre los tres tipos de póliza (χ²(2) = 1.9075, p-valor = 0.3853).
 
 
@@ -1350,7 +1351,7 @@ Y finalmente el tamaño del efecto:
 df %>%
   rstatix::wilcox_effsize(Premium_Amount ~ Gender, paired = FALSE)
 ```
-Con base en el tamaño del efecto obtenido (r = 0.000122), se observa un efecto prácticamente nulo entre los grupos Female y Male. Aunque la magnitud se clasifica como "small" (pequeña) según la escala utilizada — es la etiqueta más baja disponible, no implica que el efecto sea moderado —, el valor es tan cercano a cero que confirma que, más allá de la falta de significancia estadística ya encontrada, la diferencia entre ambos géneros tampoco tiene ninguna relevancia práctica.
+Con base en el tamaño del efecto obtenido (r = 0.000122), se observa un efecto prácticamente nulo entre los grupos Female y Male. Aunque la magnitud se clasifica como "small" (pequeña) según la escala utilizada (es la etiqueta más baja disponible, no implica que el efecto sea moderado), el valor es tan cercano a cero que confirma que, más allá de la falta de significancia estadística ya encontrada, la diferencia entre ambos géneros tampoco tiene ninguna relevancia práctica.
 
 Con una confianza del 95%, la prueba de Mann-Whitney-Wilcoxon indica que no hay evidencia estadísticamente significativa de una diferencia en la mediana del Premium Amount entre clientes Female y Male (U = 179,971,290,482, p-valor = 0.8935), por lo que no se rechaza H₀. Adicionalmente, el tamaño del efecto obtenido (r = 0.000122) confirma un efecto prácticamente nulo entre ambos grupos, lo que indica que, más allá de la falta de significancia estadística, la diferencia entre géneros tampoco tiene ninguna relevancia práctica.
 
@@ -1428,8 +1429,6 @@ Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utili
 cor.test(df$Annual_Income, df$Vehicle_Age, method = "spearman")
 ```
 
-Con una confianza del 95%, la prueba de correlación de Spearman indica que no existe una correlación estadísticamente significativa entre Annual Income y Vehicle Age (S = 2.5692e+17, p-valor = 0.7118, ρ = -0.0003), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀.
-
 Con una confianza del 95%, la prueba de correlación de Spearman indica que no existe una correlación estadísticamente significativa entre Annual Income y Vehicle Age (S = 2.5692e+17, p-valor = 0.7118, ρ = -0.0003), por lo que no se rechaza H₀. El coeficiente de correlación, prácticamente nulo, confirma que no existe relación real entre ambas variables, resolviendo la aparente tensión observada en el EDA entre la matriz de correlación y el scatterplot.
 
 Pregunta 8: ¿Existe relación entre Smoking Status y Exercise Frequency?
@@ -1458,13 +1457,29 @@ Se verifica que todos los valores esperados en la tabla de contingencia son cons
 chisq.test(tabla2)
 ```
 
-Con una confianza del 95%, la prueba de Chi-cuadrado de Pearson indica que no existe evidencia estadísticamente significativa de una relación entre Smoking Status y Exercise Frequency (χ²(3) = 3.8039, p-valor = 0.2834), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀
 
 Con una confianza del 95%, la prueba de Chi-cuadrado de Pearson indica que no existe evidencia estadísticamente significativa de una relación entre Smoking Status y Exercise Frequency (χ²(3) = 3.8039, p-valor = 0.2834), por lo que no se rechaza H₀.
 
-Conclusión
-De las ocho preguntas planteadas, siete no mostraron evidencia de relación significativa ni relevante entre las variables analizadas: Smoking Status (p = 0.68), Policy Type (p = 0.39), Gender (p = 0.89) y Exercise Frequency (p = 0.43) no presentaron diferencias en el Premium Amount entre sus respectivos grupos; Smoking Status vs Policy Type (p = 0.07) y Smoking Status vs Exercise Frequency (p = 0.28) tampoco mostraron asociación entre sí; y Annual Income vs Vehicle Age (ρ = -0.0003, p = 0.71) no presentó correlación alguna, resolviendo la aparente tensión detectada en el EDA respecto a la matriz de correlación. La única excepción fue Health Score vs Premium Amount, donde sí se encontró significancia estadística (p < 0.001), aunque con un coeficiente de correlación tan bajo (ρ = 0.016) que carece de relevancia práctica.
-Es importante señalar que, dado el gran tamaño de la muestra (1,200,000 observaciones), incluso relaciones muy débiles pueden alcanzar significancia estadística, como ocurrió con Health Score. Sin embargo, el tamaño del efecto en todos los casos resultó prácticamente nulo, lo que confirma que la falta de relación no se debe a un problema de poder estadístico, sino a una ausencia real de asociación entre las variables.
+
+
+Pregunta 9: ¿Existen diferencias significativas en el Premium Amount promedio entre los tres estados civiles (Divorced, Married, Single)?
+
+
+H₀: las tres poblaciones (Divorced, Married, Single) provienen de la misma distribución.
+H₁: al menos una población proviene de una distribución distinta.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--chapter:end:01-intro.Rmd-->
 
