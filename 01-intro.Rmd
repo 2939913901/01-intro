@@ -1472,7 +1472,16 @@ H₁: al menos una población proviene de una distribución distinta.
 
 
 
+<<<<<<< HEAD
 como estas?
+=======g
+eres muy bonita
+
+
+gracias, tú también eres muy lindo
+
+pero tu mucho más
+>>>>>>> 38a4df2379e10c3c52f460d03f5a861b943cdb19
 
 
 
