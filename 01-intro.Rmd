@@ -1507,8 +1507,8 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)
 
 ```{r}
 df <- df %>%
-  rename(Annual_Income = `Annual Income`,
-         Vehicle_Age = `Vehicle Age`)
+  rename(Annual_Income = `Annual_Income`,
+         Vehicle_Age = `Vehicle_Age`)
 ```
 
 Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Para ello, se aplica la prueba de Lilliefors sobre cada una.
@@ -1568,7 +1568,8 @@ H₁: al menos una población proviene de una distribución distinta.
 Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Marital Status, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
 
 ```{r}
-
+df <- df %>%
+  rename(Marital_Status = `Marital Status`)
 divorced <- df %>% filter(Marital_Status == "Divorced") %>% pull(Premium_Amount)
 married  <- df %>% filter(Marital_Status == "Married")  %>% pull(Premium_Amount)
 single   <- df %>% filter(Marital_Status == "Single")   %>% pull(Premium_Amount)
@@ -1605,9 +1606,9 @@ Con una confianza del 95%, la prueba de Levene indica que no se encuentran difer
 ```{r}
 kruskal.test(Premium_Amount ~ Marital_Status, data = df)
 ```
-Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre los tres estados civiles (χ²(2) = 1.1676, p-valor = 0.5578), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀.
+Con una confianza del 95%, la prueba de Kruskal-Wallis indica que sí existen diferencias estadísticamente significativas en el Premium Amount entre los tres estados civiles (χ²(2) = 18.974, p-valor < 0.001), ya que el p-valor es considerablemente menor al nivel de significancia establecido. Por lo tanto, se rechaza H₀.
 
-A pesar de no encontrar una diferencia estadísticamente significativa, se calcula el tamaño del efecto para complementar el análisis.
+Dado que la prueba resultó significativa, se calcula el tamaño del efecto para complementar el análisis.
 
 ```{r}
 df %>%
@@ -2204,6 +2205,59 @@ La prueba de correlación de Spearman entre Number of Dependents y Premium Amoun
 
 
 En conclusión, con una confianza del 95%, no se encuentra evidencia de correlación entre Number of Dependents y Premium Amount (rho = -0.0004, p-valor = 0.6703), por lo que no se rechaza H₀. Al igual que ocurrió con Insurance Duration y Vehicle Age, esta variable no muestra ningún tipo de relación con el monto de la prima.
+
+## Conclusiones
+
+Retomando la pregunta que guio este capítulo —¿cuáles de las 18 variables predictoras presentan una asociación estadísticamente significativa **y** prácticamente relevante con Premium Amount?—, la respuesta es clara: **ninguna cumple ambos criterios a la vez**. La Tabla \@ref(tab:resumen) resume los resultados de las 21 pruebas realizadas.
+
+```{r resumen, echo=FALSE}
+library(knitr)
+
+resumen <- data.frame(
+  Variable = c("Smoking Status", "Policy Type", "Health Score",
+               "Smoking Status - Policy Type", "Gender", "Exercise Frequency",
+               "Annual Income - Vehicle Age", "Smoking Status - Exercise Frequency",
+               "Marital Status", "Education Level", "Occupation", "Location",
+               "Customer Feedback", "Property Type", "Age", "Annual Income",
+               "Previous Claims", "Vehicle Age", "Credit Score",
+               "Insurance Duration", "Number of Dependents"),
+  Prueba = c("Mann-Whitney", "Kruskal-Wallis", "Spearman",
+             "Chi-cuadrado", "Mann-Whitney", "Kruskal-Wallis",
+             "Spearman", "Chi-cuadrado",
+             "Kruskal-Wallis", "Kruskal-Wallis", "Kruskal-Wallis", "Kruskal-Wallis",
+             "Kruskal-Wallis", "Kruskal-Wallis", "Spearman", "Spearman",
+             "Spearman", "Spearman", "Spearman",
+             "Spearman", "Spearman"),
+  p_valor = c("0.680", "0.385", "< 0.001",
+              "0.070", "0.894", "0.431",
+              "0.712", "0.283",
+              "0.558", "0.283", "< 0.001", "0.180",
+              "< 0.001", "0.419", "0.011", "< 0.001",
+              "< 0.001", "0.340", "< 0.001",
+              "0.938", "0.670"),
+  Efecto = c("r = 0.0004", "eta2 = 0", "rho = 0.016",
+             "-", "r = 0.0001", "eta2 = 0",
+             "rho = -0.0003", "-",
+             "eta2 = 0", "eta2 ~ 0", "eta2 ~ 0", "eta2 ~ 0",
+             "eta2 ~ 0", "eta2 = 0", "rho = -0.002", "rho = -0.060",
+             "rho = 0.039", "rho = 0.001", "rho = -0.041",
+             "rho ~ 0", "rho ~ 0"),
+  Conclusion = c("No significativo", "No significativo", "Significativo, sin relevancia",
+                 "No significativo", "No significativo", "No significativo",
+                 "No significativo", "No significativo",
+                 "No significativo", "No significativo", "Significativo, sin relevancia", "No significativo",
+                 "Significativo, sin relevancia", "No significativo", "Significativo, sin relevancia", "Significativo, sin relevancia",
+                 "Significativo, sin relevancia", "No significativo", "Significativo, sin relevancia",
+                 "No significativo", "No significativo")
+)
+
+kable(resumen, col.names = c("Variable / Relación", "Prueba", "p-valor", "Efecto", "Conclusión"),
+      caption = "Resumen de las 21 pruebas de hipótesis realizadas")
+```
+
+De las 18 variables predictoras, 7 resultaron estadísticamente significativas, pero en todas los tamaños de efecto fueron prácticamente nulos (|ρ| máximo de 0.06, en Annual Income). Este patrón confirma lo anticipado en el Objetivo: con 1,200,000 observaciones, hasta las asociaciones más débiles alcanzan significancia estadística, por lo que el p-valor solo no basta como criterio de decisión. Las 3 relaciones adicionales entre predictores tampoco fueron significativas, descartando redundancias relevantes entre ellos.
+
+En conjunto, esto sugiere que ninguna característica individual del cliente —ni siquiera factores intuitivamente relevantes como fumar o el tipo de póliza— explica el monto de la prima en este dataset, lo cual podría deberse a que la relación real sea conjunta o no lineal, no capturable con pruebas univariadas. Como limitación, no se ajustó por comparaciones múltiples en las 21 pruebas, aunque esto no afecta la conclusión principal al basarse en el tamaño del efecto y no solo en el p-valor. Como trabajo futuro, se recomienda ajustar un modelo de regresión múltiple que incorpore todos los predictores simultáneamente, para evaluar si en conjunto logran explicar una proporción relevante de la variabilidad de Premium Amount.
 
 
 
