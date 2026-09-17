@@ -1,105 +1,3 @@
---- 
-title: "Análisis Estadístico del Dataset de Seguros"
-author: "Fernando Cabrera Marriaga y Keisy Polo Peralta"
-date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
-output: bookdown::gitbook
-documentclass: book
-biblio-style: apalike
-link-citations: yes
-description: "Análisis exploratorio de datos y pruebas de hipótesis paramétricas y no paramétricas aplicadas a un conjunto de datos de pólizas de seguros."
----
-
-# Introducción 
-
-El presente trabajo tiene como objetivo realizar un análisis estadístico completo 
-sobre un conjunto de datos relacionado con pólizas de seguros, el cual contiene 
-1,200,000 registros de clientes y 21 variables entre características demográficas, 
-socioeconómicas, de salud y de comportamiento. Entre estas variables se encuentran, 
-por ejemplo, la edad, el ingreso anual, el estado civil, el nivel educativo, la 
-ocupación, el puntaje de salud, el puntaje crediticio, el historial de reclamos 
-previos, los hábitos de fumar y de ejercicio, así como el tipo de póliza contratada, 
-con el fin de comprender el comportamiento de estas variables y su posible relación 
-con el monto de la prima de seguro (Premium Amount), que constituye la variable de 
-interés principal del estudio.
-
-Este tipo de análisis resulta relevante dentro del contexto de la industria 
-aseguradora, ya que permite identificar de manera objetiva cuáles características 
-de un cliente están efectivamente asociadas con el monto que paga por su póliza, 
-y cuáles, a pesar de parecer intuitivamente relevantes (como fumar, hacer ejercicio 
-con frecuencia, o el tipo de póliza contratada), no muestran una relación real 
-dentro de los datos disponibles.
-
-Para alcanzar este objetivo, se lleva a cabo inicialmente un análisis exploratorio 
-de datos (EDA), que permite conocer la estructura del dataset, identificar y tratar 
-los valores faltantes presentes en varias de las variables, y caracterizar tanto 
-las variables numéricas como categóricas de forma individual, así como en conjunto 
-con la variable respuesta y entre sí. Este proceso incluye la imputación de datos 
-faltantes mediante mediana (para variables numéricas continuas) y moda (para 
-variables numéricas discretas y categóricas), la conversión de variables 
-categóricas a factores, respetando el orden lógico en aquellas que lo requieren, 
-como Education Level, Customer Feedback y Exercise Frequency, y la construcción 
-de gráficos univariados y bivariados que permiten detectar visualmente posibles 
-patrones, sesgos y relaciones entre las variables.
-
-A partir de los patrones detectados durante esta etapa exploratoria, entre ellos 
-distribuciones sesgadas hacia la derecha en variables como Annual Income y Premium 
-Amount, ausencia aparente de relaciones lineales marcadas entre las variables 
-numéricas, y comportamientos visualmente muy similares entre categorías en la 
-mayoría de las variables cualitativas frente a Premium Amount, surge la necesidad 
-de confirmar dichos patrones mediante herramientas estadísticas formales, en lugar 
-de basar las conclusiones únicamente en la inspección visual de los gráficos. Es 
-precisamente en este punto donde se plantean las pruebas de hipótesis paramétricas 
-y no paramétricas que constituyen el núcleo del presente capítulo.
-
-## Objetivo
-
-El presente análisis busca responder la siguiente pregunta:
-
-> **¿Cuáles de las 18 variables predictoras del dataset (10 categóricas y 8 
-> numéricas) presentan una asociación estadísticamente significativa y, además, 
-> prácticamente relevante con el monto de la prima de seguro (Premium Amount)?**
-
-Esta pregunta parte de una distinción central a lo largo de todo el capítulo: la 
-significancia estadística y la relevancia práctica no son lo mismo. Dado el gran 
-tamaño de la muestra (1,200,000 observaciones), prácticamente cualquier diferencia 
-entre grupos o cualquier correlación distinta de cero tiene una alta probabilidad 
-de resultar estadísticamente significativa, por lo que responder únicamente si 
-una prueba rechaza o no rechaza H₀ sería insuficiente y, en varios casos, incluso 
-engañoso.
-
-Para responder la pregunta, cada variable predictora se somete a una prueba de 
-hipótesis específica frente a Premium Amount, seleccionada según su naturaleza 
-(categórica o numérica) y según se verifique o no el supuesto de normalidad 
-mediante la prueba de Lilliefors:
-
-- Categóricas de dos niveles: prueba t de Student (si hay normalidad) o 
-  Mann-Whitney-Wilcoxon (si no la hay).
-- Categóricas de tres o más niveles: ANOVA (si hay normalidad) o Kruskal-Wallis 
-  (si no la hay), con comparaciones post-hoc por pares cuando el resultado global 
-  es significativo.
-- Numéricas: correlación de Pearson (si ambas son normales) o de Spearman (en caso 
-  contrario).
-- Relación entre dos variables categóricas: prueba de Chi-cuadrado de independencia.
-
-En todos los casos donde la prueba resulta significativa, el resultado se 
-complementa con el cálculo del tamaño del efecto correspondiente (r de Wilcoxon, 
-η² de Kruskal-Wallis, o ρ de Spearman), lo que permite cuantificar qué tan grande 
-es realmente la asociación detectada, más allá del p-valor. Esta combinación entre 
-prueba de hipótesis y tamaño del efecto es la que finalmente permite responder si 
-una variable no solo está relacionada con Premium Amount de forma estadísticamente 
-detectable, sino si esa relación tiene algún peso real dentro del comportamiento 
-de la prima.
-
-De forma complementaria, se seleccionan tres relaciones adicionales entre variables 
-independientes, identificadas en el EDA como potencialmente interesantes o 
-relevantes para descartar problemas de multicolinealidad, con el fin de enriquecer 
-la comprensión del comportamiento conjunto de los clientes, sin que esto constituya 
-el foco principal del análisis.
-
-
-<!--chapter:end:index.Rmd-->
-
 # Análisis Exploratorio de Datos (EDA) {#intro}
 
 
@@ -227,6 +125,7 @@ df <- df %>%
     Occupation = ifelse(is.na(Occupation), "No especificado", Occupation)
   )
 ```
+
 
 Para las variables categóricas con datos faltantes se manejó cada caso según su porcentaje de NA. En Marital Status y Customer Feedback, como los faltantes eran relativamente pocos, se optó por imputar con la moda, es decir, reemplazar los NA por la categoría que más se repite. En cambio, Occupation tenía casi un 30% de datos faltantes, por lo que imputar con la moda no era buena idea (se estaría inventando la ocupación de un tercio de los clientes), así que se decidió crear una categoría nueva llamada "No especificado" para dejar claro que esa información simplemente no se tenía.
 
@@ -1174,6 +1073,28 @@ Se forma una cuadrícula uniforme entre ambas variables, ya que las dos toman po
 
 Tras analizar la relación entre todas las combinaciones posibles de variables numéricas independientes, se observa un patrón bastante consistente a lo largo de todo el análisis: en la mayoría de los casos no se identifica una relación clara entre las variables, ya que los datos se distribuyen de manera uniforme sin mostrar tendencias, agrupaciones o patrones particulares. Las únicas irregularidades visibles corresponden a las variables que fueron imputadas con la mediana (Health Score y Credit Score), donde se aprecia una línea de mayor densidad en el valor imputado, así como en Previous Claims, donde la menor frecuencia de reclamos altos se refleja en una disminución progresiva de la densidad de puntos. En conjunto, estos resultados respaldan lo observado previamente en la matriz de correlación, confirmando que las variables numéricas del dataset no presentan relaciones lineales fuertes entre sí.
 
+```{r}
+df <- dplyr::rename(
+  df,
+  Premium_Amount = `Premium Amount`,
+  Smoking_Status = `Smoking Status`,
+  Policy_Type = `Policy Type`,
+  Health_Score = `Health Score`,
+  Exercise_Frequency = `Exercise Frequency`,
+  Annual_Income = `Annual Income`,
+  Vehicle_Age = `Vehicle Age`,
+  Marital_Status = `Marital Status`,
+  Education_Level = `Education Level`,
+  Customer_Feedback = `Customer Feedback`,
+  Previous_Claims = `Previous Claims`,
+  Credit_Score = `Credit Score`,
+  Number_of_Dependents = `Number of Dependents`,
+  Property_Type = `Property Type`,
+  Insurance_Duration = `Insurance Duration`
+)
+```
+
+
 
 # Pruebas de hipótesis paramétricas y no paramétricas
 
@@ -1240,13 +1161,6 @@ Con una confianza del 95%, la prueba de Levene indica que no se encuentran difer
 
 
 ```{r}
-df <- df %>%
-  rename(Premium_Amount = `Premium Amount`,
-         Smoking_Status = `Smoking Status`)
-```
-
-
-```{r}
 df %>%
   rstatix::wilcox_test(Premium_Amount ~ Smoking_Status, paired = FALSE)
 ```
@@ -1273,11 +1187,6 @@ H₁: al menos una población proviene de una distribución distinta.
 
 
 Antes de decidir qué tipo de prueba aplicar para comparar los tres tipos de póliza, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada uno de los tres grupos. Para ello, se utiliza la prueba de Lilliefors.
-
-```{r}
-df <- df %>%
-  rename(Policy_Type = `Policy Type`)
-```
 
 ```{r}
 
@@ -1331,11 +1240,6 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)
 
 
 Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Para ello, se aplica la prueba de Lilliefors sobre cada una.
-
-```{r}
-df <- df %>%
-  rename(Health_Score = `Health Score`)
-```
 
 ```{r}
 
@@ -1456,11 +1360,6 @@ Pregunta 6: ¿Existen diferencias significativas en el Premium Amount promedio e
 H₀: las cuatro poblaciones (Rarely, Monthly, Weekly, Daily) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.
 
-```{r}
-df <- df %>%
-  rename(Exercise_Frequency = `Exercise Frequency`)
-```
-
 Antes de decidir qué tipo de prueba aplicar para comparar los cuatro grupos, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada uno de ellos. Para ello, se utiliza la prueba de Lilliefors.
 ```{r}
 rarely <- df %>% filter(Exercise_Frequency == "Rarely") %>% pull(Premium_Amount)
@@ -1504,12 +1403,6 @@ Sea ρ el coeficiente de correlación poblacional entre Annual Income y Vehicle 
 
 H₀: ρ = 0 (no existe correlación entre las variables)
 H₁: ρ ≠ 0 (existe correlación entre las variables)
-
-```{r}
-df <- df %>%
-  rename(Annual_Income = `Annual_Income`,
-         Vehicle_Age = `Vehicle_Age`)
-```
 
 Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Para ello, se aplica la prueba de Lilliefors sobre cada una.
 ```{r}
@@ -1568,8 +1461,6 @@ H₁: al menos una población proviene de una distribución distinta.
 Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Marital Status, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
 
 ```{r}
-df <- df %>%
-  rename(Marital_Status = `Marital Status`)
 divorced <- df %>% filter(Marital_Status == "Divorced") %>% pull(Premium_Amount)
 married  <- df %>% filter(Marital_Status == "Married")  %>% pull(Premium_Amount)
 single   <- df %>% filter(Marital_Status == "Single")   %>% pull(Premium_Amount)
@@ -1629,9 +1520,6 @@ H₁: al menos una población proviene de una distribución distinta.
 Para dar inicio al análisis, se separan los valores de Premium Amount en cuatro grupos según la variable Education Level, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
 
 ```{r}
-df <- df %>%
-  rename(Education_Level = `Education Level`)
-
 hs <- df %>% filter(Education_Level == "High School") %>% pull(Premium_Amount)
 bachelors <- df %>% filter(Education_Level == "Bachelor's") %>% pull(Premium_Amount)
 masters <- df %>% filter(Education_Level == "Master's") %>% pull(Premium_Amount)
@@ -1850,9 +1738,6 @@ H₁: al menos una población proviene de una distribución distinta.
 Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Customer Feedback, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
 
 ```{r}
-df <- df %>%
-  rename(Customer_Feedback = `Customer Feedback`)
-
 malo <- df %>% filter(Customer_Feedback == "Poor") %>% pull(Premium_Amount)
 promedio <- df %>% filter(Customer_Feedback == "Average") %>% pull(Premium_Amount)
 bueno <- df %>% filter(Customer_Feedback == "Good") %>% pull(Premium_Amount)
@@ -2059,9 +1944,6 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)
 Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Previous Claims. Para ello, se aplica la prueba de Lilliefors.
 
 ```{r}
-df <- df %>%
-  rename(Previous_Claims = `Previous Claims`)
-
 lillie.test(df$Previous_Claims)
 ```
 Con una confianza del 95%, la prueba de Lilliefors muestra que ni Previous Claims (D = 0.32895, p-valor < 0.001) ni Premium Amount (D = 0.11624, p-valor < 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido. El valor de D en Previous Claims es notablemente más alto que en las variables anteriores, lo cual es coherente con su fuerte sesgo hacia la derecha observado en el EDA (la mayoría de los clientes concentrados en 0 reclamos).
@@ -2123,9 +2005,6 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)
 Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Credit Score. Para ello, se aplica la prueba de Lilliefors.
 
 ```{r}
-df <- df %>%
-  rename(Credit_Score = `Credit Score`)
-
 lillie.test(df$Credit_Score)
 ```
 
@@ -2187,9 +2066,6 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)
 Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Number of Dependents. Para ello, se aplica la prueba de Lilliefors.
 
 ```{r}
-df <- df %>%
-  rename(Number_of_Dependents = `Number of Dependents`)
-
 lillie.test(df$Number_of_Dependents)
 ```
 
