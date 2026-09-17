@@ -1,0 +1,13 @@
+tab:resumen
+introducción
+objetivo
+intro
+revisión-de-datos-faltantes-en-las-variables-numéricas
+revisión-de-datos-faltantes-en-variables-categóricas
+ingeniería-de-características-en-variables-categóricas
+análisis-variable-respuesta-premium-amount
+análisis-de-las-variables-independientes-características
+análisis-bivariado-variable-característica-vs-variable-respuesta
+análisis-bivariado-independienets-vs-independientes
+pruebas-de-hipótesis-paramétricas-y-no-paramétricas
+conclusiones

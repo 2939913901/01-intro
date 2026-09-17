@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 2 Análisis Exploratorio de Datos (EDA) | Análisis Estadístico del Dataset de Seguros</title>
+  <meta name="description" content="Análisis exploratorio de datos y pruebas de hipótesis paramétricas y no paramétricas aplicadas a un conjunto de datos de pólizas de seguros." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 2 Análisis Exploratorio de Datos (EDA) | Análisis Estadístico del Dataset de Seguros" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Análisis exploratorio de datos y pruebas de hipótesis paramétricas y no paramétricas aplicadas a un conjunto de datos de pólizas de seguros." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 2 Análisis Exploratorio de Datos (EDA) | Análisis Estadístico del Dataset de Seguros" />
+  
+  <meta name="twitter:description" content="Análisis exploratorio de datos y pruebas de hipótesis paramétricas y no paramétricas aplicadas a un conjunto de datos de pólizas de seguros." />
+  
+
+<meta name="author" content="Fernando Cabrera Marriaga y Keisy Polo Peralta" />
+
+
+<meta name="date" content="2026-09-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis Estadístico del Dataset de Seguros</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="01-intro.html"><a href="#introducci%C3%B3n"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1.1</b> Objetivo</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Análisis Exploratorio de Datos (EDA)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="01-intro.html"><a href="#revisi%C3%B3n-de-datos-faltantes-en-las-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>2.1</b> Revisión de datos faltantes en las variables numéricas</a></li>
+<li class="chapter" data-level="2.2" data-path="01-intro.html"><a href="#revisi%C3%B3n-de-datos-faltantes-en-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>2.2</b> Revisión de datos faltantes en variables categóricas</a></li>
+<li class="chapter" data-level="2.3" data-path="01-intro.html"><a href="#ingenier%C3%ADa-de-caracter%C3%ADsticas-en-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>2.3</b> Ingeniería de características en variables categóricas</a></li>
+<li class="chapter" data-level="2.4" data-path="01-intro.html"><a href="#an%C3%A1lisis-variable-respuesta-premium-amount"><i class="fa fa-check"></i><b>2.4</b> Análisis variable respuesta (Premium Amount)</a></li>
+<li class="chapter" data-level="2.5" data-path="01-intro.html"><a href="#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>2.5</b> Análisis de las variables independientes (características)</a></li>
+<li class="chapter" data-level="2.6" data-path="01-intro.html"><a href="#an%C3%A1lisis-bivariado-variable-caracter%C3%ADstica-vs-variable-respuesta"><i class="fa fa-check"></i><b>2.6</b> Análisis bivariado (Variable característica vs Variable respuesta)</a></li>
+<li class="chapter" data-level="2.7" data-path="01-intro.html"><a href="#an%C3%A1lisis-bivariado-independienets-vs-independientes"><i class="fa fa-check"></i><b>2.7</b> Análisis bivariado independienets vs independientes</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="01-intro.html"><a href="#pruebas-de-hip%C3%B3tesis-param%C3%A9tricas-y-no-param%C3%A9tricas"><i class="fa fa-check"></i><b>3</b> Pruebas de hipótesis paramétricas y no paramétricas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html"><i class="fa fa-check"></i><b>3.1</b> Conclusiones</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/2939913901/01-intro" target="_blank">Ver repositorio en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Estadístico del Dataset de Seguros</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="intro" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Análisis Exploratorio de Datos (EDA)<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Primeramente, haremos un análisis exploratorio de los datos</p>
+<p>Librerias</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span></code></pre></div>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.2.1     v readr     2.2.0
+## v forcats   1.0.1     v stringr   1.6.0
+## v ggplot2   4.0.3     v tibble    3.3.1
+## v lubridate 1.9.5     v tidyr     1.3.2
+## v purrr     1.2.2     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="intro.html#cb13-1" tabindex="-1"></a><span class="fu">library</span>(Amelia) </span></code></pre></div>
+<pre><code>## Warning: package &#39;Amelia&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Loading required package: Rcpp</code></pre>
+<pre><code>## Warning: package &#39;Rcpp&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## ## 
+## ## Amelia II: Multiple Imputation
+## ## (Version 1.8.3, built: 2024-11-07)
+## ## Copyright (C) 2005-2026 James Honaker, Gary King and Matthew Blackwell
+## ## Refer to http://gking.harvard.edu/amelia/ for more information
+## ##</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="intro.html#cb18-1" tabindex="-1"></a><span class="fu">library</span>(moments) </span></code></pre></div>
+<pre><code>## Warning: package &#39;moments&#39; was built under R version 4.5.2</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="intro.html#cb20-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2) </span>
+<span id="cb20-2"><a href="intro.html#cb20-2" tabindex="-1"></a><span class="fu">library</span>(patchwork) </span></code></pre></div>
+<pre><code>## Warning: package &#39;patchwork&#39; was built under R version 4.5.3</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="intro.html#cb22-1" tabindex="-1"></a><span class="fu">library</span>(GGally) </span></code></pre></div>
+<pre><code>## Warning: package &#39;GGally&#39; was built under R version 4.5.3</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="intro.html#cb24-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb24-2"><a href="intro.html#cb24-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb24-3"><a href="intro.html#cb24-3" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
+<pre><code>## Warning: package &#39;car&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Loading required package: carData</code></pre>
+<pre><code>## Warning: package &#39;carData&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;car&#39;
+## 
+## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     recode
+## 
+## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     some</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="intro.html#cb29-1" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span></code></pre></div>
+<pre><code>## Warning: package &#39;rstatix&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;rstatix&#39;
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="intro.html#cb32-1" tabindex="-1"></a><span class="fu">library</span>(coin)</span></code></pre></div>
+<pre><code>## Warning: package &#39;coin&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Loading required package: survival
+## 
+## Attaching package: &#39;coin&#39;
+## 
+## The following objects are masked from &#39;package:rstatix&#39;:
+## 
+##     chisq_test, conover_test, fligner_test, friedman_test,
+##     kruskal_test, sign_test, wilcox_test</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="intro.html#cb35-1" tabindex="-1"></a><span class="fu">library</span>(nortest)</span></code></pre></div>
+<pre><code>## Warning: package &#39;nortest&#39; was built under R version 4.5.2</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="intro.html#cb37-1" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span></code></pre></div>
+<p>Importemos el dataframe</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="intro.html#cb38-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="st">&quot;data/train.csv&quot;</span>)</span>
+<span id="cb38-2"><a href="intro.html#cb38-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="intro.html#cb39-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="intro.html#cb39-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span> <span class="fu">na_if</span>(., <span class="st">&quot;&quot;</span>)))</span></code></pre></div>
+<p>Ver las primeras 5 filas</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="intro.html#cb40-1" tabindex="-1"></a><span class="fu">head</span>(df, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##   id Age Gender Annual Income Marital Status Number of Dependents
+## 1  0  19 Female         10049        Married                    1
+## 2  1  39 Female         31678       Divorced                    3
+## 3  2  23   Male         25602       Divorced                    3
+## 4  3  21   Male        141855        Married                    2
+## 5  4  21   Male         39651         Single                    1
+##   Education Level    Occupation Health Score Location   Policy Type
+## 1      Bachelor&#39;s Self-Employed     22.59876    Urban       Premium
+## 2        Master&#39;s          &lt;NA&gt;     15.56973    Rural Comprehensive
+## 3     High School Self-Employed     47.17755 Suburban       Premium
+## 4      Bachelor&#39;s          &lt;NA&gt;     10.93814    Rural         Basic
+## 5      Bachelor&#39;s Self-Employed     20.37609    Rural       Premium
+##   Previous Claims Vehicle Age Credit Score Insurance Duration
+## 1               2          17          372                  5
+## 2               1          12          694                  2
+## 3               1          14           NA                  3
+## 4               1           0          367                  1
+## 5               0           8          598                  4
+##     Policy Start Date Customer Feedback Smoking Status Exercise Frequency
+## 1 2023-12-23 15:21:39              Poor             No             Weekly
+## 2 2023-06-12 15:21:39           Average            Yes            Monthly
+## 3 2023-09-30 15:21:39              Good            Yes             Weekly
+## 4 2024-06-12 15:21:39              Poor            Yes              Daily
+## 5 2021-12-01 15:21:39              Poor            Yes             Weekly
+##   Property Type Premium Amount
+## 1         House           2869
+## 2         House           1483
+## 3         House            567
+## 4     Apartment            765
+## 5         House           2022</code></pre>
+<p>Ver la estructura de los datos</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="intro.html#cb42-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    1200000 obs. of  21 variables:
+##  $ id                  : num  0 1 2 3 4 5 6 7 8 9 ...
+##  $ Age                 : int  19 39 23 21 21 29 41 48 21 44 ...
+##  $ Gender              : chr  &quot;Female&quot; &quot;Female&quot; &quot;Male&quot; &quot;Male&quot; ...
+##  $ Annual Income       : int  10049 31678 25602 141855 39651 45963 40336 127237 1733 52447 ...
+##  $ Marital Status      : chr  &quot;Married&quot; &quot;Divorced&quot; &quot;Divorced&quot; &quot;Married&quot; ...
+##  $ Number of Dependents: int  1 3 3 2 1 1 0 2 3 2 ...
+##  $ Education Level     : chr  &quot;Bachelor&#39;s&quot; &quot;Master&#39;s&quot; &quot;High School&quot; &quot;Bachelor&#39;s&quot; ...
+##  $ Occupation          : chr  &quot;Self-Employed&quot; NA &quot;Self-Employed&quot; NA ...
+##  $ Health Score        : num  22.6 15.6 47.2 10.9 20.4 ...
+##  $ Location            : chr  &quot;Urban&quot; &quot;Rural&quot; &quot;Suburban&quot; &quot;Rural&quot; ...
+##  $ Policy Type         : chr  &quot;Premium&quot; &quot;Comprehensive&quot; &quot;Premium&quot; &quot;Basic&quot; ...
+##  $ Previous Claims     : int  2 1 1 1 0 2 2 1 1 1 ...
+##  $ Vehicle Age         : int  17 12 14 0 8 4 8 11 10 9 ...
+##  $ Credit Score        : int  372 694 NA 367 598 614 807 398 685 635 ...
+##  $ Insurance Duration  : int  5 2 3 1 4 5 6 5 8 3 ...
+##  $ Policy Start Date   : POSIXct, format: &quot;2023-12-23 15:21:39&quot; &quot;2023-06-12 15:21:39&quot; ...
+##  $ Customer Feedback   : chr  &quot;Poor&quot; &quot;Average&quot; &quot;Good&quot; &quot;Poor&quot; ...
+##  $ Smoking Status      : chr  &quot;No&quot; &quot;Yes&quot; &quot;Yes&quot; &quot;Yes&quot; ...
+##  $ Exercise Frequency  : chr  &quot;Weekly&quot; &quot;Monthly&quot; &quot;Weekly&quot; &quot;Daily&quot; ...
+##  $ Property Type       : chr  &quot;House&quot; &quot;House&quot; &quot;House&quot; &quot;Apartment&quot; ...
+##  $ Premium Amount      : int  2869 1483 567 765 2022 3202 439 111 213 64 ...</code></pre>
+<p>El dataset contiene 1,200,000 observaciones y 21 variables en total: 10 categóricas (Gender, Marital Status, Education Level, Occupation, Location, Policy Type, Customer Feedback, Smoking Status, Exercise Frequency, Property Type), 9 numéricas continuas (Age, Annual Income, Number of Dependents, Health Score, Previous Claims, Vehicle Age, Credit Score, Insurance Duration, Premium Amount), 1 entera (id) y 1 de tipo fecha/hora (Policy Start Date).</p>
+<div id="revisión-de-datos-faltantes-en-las-variables-numéricas" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Revisión de datos faltantes en las variables numéricas<a href="#revisi%C3%B3n-de-datos-faltantes-en-las-variables-num%C3%A9ricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Veamos si hay datos faltantes en estas variables.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="intro.html#cb44-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="intro.html#cb44-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),<span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)), <span class="at">.names =</span> <span class="st">&quot;NA_{.col}&quot;</span>))</span></code></pre></div>
+<pre><code>##   NA_id NA_Age NA_Gender NA_Annual Income NA_Marital Status
+## 1     0  18705         0            44949             18529
+##   NA_Number of Dependents NA_Education Level NA_Occupation NA_Health Score
+## 1                  109672                  0        358075           74076
+##   NA_Location NA_Policy Type NA_Previous Claims NA_Vehicle Age NA_Credit Score
+## 1           0              0             364029              6          137882
+##   NA_Insurance Duration NA_Policy Start Date NA_Customer Feedback
+## 1                     1                    0                77824
+##   NA_Smoking Status NA_Exercise Frequency NA_Property Type NA_Premium Amount
+## 1                 0                     0                0                 0</code></pre>
+<p>El análisis de valores faltantes muestra que las variables id, Gender, Marital Status, Education Level y Occupation están completas (0 NA), mientras que las variables numéricas presentan cantidades considerables de datos faltantes: Age con 18,705, Annual Income con 44,949, Number of Dependents con 109,672 (la más afectada) y Health Score con 74,076, lo que indica que será necesario aplicar algún tratamiento de imputación antes de continuar con el análisis.</p>
+<p>##Ingeniería de características en variables numéricas</p>
+<p>Ahora, imputemos los datos faltantes</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="intro.html#cb46-1" tabindex="-1"></a>moda <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb46-2"><a href="intro.html#cb46-2" tabindex="-1"></a>  ux <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">na.omit</span>(x))</span>
+<span id="cb46-3"><a href="intro.html#cb46-3" tabindex="-1"></a>  ux[<span class="fu">which.max</span>(<span class="fu">tabulate</span>(<span class="fu">match</span>(x, ux)))]</span>
+<span id="cb46-4"><a href="intro.html#cb46-4" tabindex="-1"></a>}</span>
+<span id="cb46-5"><a href="intro.html#cb46-5" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="intro.html#cb46-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb46-7"><a href="intro.html#cb46-7" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb46-8"><a href="intro.html#cb46-8" tabindex="-1"></a>    <span class="at">Age =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Age), <span class="fu">median</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), Age),</span>
+<span id="cb46-9"><a href="intro.html#cb46-9" tabindex="-1"></a>    <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>), <span class="fu">median</span>(<span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>),</span>
+<span id="cb46-10"><a href="intro.html#cb46-10" tabindex="-1"></a>    <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>), <span class="fu">median</span>(<span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>),</span>
+<span id="cb46-11"><a href="intro.html#cb46-11" tabindex="-1"></a>    <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>), <span class="fu">moda</span>(<span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>), <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>),</span>
+<span id="cb46-12"><a href="intro.html#cb46-12" tabindex="-1"></a>    <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>), <span class="fu">moda</span>(<span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>), <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>),</span>
+<span id="cb46-13"><a href="intro.html#cb46-13" tabindex="-1"></a>    <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>), <span class="fu">moda</span>(<span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>), <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>),</span>
+<span id="cb46-14"><a href="intro.html#cb46-14" tabindex="-1"></a>    <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>), <span class="fu">moda</span>(<span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>), <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>),</span>
+<span id="cb46-15"><a href="intro.html#cb46-15" tabindex="-1"></a>    <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>), <span class="fu">median</span>(<span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>)</span>
+<span id="cb46-16"><a href="intro.html#cb46-16" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Para las variables numéricas continuas (Age, Annual Income, Health Score) se utilizó la mediana como método de imputación, dado que es una medida más robusta frente a valores atípicos y distribuciones sesgadas en comparación con la media. Para Number of Dependents, al tratarse de una variable de conteo (valores enteros), se empleó la moda, ya que imputar con la media generaría valores decimales sin sentido lógico para esta variable.</p>
+<p>Verificamos otra vez si hay faltantes</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="intro.html#cb47-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="intro.html#cb47-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),<span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)), <span class="at">.names =</span> <span class="st">&quot;NA_{.col}&quot;</span>))</span></code></pre></div>
+<pre><code>##   NA_id NA_Age NA_Gender NA_Annual Income NA_Marital Status
+## 1     0      0         0                0             18529
+##   NA_Number of Dependents NA_Education Level NA_Occupation NA_Health Score
+## 1                       0                  0        358075               0
+##   NA_Location NA_Policy Type NA_Previous Claims NA_Vehicle Age NA_Credit Score
+## 1           0              0                  0              0               0
+##   NA_Insurance Duration NA_Policy Start Date NA_Customer Feedback
+## 1                     0                    0                77824
+##   NA_Smoking Status NA_Exercise Frequency NA_Property Type NA_Premium Amount
+## 1                 0                     0                0                 0</code></pre>
+<p>En efecto, la imputación resultó exitosa y no tenemos ningún NA en las variables numéricas.</p>
+</div>
+<div id="revisión-de-datos-faltantes-en-variables-categóricas" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Revisión de datos faltantes en variables categóricas<a href="#revisi%C3%B3n-de-datos-faltantes-en-variables-categ%C3%B3ricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ahora, verifiquemos los NA en estas variables.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="intro.html#cb49-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="intro.html#cb49-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.character)) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="intro.html#cb49-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)), <span class="at">.names =</span> <span class="st">&quot;NA_{.col}&quot;</span>))</span></code></pre></div>
+<pre><code>##   NA_Gender NA_Marital Status NA_Education Level NA_Occupation NA_Location
+## 1         0             18529                  0        358075           0
+##   NA_Policy Type NA_Customer Feedback NA_Smoking Status NA_Exercise Frequency
+## 1              0                77824                 0                     0
+##   NA_Property Type
+## 1                0</code></pre>
+<p>Al verificar los valores faltantes en las variables categóricas, se identificó que Marital Status (18,529), Occupation (358,075) y Customer Feedback (77,824) presentan datos faltantes, mientras que el resto de las variables categóricas (Gender, Education Level, Location, Policy Type, Smoking Status, Exercise Frequency y Property Type) están completas. Destaca el caso de Occupation, cuyo porcentaje de faltantes es considerablemente alto (cerca del 30% del total de registros), por lo que su tratamiento requerirá un enfoque distinto al resto, como la creación de una categoría independiente en lugar de una imputación por moda.</p>
+</div>
+<div id="ingeniería-de-características-en-variables-categóricas" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Ingeniería de características en variables categóricas<a href="#ingenier%C3%ADa-de-caracter%C3%ADsticas-en-variables-categ%C3%B3ricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="intro.html#cb51-1" tabindex="-1"></a>moda_cat <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb51-2"><a href="intro.html#cb51-2" tabindex="-1"></a>  ux <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">na.omit</span>(x))</span>
+<span id="cb51-3"><a href="intro.html#cb51-3" tabindex="-1"></a>  ux[<span class="fu">which.max</span>(<span class="fu">tabulate</span>(<span class="fu">match</span>(x, ux)))]</span>
+<span id="cb51-4"><a href="intro.html#cb51-4" tabindex="-1"></a>}</span>
+<span id="cb51-5"><a href="intro.html#cb51-5" tabindex="-1"></a></span>
+<span id="cb51-6"><a href="intro.html#cb51-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb51-7"><a href="intro.html#cb51-7" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb51-8"><a href="intro.html#cb51-8" tabindex="-1"></a>    <span class="st">`</span><span class="at">Marital Status</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">Marital Status</span><span class="st">`</span>), <span class="fu">moda_cat</span>(<span class="st">`</span><span class="at">Marital Status</span><span class="st">`</span>), <span class="st">`</span><span class="at">Marital Status</span><span class="st">`</span>),</span>
+<span id="cb51-9"><a href="intro.html#cb51-9" tabindex="-1"></a>    <span class="st">`</span><span class="at">Customer Feedback</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">Customer Feedback</span><span class="st">`</span>), <span class="fu">moda_cat</span>(<span class="st">`</span><span class="at">Customer Feedback</span><span class="st">`</span>), <span class="st">`</span><span class="at">Customer Feedback</span><span class="st">`</span>),</span>
+<span id="cb51-10"><a href="intro.html#cb51-10" tabindex="-1"></a>    <span class="at">Occupation =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Occupation), <span class="st">&quot;No especificado&quot;</span>, Occupation)</span>
+<span id="cb51-11"><a href="intro.html#cb51-11" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Para las variables categóricas con datos faltantes se manejó cada caso según su porcentaje de NA. En Marital Status y Customer Feedback, como los faltantes eran relativamente pocos, se optó por imputar con la moda, es decir, reemplazar los NA por la categoría que más se repite. En cambio, Occupation tenía casi un 30% de datos faltantes, por lo que imputar con la moda no era buena idea (se estaría inventando la ocupación de un tercio de los clientes), así que se decidió crear una categoría nueva llamada “No especificado” para dejar claro que esa información simplemente no se tenía.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="intro.html#cb52-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="intro.html#cb52-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.character)) <span class="sc">%&gt;%</span></span>
+<span id="cb52-3"><a href="intro.html#cb52-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)), <span class="at">.names =</span> <span class="st">&quot;NA_{.col}&quot;</span>))</span></code></pre></div>
+<pre><code>##   NA_Gender NA_Marital Status NA_Education Level NA_Occupation NA_Location
+## 1         0                 0                  0             0           0
+##   NA_Policy Type NA_Customer Feedback NA_Smoking Status NA_Exercise Frequency
+## 1              0                    0                 0                     0
+##   NA_Property Type
+## 1                0</code></pre>
+<p>Verificamos la cantidad de NA en las variables categóricas después de la imputación y efectivamente es 0 en todas, es decir, la imputación fue exitosa.</p>
+<p>##Conversión de las variables categóricas a factor</p>
+<p>El paso siguiente es convertir las variables categóricas a factor para realizar los gráficos más facilmente.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="intro.html#cb54-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="intro.html#cb54-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb54-3"><a href="intro.html#cb54-3" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">as.factor</span>(Gender),</span>
+<span id="cb54-4"><a href="intro.html#cb54-4" tabindex="-1"></a>    <span class="st">`</span><span class="at">Marital Status</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">Marital Status</span><span class="st">`</span>),</span>
+<span id="cb54-5"><a href="intro.html#cb54-5" tabindex="-1"></a>    <span class="at">Occupation =</span> <span class="fu">as.factor</span>(Occupation),</span>
+<span id="cb54-6"><a href="intro.html#cb54-6" tabindex="-1"></a>    <span class="at">Location =</span> <span class="fu">as.factor</span>(Location),</span>
+<span id="cb54-7"><a href="intro.html#cb54-7" tabindex="-1"></a>    <span class="st">`</span><span class="at">Policy Type</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">Policy Type</span><span class="st">`</span>),</span>
+<span id="cb54-8"><a href="intro.html#cb54-8" tabindex="-1"></a>    <span class="st">`</span><span class="at">Smoking Status</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">Smoking Status</span><span class="st">`</span>),</span>
+<span id="cb54-9"><a href="intro.html#cb54-9" tabindex="-1"></a>    <span class="st">`</span><span class="at">Property Type</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">Property Type</span><span class="st">`</span>),</span>
+<span id="cb54-10"><a href="intro.html#cb54-10" tabindex="-1"></a>    <span class="st">`</span><span class="at">Education Level</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">factor</span>(<span class="st">`</span><span class="at">Education Level</span><span class="st">`</span>,</span>
+<span id="cb54-11"><a href="intro.html#cb54-11" tabindex="-1"></a>                                <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;High School&quot;</span>, <span class="st">&quot;Bachelor&#39;s&quot;</span>, <span class="st">&quot;Master&#39;s&quot;</span>, <span class="st">&quot;PhD&quot;</span>),</span>
+<span id="cb54-12"><a href="intro.html#cb54-12" tabindex="-1"></a>                                <span class="at">ordered =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb54-13"><a href="intro.html#cb54-13" tabindex="-1"></a>    <span class="st">`</span><span class="at">Customer Feedback</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">factor</span>(<span class="st">`</span><span class="at">Customer Feedback</span><span class="st">`</span>,</span>
+<span id="cb54-14"><a href="intro.html#cb54-14" tabindex="-1"></a>                                   <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Poor&quot;</span>, <span class="st">&quot;Average&quot;</span>, <span class="st">&quot;Good&quot;</span>),</span>
+<span id="cb54-15"><a href="intro.html#cb54-15" tabindex="-1"></a>                                   <span class="at">ordered =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb54-16"><a href="intro.html#cb54-16" tabindex="-1"></a>    <span class="st">`</span><span class="at">Exercise Frequency</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">factor</span>(<span class="st">`</span><span class="at">Exercise Frequency</span><span class="st">`</span>,</span>
+<span id="cb54-17"><a href="intro.html#cb54-17" tabindex="-1"></a>                                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Rarely&quot;</span>, <span class="st">&quot;Monthly&quot;</span>, <span class="st">&quot;Weekly&quot;</span>, <span class="st">&quot;Daily&quot;</span>),</span>
+<span id="cb54-18"><a href="intro.html#cb54-18" tabindex="-1"></a>                                    <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb54-19"><a href="intro.html#cb54-19" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Se convirtieron todas las variables categóricas de tipo texto a factor, ya que este formato es más adecuado para el análisis en R, tanto para tablas de frecuencia como para gráficos. En el caso de Education Level, Customer Feedback y Exercise Frequency, se declararon además como factores ordenados, respetando una jerarquía lógica en sus categorías, lo que permitirá que tanto los análisis como las visualizaciones reflejen ese orden natural en lugar de mostrarlas simplemente en orden alfabético.</p>
+<p>Para que las visualizaciones sean legibles y el documento se pueda compilar de forma eficiente, los gráficos que usan el dataset completo se generan a partir de una muestra aleatoria reproducible de 50,000 observaciones. Las tablas, estimaciones y pruebas de hipótesis continúan calculándose sobre los 1,200,000 registros.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="intro.html#cb55-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb55-2"><a href="intro.html#cb55-2" tabindex="-1"></a>df_graficos <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="fu">min</span>(<span class="dv">50000</span>, <span class="fu">nrow</span>(df)))</span>
+<span id="cb55-3"><a href="intro.html#cb55-3" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="intro.html#cb55-4" tabindex="-1"></a>ggplot_original <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span>ggplot</span>
+<span id="cb55-5"><a href="intro.html#cb55-5" tabindex="-1"></a>ggplot <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">data =</span> <span class="cn">NULL</span>, <span class="at">mapping =</span> ggplot2<span class="sc">::</span><span class="fu">aes</span>(), ..., <span class="at">environment =</span> <span class="fu">parent.frame</span>()) {</span>
+<span id="cb55-6"><a href="intro.html#cb55-6" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">identical</span>(data, df)) {</span>
+<span id="cb55-7"><a href="intro.html#cb55-7" tabindex="-1"></a>    data <span class="ot">&lt;-</span> df_graficos</span>
+<span id="cb55-8"><a href="intro.html#cb55-8" tabindex="-1"></a>  }</span>
+<span id="cb55-9"><a href="intro.html#cb55-9" tabindex="-1"></a>  <span class="fu">ggplot_original</span>(<span class="at">data =</span> data, <span class="at">mapping =</span> mapping, ..., <span class="at">environment =</span> environment)</span>
+<span id="cb55-10"><a href="intro.html#cb55-10" tabindex="-1"></a>}</span></code></pre></div>
+<p>##Resumen variables numéricas</p>
+<p>Ahora, veamos un resumen de las variables numéricas</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="intro.html#cb56-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="intro.html#cb56-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric), <span class="sc">-</span>id) <span class="sc">%&gt;%</span>  </span>
+<span id="cb56-3"><a href="intro.html#cb56-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb56-4"><a href="intro.html#cb56-4" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb56-5"><a href="intro.html#cb56-5" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb56-6"><a href="intro.html#cb56-6" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;valor&quot;</span></span>
+<span id="cb56-7"><a href="intro.html#cb56-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb56-8"><a href="intro.html#cb56-8" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb56-9"><a href="intro.html#cb56-9" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb56-10"><a href="intro.html#cb56-10" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">length</span>(valor),</span>
+<span id="cb56-11"><a href="intro.html#cb56-11" tabindex="-1"></a>    <span class="at">media =</span> <span class="fu">mean</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb56-12"><a href="intro.html#cb56-12" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb56-13"><a href="intro.html#cb56-13" tabindex="-1"></a>    <span class="at">mediana =</span> <span class="fu">median</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb56-14"><a href="intro.html#cb56-14" tabindex="-1"></a>    <span class="at">RIC =</span> <span class="fu">IQR</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb56-15"><a href="intro.html#cb56-15" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(valor, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb56-16"><a href="intro.html#cb56-16" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(valor, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb56-17"><a href="intro.html#cb56-17" tabindex="-1"></a>    <span class="at">minimo =</span> <span class="fu">min</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb56-18"><a href="intro.html#cb56-18" tabindex="-1"></a>    <span class="at">maximo =</span> <span class="fu">max</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb56-19"><a href="intro.html#cb56-19" tabindex="-1"></a>    <span class="at">asimetria =</span> <span class="fu">skewness</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb56-20"><a href="intro.html#cb56-20" tabindex="-1"></a>    <span class="at">curtosis =</span> <span class="fu">kurtosis</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb56-21"><a href="intro.html#cb56-21" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## # A tibble: 9 x 12
+##   variable          n   media      sd mediana    RIC     Q1     Q3 minimo maximo
+##   &lt;chr&gt;         &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Age          1.20e6 4.11e+1 1.34e+1    41   2.3 e1   30   5.3 e1  18    6.4 e1
+## 2 Annual Inco~ 1.20e6 3.24e+4 3.16e+4 23911   3.53e4 8646   4.39e4   1    1.50e5
+## 3 Credit Score 1.20e6 5.93e+2 1.41e+2   595   2.22e2  484   7.06e2 300    8.49e2
+## 4 Health Score 1.20e6 2.56e+1 1.18e+1    24.6 1.72e1   16.6 3.38e1   2.01 5.90e1
+## 5 Insurance D~ 1.20e6 5.02e+0 2.59e+0     5   4   e0    3   7   e0   1    9   e0
+## 6 Number of D~ 1.20e6 2.10e+0 1.38e+0     2   2   e0    1   3   e0   0    4   e0
+## 7 Premium Amo~ 1.20e6 1.10e+3 8.65e+2   872   9.95e2  514   1.51e3  20    5.00e3
+## 8 Previous Cl~ 1.20e6 6.99e-1 9.41e-1     0   1   e0    0   1   e0   0    9   e0
+## 9 Vehicle Age  1.20e6 9.57e+0 5.78e+0    10   1   e1    5   1.5 e1   0    1.9 e1
+## # i 2 more variables: asimetria &lt;dbl&gt;, curtosis &lt;dbl&gt;</code></pre>
+<p>El resumen estadístico muestra que la mayoría de las variables numéricas tiene una distribución bastante simétrica, ya que sus valores de media y mediana son muy parecidos; esto se observa en Age (media y mediana alrededor de 41 años, rango de 18 a 64), Credit Score (media y mediana cercanas a 593-595, dentro del rango típico de 300 a 849), Health Score (media y mediana alrededor de 25, con valores entre 2 y 59), Insurance Duration (media y mediana de 5 años, entre 1 y 9 años), Number of Dependents (media y mediana de 2, entre 0 y 4 dependientes) y Vehicle Age (media cercana a 9.6 y mediana de 10, entre 0 y 19 años). Previous Claims muestra una mediana de 0 y una media baja de 0.70, lo que indica que la mayoría de los clientes no ha realizado reclamos previos, aunque el máximo llega a 9. Por su parte, Annual Income y Premium Amount presentan una media notablemente más alta que su mediana (32,414 frente a 23,911 en el primer caso, y 1,102 frente a 872 en el segundo), lo que refleja un sesgo hacia la derecha, es decir, la existencia de algunos valores muy altos que elevan el promedio general; esto es especialmente relevante para Premium Amount, al tratarse de la variable de interés principal del análisis.</p>
+</div>
+<div id="análisis-variable-respuesta-premium-amount" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Análisis variable respuesta (Premium Amount)<a href="#an%C3%A1lisis-variable-respuesta-premium-amount" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Como la variable respuesta es Premium Amount, a continuación se realizarán gráficos para caracterizarla de mejor manera</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="intro.html#cb58-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb58-2"><a href="intro.html#cb58-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-3"><a href="intro.html#cb58-3" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="intro.html#cb58-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Premium Amount&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Premium Amount&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Densidad&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-9-1.png" alt="" width="672" /></p>
+<p>Se observa que la variable Premium Amount presenta un sesgo hacia la derecha, ya que la mayoría de los valores se concentran entre 0 y 2,000, mientras que unos pocos casos alcanzan montos bastante altos, llegando hasta casi 5,000. Además, la distribución no parece unimodal, pues se identifican dos picos: uno principal ubicado entre 500 y 700 (donde se concentra la mayor parte de los datos) y otro más pequeño alrededor de 2,000, lo que podría estar relacionado con la existencia de distintos grupos de clientes o tipos de póliza con montos de prima diferenciados. A partir de los 2,500, la frecuencia disminuye progresivamente hasta ser prácticamente nula cerca de los 5,000, lo que indica que las primas muy elevadas son poco frecuentes dentro del conjunto de datos.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="intro.html#cb59-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb59-2"><a href="intro.html#cb59-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-3"><a href="intro.html#cb59-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot de Premium Amount&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" /></p>
+<p>El boxplot de Premium Amount muestra lo mismo que ya se había notado en el histograma: hay un sesgo hacia la derecha bastante claro. El 50% de los clientes paga una prima por debajo de 900, mientras que el otro 50% paga por encima de ese valor. La caja, que representa el 50% central de los datos, va más o menos de 500 a 1,500. El bigote superior es bastante largo, llegando hasta cerca de 3,000, y de ahí para arriba se ven varios puntos atípicos que se extienden hasta casi 5,000. Esto confirma que, si bien la mayoría de los clientes paga primas moderadas, hay un grupo más pequeño que paga montos bastante más altos, alejándose del comportamiento normal de la variable.</p>
+</div>
+<div id="análisis-de-las-variables-independientes-características" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Análisis de las variables independientes (características)<a href="#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ahora haremos un análisis de cada variable característica, es decir, todas las variables excluyendo Premium Amount.</p>
+<p>Primeramente, se analizarán las variables numéricas.</p>
+<p>Variable age:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="intro.html#cb60-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
+<span id="cb60-2"><a href="intro.html#cb60-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb60-3"><a href="intro.html#cb60-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Age&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-11-1.png" alt="" width="672" />
+La distribución de Age se ve bastante uniforme a lo largo de todo el rango de edades, sin un sesgo marcado hacia ningún extremo, lo que coincide con lo que ya se había visto en el resumen numérico (media y 50% muy parecidos). Se nota un patrón repetitivo de barras altas y bajas alternadas, y destaca un pico bastante más alto que el resto alrededor de los 40-41 años, donde la frecuencia supera las 60,000, mientras que en el resto de las edades la frecuencia se mantiene relativamente estable entre 25,000 y 50,000 aproximadamente.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="intro.html#cb61-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> Age)) <span class="sc">+</span></span>
+<span id="cb61-2"><a href="intro.html#cb61-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb61-3"><a href="intro.html#cb61-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot de Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-12-1.png" alt="" width="672" /></p>
+<p>El boxplot de Age confirma lo observado en el histograma: no hay ningún punto atípico, ya que los bigotes cubren todo el rango de datos, desde 18 hasta 64 años, sin valores que se salgan de ese rango. El 50% de los clientes tiene una edad por debajo de 41 años, mientras que el otro 50% está por encima. La caja, que representa el 50% central de los datos, va de 30 a 53 años aproximadamente, lo cual muestra una dispersión bastante amplia y simétrica alrededor del centro, sin evidencia de sesgo hacia ningún lado.</p>
+<p>Variable Annual Income:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="intro.html#cb62-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb62-2"><a href="intro.html#cb62-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb62-3"><a href="intro.html#cb62-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Annual Income&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Annual Income&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-13-1.png" alt="" width="672" /></p>
+<p>La distribución de Annual Income confirma el sesgo hacia la derecha que ya se había detectado en el resumen numérico (media mayor que el 50%). La mayoría de los clientes se concentra en ingresos bajos, principalmente entre 0 y 30,000, con un pico bastante marcado alrededor de 10,000-15,000. A partir de los 50,000, la frecuencia cae de forma notable y sigue disminuyendo de manera constante hasta casi desaparecer cerca de los 150,000, lo que indica que los ingresos anuales altos son poco frecuentes dentro del conjunto de datos.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="intro.html#cb63-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb63-2"><a href="intro.html#cb63-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb63-3"><a href="intro.html#cb63-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot de Annual Income&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Annual Income&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" /></p>
+<p>El boxplot de Annual Income refleja el sesgo hacia la derecha que ya se había visto en el histograma. El 50% de los clientes tiene un ingreso anual por debajo de 24,000 aproximadamente, mientras que el otro 50% está por encima de ese valor. La caja, que representa el 50% central de los datos, va desde cerca de 8,000 hasta 44,000. El bigote superior se extiende hasta casi 97,000, y de ahí para arriba aparecen varios puntos atípicos que llegan hasta 150,000, mostrando que existe un grupo pequeño de clientes con ingresos bastante más altos que el resto.</p>
+<p>Variable Health Score:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="intro.html#cb64-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb64-2"><a href="intro.html#cb64-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb64-3"><a href="intro.html#cb64-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Health Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Health Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" /></p>
+<p>La distribución de Health Score se ve bastante simétrica en general, con forma de campana, lo que coincide con el resumen numérico donde la media y el 50% de los datos eran muy parecidos. Se observa un pico bastante marcado justo en el centro de la distribución, con una frecuencia notablemente más alta que las barras vecinas, lo que podría deberse a los valores imputados con la mediana en esa variable. Fuera de ese pico, la forma general de la distribución muestra un crecimiento gradual desde valores bajos hasta el centro, y luego una disminución igual de gradual hacia valores más altos, sin un sesgo marcado hacia ningún lado.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="intro.html#cb65-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="intro.html#cb65-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb65-3"><a href="intro.html#cb65-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot de Health Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Health Score&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-16-1.png" alt="" width="672" /></p>
+<p>El boxplot de Health Score no muestra ningún punto atípico, ya que los bigotes cubren todo el rango de los datos, desde cerca de 2 hasta casi 59. El 50% de los clientes tiene un Health Score por debajo de 24-25 aproximadamente, mientras que el otro 50% está por encima. La caja, que representa el 50% central de los datos, va de 17 a 34 aproximadamente, mostrando una dispersión moderada y bastante simétrica alrededor del centro, sin evidencia de sesgo hacia ningún lado.</p>
+<p>Variable Credit Score</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="intro.html#cb66-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb66-2"><a href="intro.html#cb66-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb66-3"><a href="intro.html#cb66-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Credit Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Credit Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-17-1.png" alt="" width="672" /></p>
+<p>La distribución de Credit Score se ve bastante simétrica en general, con una forma relativamente plana entre 300 y 850, sin un sesgo marcado hacia ningún lado. Se destaca un pico bastante pronunciado alrededor de 590-600, con una frecuencia mucho más alta que el resto de las barras, lo cual probablemente se debe a los valores imputados con la mediana en esa variable. Fuera de ese pico, el resto de las barras se mantiene relativamente constante, entre 20,000 y 45,000 aproximadamente, mostrando que los distintos rangos de puntaje crediticio están bastante bien distribuidos entre los clientes.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="intro.html#cb67-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb67-2"><a href="intro.html#cb67-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb67-3"><a href="intro.html#cb67-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot de Credit Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Credit Score&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-18-1.png" alt="" width="672" /></p>
+<p>El boxplot de Credit Score no muestra ningún punto atípico, ya que los bigotes cubren todo el rango de los datos, desde 300 hasta 849. El 50% de los clientes tiene un Credit Score por debajo de 595 aproximadamente, mientras que el otro 50% está por encima. La caja, que representa el 50% central de los datos, va de 484 a 706 aproximadamente, mostrando una dispersión moderada y bastante simétrica alrededor del centro, sin evidencia de sesgo hacia ningún lado.</p>
+<p>Variable Vehicle Age:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="intro.html#cb68-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb68-2"><a href="intro.html#cb68-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb68-3"><a href="intro.html#cb68-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Vehicle Age&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Vehicle Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-19-1.png" alt="" width="672" /></p>
+<p>La distribución de Vehicle Age se ve prácticamente uniforme a lo largo de todo el rango, sin ningún pico marcado ni sesgo hacia algún lado. Todas las barras se mantienen en un rango bastante similar, entre 57,000 y 63,000 aproximadamente, lo que indica que los vehículos están bien distribuidos entre 0 y 19 años de antigüedad, sin que ningún rango de edad predomine claramente sobre los demás.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="intro.html#cb69-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb69-2"><a href="intro.html#cb69-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb69-3"><a href="intro.html#cb69-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot de Vehicle Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Vehicle Age&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" /></p>
+<p>El boxplot de Vehicle Age no muestra ningún punto atípico, ya que los bigotes cubren todo el rango de los datos, desde 0 hasta 19 años. El 50% de los vehículos tiene una antigüedad por debajo de 10 años, mientras que el otro 50% está por encima. La caja, que representa el 50% central de los datos, va de 5 a 15 años aproximadamente, mostrando una dispersión moderada y bastante simétrica alrededor del centro, sin evidencia de sesgo hacia ningún lado.</p>
+<p>Variable Insurance Duration:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="intro.html#cb70-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb70-2"><a href="intro.html#cb70-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb70-3"><a href="intro.html#cb70-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Insurance Duration&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Insurance Duration&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" alt="" width="672" /></p>
+<p>Aquí las nueve barras están prácticamente a la misma altura, todas rondando entre 130,000 y 140,000, lo que deja ver una distribución muy pareja de Insurance Duration entre 1 y 9 años. No hay ninguna duración que destaque sobre las demás, así que los clientes parecen repartirse de forma casi equitativa entre todos los periodos de duración posibles.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="intro.html#cb71-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb71-2"><a href="intro.html#cb71-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb71-3"><a href="intro.html#cb71-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot de Insurance Duration&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Insurance Duration&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-22-1.png" alt="" width="672" /></p>
+<p>El boxplot de Insurance Duration no presenta valores atípicos, con bigotes que van desde 1 hasta 9 años, cubriendo todo el rango de los datos. La caja se ubica entre 3 y 7 años aproximadamente, y la mediana está justo en 5, dividiendo los datos en dos mitades iguales. Esto confirma la simetría que ya se notaba en el histograma, sin ningún indicio de sesgo.</p>
+<p>Variable Number of Dependents:</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="intro.html#cb72-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb72-2"><a href="intro.html#cb72-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb72-3"><a href="intro.html#cb72-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Number of Dependents&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Number of Dependents&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-1.png" alt="" width="672" /></p>
+<p>Number of Dependents solo toma cinco valores posibles (0, 1, 2, 3 y 4), y se nota que las categorías 0, 1, 2 y 4 tienen una frecuencia bastante pareja, alrededor de 215,000-220,000 cada una. El valor 3 sobresale claramente con más de 300,000 registros, probablemente porque ahí se concentraron los datos imputados con la moda de esta variable. Fuera de ese detalle, no hay un patrón de crecimiento o decrecimiento particular entre las categorías, solo esa diferencia puntual en el 3.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="intro.html#cb73-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb73-2"><a href="intro.html#cb73-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb73-3"><a href="intro.html#cb73-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot de Number of Dependents&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Dependents&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-24-1.png" alt="" width="672" /></p>
+<p>No se aprecian valores atípicos en este boxplot, ya que los bigotes abarcan todo el rango posible, de 0 a 4 dependientes. La caja va de 1 a 3, con la mediana justo en 2, quedando así dividida la mitad de los datos entre esos valores. Al tratarse de una variable con tan pocas categorías, el boxplot resulta bastante simple, pero confirma la simetría que ya se veía en el histograma.</p>
+<p>Variable Previous Claims:</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="intro.html#cb74-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb74-2"><a href="intro.html#cb74-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb74-3"><a href="intro.html#cb74-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Previous Claims&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Previous Claims&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-25-1.png" alt="" width="672" /></p>
+<p>Se observa un sesgo hacia la derecha bastante marcado en esta variable. La mayor parte de los clientes se concentra en el valor 0, con más de 600,000 registros, y a medida que aumenta el número de reclamos previos, la frecuencia va cayendo de forma muy pronunciada: el valor 1 ya baja a menos de la mitad, y de ahí en adelante los valores de 2, 3, 4 y más son cada vez más raros, casi desapareciendo después del 5. Esto tiene bastante sentido, ya que lo esperable es que la mayoría de los asegurados no tenga reclamos previos, y solo una minoría acumule varios.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="intro.html#cb75-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb75-2"><a href="intro.html#cb75-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb75-3"><a href="intro.html#cb75-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot de Previous Claims&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Previous Claims&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-1.png" alt="" width="672" /></p>
+<p>Aquí sí se ven varios puntos considerados atípicos, correspondientes a los clientes con 3, 4, 5, 6, 7, 8 y 9 reclamos previos, ya que se salen del bigote superior que llega hasta 2. La caja va de 0 a 1, con la mediana ubicada en 0, lo que confirma que la mitad de los clientes no ha tenido ningún reclamo previo. Este comportamiento es coherente con lo visto en el histograma: la gran mayoría se concentra en valores bajos, y los pocos casos con varios reclamos aparecen como valores extremos dentro de la variable.</p>
+<p>Continuaremos con las variables categóricas</p>
+<p>Variable Gender:</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="intro.html#cb76-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Gender)) <span class="sc">+</span></span>
+<span id="cb76-2"><a href="intro.html#cb76-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb76-3"><a href="intro.html#cb76-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Gender&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Gender&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-1.png" alt="" width="672" /></p>
+<p>La cantidad de clientes hombres y mujeres es prácticamente igual, ambas categorías rondando los 600,000 registros cada una. No hay ningún desbalance entre géneros dentro del dataset, lo que indica que la muestra está bien equilibrada en cuanto a esta variable.</p>
+<p>Variable Marital Status:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="intro.html#cb77-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Marital Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb77-2"><a href="intro.html#cb77-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb77-3"><a href="intro.html#cb77-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Marital Status&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Marital Status&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-1.png" alt="" width="672" /></p>
+<p>Las tres categorías de estado civil están bastante balanceadas, con valores muy cercanos entre sí. “Single” tiene una frecuencia ligeramente superior a las otras dos, rondando los 415,000 registros, mientras que “Divorced” y “Married” se ubican en torno a los 390,000-395,000 cada uno. No se aprecia una diferencia considerable entre las categorías, por lo que ninguna domina claramente sobre las demás.</p>
+<p>Variable Education Level:</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="intro.html#cb78-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Education Level</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb78-2"><a href="intro.html#cb78-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb78-3"><a href="intro.html#cb78-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Education Level&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Education Level&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-1.png" alt="" width="672" /></p>
+<p>Los cuatro niveles educativos muestran frecuencias bastante parejas entre sí, todas alrededor de 290,000-300,000 registros. “High School” tiene una frecuencia apenas un poco menor a las demás, mientras que “Bachelor’s”, “Master’s” y “PhD” resultan prácticamente idénticos en cantidad. Al respetarse el orden lógico de menor a mayor nivel educativo en el eje, se aprecia que no existe una tendencia hacia algún nivel en particular, sino una distribución equilibrada entre todos.</p>
+<p>Variable Occupation:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="intro.html#cb79-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Occupation)) <span class="sc">+</span></span>
+<span id="cb79-2"><a href="intro.html#cb79-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb79-3"><a href="intro.html#cb79-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Occupation&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Occupation&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" alt="" width="672" /></p>
+<p>La categoría “No especificado” resulta ser la más frecuente de todas, superando los 350,000 registros, lo cual tiene sentido ya que ahí se agrupó ese casi 30% de datos que originalmente estaban vacíos. Las otras tres categorías (“Employed”, “Self-Employed” y “Unemployed”) se mantienen bastante parejas entre sí, cada una alrededor de 280,000 registros, sin diferencias notables entre ellas.</p>
+<p>Variable Location:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="intro.html#cb80-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Location)) <span class="sc">+</span></span>
+<span id="cb80-2"><a href="intro.html#cb80-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-3"><a href="intro.html#cb80-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Location&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Location&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-31-1.png" alt="" width="672" /></p>
+<p>Las tres ubicaciones están casi perfectamente equilibradas, todas alrededor de 400,000 registros cada una. No se distingue ninguna diferencia relevante entre Rural, Suburban y Urban, así que los clientes están repartidos de forma prácticamente uniforme entre las tres zonas geográficas.</p>
+<p>Variable Policy Type:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="intro.html#cb81-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Policy Type</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb81-2"><a href="intro.html#cb81-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb81-3"><a href="intro.html#cb81-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Policy Type&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Policy Type&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-32-1.png" alt="" width="672" /></p>
+<p>Los tres tipos de póliza tienen frecuencias prácticamente idénticas, todas alrededor de 400,000 registros. Basic, Comprehensive y Premium están repartidos de manera casi perfectamente equitativa entre los clientes, sin que ninguno predomine sobre los otros.</p>
+<p>Variable Customer Feedback:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="intro.html#cb82-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Customer Feedback</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb82-2"><a href="intro.html#cb82-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb82-3"><a href="intro.html#cb82-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Customer Feedback&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Customer Feedback&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-33-1.png" alt="" width="672" /></p>
+<p>La categoría “Average” se destaca ligeramente por encima de las otras dos, acercándose a los 450,000 registros, probablemente porque ahí se concentraron los datos imputados con la moda de esta variable. “Poor” y “Good” quedan bastante parejos entre sí, ambos alrededor de 370,000-380,000 registros. En general, no hay un desbalance drástico entre las tres categorías, aunque “Average” sí resulta ser la opinión más común entre los clientes.</p>
+<p>Variable Smoking Status:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="intro.html#cb83-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Smoking Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb83-2"><a href="intro.html#cb83-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb83-3"><a href="intro.html#cb83-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Smoking Status&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Smoking Status&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-34-1.png" alt="" width="672" /></p>
+<p>Los clientes fumadores y no fumadores están casi igual de representados, ambas categorías rondando los 600,000 registros. No se observa un desbalance importante entre “No” y “Yes”, así que la muestra está bastante equilibrada respecto a este hábito.</p>
+<p>Variable Exercise Frequency:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="intro.html#cb84-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Exercise Frequency</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb84-2"><a href="intro.html#cb84-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb84-3"><a href="intro.html#cb84-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Exercise Frequency&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Exercise Frequency&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-35-1.png" alt="" width="672" /></p>
+<p>Las cuatro categorías de frecuencia de ejercicio se mantienen muy parejas, todas alrededor de 295,000-305,000 registros. “Weekly” tiene una frecuencia apenas un poco mayor que las demás, mientras que “Daily” queda ligeramente por debajo. En general, respetando el orden lógico de menor a mayor frecuencia, no se aprecia una tendencia clara hacia algún hábito de ejercicio en particular, sino una distribución bastante equilibrada entre todos.</p>
+<p>Variable Property Type:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="intro.html#cb85-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Property Type</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb85-2"><a href="intro.html#cb85-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb85-3"><a href="intro.html#cb85-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Property Type&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Property Type&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-36-1.png" alt="" width="672" /></p>
+<p>Las tres categorías de tipo de propiedad están casi perfectamente equilibradas, todas rondando los 400,000 registros. No hay ningún tipo de vivienda que predomine sobre los demás, así que Apartment, Condo y House se reparten de forma prácticamente uniforme entre los clientes.</p>
+</div>
+<div id="análisis-bivariado-variable-característica-vs-variable-respuesta" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Análisis bivariado (Variable característica vs Variable respuesta)<a href="#an%C3%A1lisis-bivariado-variable-caracter%C3%ADstica-vs-variable-respuesta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Una vez caracterizadas las variables de forma individual, el siguiente paso es analizar cómo se relacionan con la variable respuesta, Premium Amount, con el fin de identificar posibles patrones o tendencias que puedan ser útiles más adelante.</p>
+<p>Age vs Premium Amount:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="intro.html#cb86-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb86-2"><a href="intro.html#cb86-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb86-3"><a href="intro.html#cb86-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Age vs Premium Amount&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-37-1.png" alt="" width="672" /></p>
+<p>Se aprecia que, para cualquier edad, la mayor concentración de valores de Premium Amount está entre 0 y 2,000 aproximadamente, coincidiendo con lo que ya se había visto en el histograma de esa variable, donde se notaba el pico principal justo en ese rango. Por encima de 2,000, los puntos se vuelven más dispersos, indicando que hay menos clientes con primas altas, sin importar la edad que tengan. En general, se confirma que no existe una relación clara entre Age y Premium Amount, ya que el patrón de dispersión se mantiene prácticamente igual a lo largo de todas las edades.</p>
+<p>Annual Income vs Premium Amount:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="intro.html#cb87-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb87-2"><a href="intro.html#cb87-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb87-3"><a href="intro.html#cb87-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Annual Income vs Premium Amount&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Annual Income&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-38-1.png" alt="" width="672" /></p>
+<p>Se observa que, para prácticamente todos los niveles de ingreso anual, los valores de Premium Amount se distribuyen a lo largo de todo el rango, desde 0 hasta 5,000. Sin embargo, se nota una mayor concentración de puntos en la zona de ingresos bajos, entre 0 y 50,000, especialmente en primas entre 0 y 2,000, mientras que a partir de los 50,000 la cantidad de puntos disminuye considerablemente, dejando ver menos densidad de datos en esa zona. Esto sugiere que no existe una relación lineal clara entre Annual Income y Premium Amount, ya que el comportamiento de la prima parece mantenerse similar independientemente del nivel de ingreso del cliente.</p>
+<p>Opción extra para el profe:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="intro.html#cb88-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb88-2"><a href="intro.html#cb88-2" tabindex="-1"></a>  <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb88-3"><a href="intro.html#cb88-3" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;#D6E4EA&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#2C4A5E&quot;</span>) <span class="sc">+</span></span>
+<span id="cb88-4"><a href="intro.html#cb88-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Annual Income vs Premium Amount&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Annual Income&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Cantidad&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Computation failed in `stat_binhex()`.
+## Caused by error in `compute_group()`:
+## ! The package &quot;hexbin&quot; is required for `stat_bin_hex()`.</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" alt="" width="672" /></p>
+<p>Health Score vs Premium Amount:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="intro.html#cb90-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb90-2"><a href="intro.html#cb90-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb90-3"><a href="intro.html#cb90-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Health Score vs Premium Amount&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Health Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" alt="" width="672" /></p>
+<p>Se observa que, para prácticamente todos los valores de Health Score, los datos de Premium Amount se concentran principalmente entre 0 y 2,000, coincidiendo con lo que ya se había visto en el histograma de la prima. Destaca una línea vertical bastante marcada alrededor de 25, con una densidad de puntos considerablemente mayor que el resto, lo cual probablemente se debe a los valores imputados con la mediana en esa variable. Fuera de ese detalle, no se aprecia una relación clara entre Health Score y Premium Amount, ya que el patrón de dispersión se mantiene bastante similar a lo largo de todo el rango de puntuación de salud.</p>
+<p>Credit Score vs Premium Amount:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="intro.html#cb91-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb91-2"><a href="intro.html#cb91-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb91-3"><a href="intro.html#cb91-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Credit Score vs Premium Amount&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Credit Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" alt="" width="672" /></p>
+<p>Se aprecia una línea vertical bastante marcada alrededor de 590-600, con mayor densidad de puntos que el resto, lo cual coincide con los valores imputados con la mediana en esta variable. Fuera de ese detalle, la mayor concentración de datos se mantiene entre 0 y 2,000 en Premium Amount, sin importar el puntaje de crédito del cliente, mientras que por encima de 2,000 los puntos se vuelven progresivamente más dispersos. En general, no se observa un patrón claro que relacione Credit Score con Premium Amount, ya que el comportamiento de la prima parece bastante similar a lo largo de todo el rango de puntaje crediticio.</p>
+<p>Vehicle Age vs Premium Amount:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="intro.html#cb92-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb92-2"><a href="intro.html#cb92-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb92-3"><a href="intro.html#cb92-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Vehicle Age vs Premium Amount&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Vehicle Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-42-1.png" alt="" width="672" /></p>
+<p>Para cada valor de Vehicle Age, los datos de Premium Amount se distribuyen de manera muy similar entre sí, cubriendo todo el rango desde 0 hasta 5,000, con mayor concentración en la parte baja, entre 0 y 2,000. No se aprecia ninguna tendencia ni patrón que relacione la antigüedad del vehículo con el monto de la prima, ya que las líneas correspondientes a cada edad se ven prácticamente idénticas en forma y densidad.</p>
+<p>Insurance Duration vs Premium Amount:</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="intro.html#cb93-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb93-2"><a href="intro.html#cb93-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb93-3"><a href="intro.html#cb93-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Insurance Duration vs Premium Amount&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Insurance Duration&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-43-1.png" alt="" width="672" /></p>
+<p>Al igual que con Vehicle Age, cada valor de Insurance Duration muestra una distribución de Premium Amount muy similar entre sí, abarcando todo el rango desde 0 hasta 5,000 y con mayor concentración de puntos en la parte baja. No se identifica ninguna relación entre la duración de la póliza y el monto de la prima, ya que las nueve líneas correspondientes a cada duración lucen prácticamente iguales en forma y densidad.</p>
+<p>Number of Dependents vs Premium Amount:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="intro.html#cb94-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb94-2"><a href="intro.html#cb94-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb94-3"><a href="intro.html#cb94-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Number of Dependents vs Premium Amount&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Number of Dependents&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-1.png" alt="" width="672" /></p>
+<p>Cada valor de Number of Dependents muestra una distribución de Premium Amount prácticamente idéntica, con datos que van desde 0 hasta 5,000 y mayor concentración en la parte baja. No se aprecia ninguna relación entre la cantidad de dependientes de un cliente y el monto de su prima, ya que las cinco líneas se ven muy similares entre sí tanto en forma como en densidad.</p>
+<p>Previous Claims vs Premium Amount:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="intro.html#cb95-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb95-2"><a href="intro.html#cb95-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb95-3"><a href="intro.html#cb95-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Previous Claims vs Premium Amount&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Previous Claims&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-45-1.png" alt="" width="672" /></p>
+<p>Se observa una diferencia clara respecto a las demás variables numéricas: mientras que en 0 y 1 reclamo previo hay bastantes datos y la línea se ve bien marcada, a partir de 2 reclamos en adelante la cantidad de puntos disminuye notablemente, hasta casi desaparecer en 8 y 9. Esto coincide con la distribución que ya se había visto en el histograma de Previous Claims, donde la mayoría de los clientes se concentra en pocos o ningún reclamo. Dentro de cada nivel, el rango de Premium Amount se mantiene similar, yendo desde 0 hasta 5,000, sin que se note un desplazamiento hacia valores más altos o más bajos conforme aumentan los reclamos. Esto sugiere que Previous Claims no tiene, al menos de forma individual, una relación directa con el monto de la prima.</p>
+<p>Gender vs Premium Amount:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="intro.html#cb96-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb96-2"><a href="intro.html#cb96-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb96-3"><a href="intro.html#cb96-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Premium Amount según Gender&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Gender&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-46-1.png" alt="" width="672" /></p>
+<p>Los boxplots de ambos géneros se ven prácticamente idénticos, con la mediana ubicada cerca de 900 en ambos casos, y la caja abarcando de 500 a 1,500 aproximadamente tanto para Female como para Male. Los bigotes superiores llegan hasta cerca de 3,000, con varios puntos atípicos por encima que se extienden hasta 5,000 en ambos grupos. Esto indica que el género del cliente no parece tener ninguna influencia sobre el monto de la prima, ya que la distribución es prácticamente la misma para ambas categorías.</p>
+<p>Marital Status vs Premium Amount:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="intro.html#cb97-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Marital Status</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb97-2"><a href="intro.html#cb97-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb97-3"><a href="intro.html#cb97-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Premium Amount según Marital Status&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Marital Status&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-47-1.png" alt="" width="672" /></p>
+<p>Los tres estados civiles muestran distribuciones muy similares entre sí, con la mediana ubicada cerca de 900 en los tres casos, y la caja abarcando aproximadamente de 500 a 1,500. Los bigotes superiores llegan hasta alrededor de 3,000, con puntos atípicos por encima que se extienden hasta 5,000 en las tres categorías. Esto sugiere que el estado civil del cliente no influye de forma notable en el monto de su prima, ya que Divorced, Married y Single presentan un comportamiento prácticamente igual.</p>
+<p>Education Level vs Premium Amount:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="intro.html#cb98-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Education Level</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb98-2"><a href="intro.html#cb98-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb98-3"><a href="intro.html#cb98-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Premium Amount según Education Level&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Education Level&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-48-1.png" alt="" width="672" /></p>
+<p>Los cuatro niveles educativos muestran un comportamiento prácticamente idéntico, con la mediana cerca de 900, la caja entre 500 y 1,500, y bigotes superiores hasta 3,000 con puntos atípicos que llegan hasta 5,000 en todos los casos. Ni High School, ni Bachelor’s, Master’s o PhD parecen tener alguna influencia sobre el monto de la prima, ya que las cuatro categorías presentan distribuciones muy similares entre sí.</p>
+<p>Occupation vs Premium Amount:</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="intro.html#cb99-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Occupation, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb99-2"><a href="intro.html#cb99-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb99-3"><a href="intro.html#cb99-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Premium Amount según Occupation&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Occupation&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-49-1.png" alt="" width="672" /></p>
+<p>Las cuatro categorías de ocupación se comportan de manera muy similar entre sí, con la mediana rondando los 900, la caja entre 500 y 1,500, y bigotes superiores que llegan hasta 3,000 con puntos atípicos hasta 5,000 en todos los casos. Esto incluye a “No especificado”, que a pesar de agrupar los datos que originalmente faltaban, no muestra ninguna diferencia notable frente a Employed, Self-Employed o Unemployed, sugiriendo que la ocupación del cliente no tiene una relación aparente con el monto de su prima.</p>
+<p>Location vs Premium Amount:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="intro.html#cb100-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Location, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb100-2"><a href="intro.html#cb100-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb100-3"><a href="intro.html#cb100-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Premium Amount según Location&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Location&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-50-1.png" alt="" width="672" /></p>
+<p>Rural, Suburban y Urban presentan distribuciones prácticamente iguales, con la mediana alrededor de 900, la caja entre 500 y 1,500, y bigotes superiores hasta 3,000 con puntos atípicos que se extienden hasta 5,000 en las tres zonas. La ubicación geográfica del cliente no parece afectar el monto de la prima, ya que el patrón se repite de forma casi idéntica sin importar el tipo de zona.</p>
+<p>Policy Type vs Premium Amount:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="intro.html#cb101-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Policy Type</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb101-2"><a href="intro.html#cb101-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb101-3"><a href="intro.html#cb101-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Premium Amount según Policy Type&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Policy Type&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-51-1.png" alt="" width="672" /></p>
+<p>Basic, Comprehensive y Premium muestran distribuciones prácticamente idénticas, con la mediana cerca de 900, la caja entre 500 y 1,500, y bigotes superiores hasta 3,000 con puntos atípicos que llegan hasta 5,000 en las tres categorías. Resulta llamativo que el tipo de póliza no tenga una influencia visible sobre el monto de la prima, ya que uno esperaría que una póliza “Premium” implicara primas más altas que una “Basic”, pero el comportamiento es prácticamente el mismo entre las tres.</p>
+<p>Customer Feedback vs Premium Amount:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="intro.html#cb102-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Customer Feedback</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb102-2"><a href="intro.html#cb102-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb102-3"><a href="intro.html#cb102-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Premium Amount según Customer Feedback&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Customer Feedback&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-52-1.png" alt="" width="672" /></p>
+<p>Poor, Average y Good presentan distribuciones muy similares entre sí, con la mediana cerca de 900, la caja entre 500 y 1,500, y bigotes superiores hasta 3,000 con puntos atípicos que llegan hasta 5,000 en las tres categorías. Sorprende que la opinión del cliente no se traduzca en diferencias visibles en el monto de la prima, ya que se mantiene el mismo comportamiento sin importar si el feedback fue negativo, neutro o positivo.</p>
+<p>Smoking Status vs Premium Amount:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="intro.html#cb103-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Smoking Status</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb103-2"><a href="intro.html#cb103-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb103-3"><a href="intro.html#cb103-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Premium Amount según Smoking Status&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Smoking Status&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-53-1.png" alt="" width="672" /></p>
+<p>No y Yes muestran distribuciones prácticamente idénticas, con la mediana cerca de 900, la caja entre 500 y 1,500, y bigotes superiores hasta 3,000 con puntos atípicos que llegan hasta 5,000 en ambos grupos. Llama la atención que fumar o no fumar no tenga ningún efecto visible sobre el monto de la prima, cuando normalmente se esperaría que este hábito influyera en el riesgo evaluado por la aseguradora.</p>
+<p>Exercise Frequency vs Premium Amount:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="intro.html#cb104-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Exercise Frequency</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb104-2"><a href="intro.html#cb104-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb104-3"><a href="intro.html#cb104-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Premium Amount según Exercise Frequency&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Exercise Frequency&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-54-1.png" alt="" width="672" /></p>
+<p>Rarely, Monthly, Weekly y Daily mantienen distribuciones bastante parecidas entre sí, con la mediana cerca de 900, la caja entre 500 y 1,500, y bigotes superiores hasta 3,000 con puntos atípicos que llegan hasta 5,000 en las cuatro categorías. Aunque se esperaría que hacer ejercicio con más frecuencia estuviera asociado a primas más bajas, el patrón se repite de forma casi idéntica sin importar qué tan seguido se ejercite el cliente.</p>
+<p>Property Type vs Premium Amount:</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="intro.html#cb105-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Property Type</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb105-2"><a href="intro.html#cb105-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#AEC6CF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb105-3"><a href="intro.html#cb105-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Premium Amount según Property Type&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Property Type&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Premium Amount&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-55-1.png" alt="" width="672" /></p>
+<p>Apartment, Condo y House presentan distribuciones casi idénticas, con la mediana cerca de 900, la caja entre 500 y 1,500, y bigotes superiores hasta 3,000 con puntos atípicos que llegan hasta 5,000 en las tres categorías. El tipo de propiedad tampoco parece influir en el monto de la prima, cerrando así el mismo patrón que se repitió en todas las variables categóricas analizadas.</p>
+</div>
+<div id="análisis-bivariado-independienets-vs-independientes" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Análisis bivariado independienets vs independientes<a href="#an%C3%A1lisis-bivariado-independienets-vs-independientes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para complementar el análisis de las variables independientes con la variable respuesta, a continuación se explora la relación entre las variables independientes numéricas entre sí.</p>
+<p>Dado el tamaño del dataset, únicamente para la generación del gráfico ggpairs se utilizará una muestra de los datos en lugar de la totalidad de las observaciones.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="intro.html#cb106-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb106-2"><a href="intro.html#cb106-2" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb106-3"><a href="intro.html#cb106-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric), <span class="sc">-</span>id) <span class="sc">%&gt;%</span></span>
+<span id="cb106-4"><a href="intro.html#cb106-4" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">5000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb106-5"><a href="intro.html#cb106-5" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-56-1.png" alt="" width="672" /></p>
+<p>La matriz de correlación muestra que prácticamente no existe relación lineal relevante entre las variables numéricas del dataset, incluyendo Premium Amount. En general, las relaciones entre las variables resultan bastante débiles, sin destacarse ningún par con una asociación considerable entre sí.</p>
+<p>A continuación, se analizará con más detalle la relación entre cada par de variables numéricas, con el fin de complementar lo observado en la matriz de correlación general.</p>
+<p>Age vs Annual Income</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="intro.html#cb107-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb107-2"><a href="intro.html#cb107-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb107-3"><a href="intro.html#cb107-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Age vs Annual Income&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Annual Income&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-57-1.png" alt="" width="672" /></p>
+<p>Para prácticamente todas las edades, los valores de Annual Income se distribuyen a lo largo de todo el rango, desde 0 hasta 150,000, con mayor concentración de puntos en la parte baja, entre 0 y 50,000 aproximadamente. No se aprecia ninguna tendencia que relacione la edad del cliente con su ingreso anual, ya que el patrón de dispersión se mantiene prácticamente igual sin importar la edad.</p>
+<p>Age vs Health Score</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="intro.html#cb108-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb108-2"><a href="intro.html#cb108-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb108-3"><a href="intro.html#cb108-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Age vs Health Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Health Score&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-58-1.png" alt="" width="672" /></p>
+<p>Para cada edad, los valores de Health Score se distribuyen de forma bastante pareja a lo largo de todo el rango, entre 2 y 59 aproximadamente, sin concentrarse especialmente en ninguna zona. No se observa ninguna relación entre la edad del cliente y su puntaje de salud, ya que el patrón de dispersión se mantiene prácticamente idéntico sin importar la edad.</p>
+<p>Age vs Previous Claims</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="intro.html#cb109-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb109-2"><a href="intro.html#cb109-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb109-3"><a href="intro.html#cb109-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Age vs Previous Claims&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Previous Claims&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-59-1.png" alt="" width="672" /></p>
+<p>Se observan líneas horizontales bien marcadas en 0, 1 y 2, mientras que a medida que aumenta el número de reclamos previos (3, 4, 5, 6, 7, 8, 9), los puntos se vuelven cada vez más tenues, lo cual coincide con la baja frecuencia de esos valores dentro de la variable. Este patrón se repite de forma similar en todas las edades, por lo que no se aprecia ninguna relación entre la edad del cliente y su cantidad de reclamos previos.</p>
+<p>Vehicle Age vs Age</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="intro.html#cb110-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb110-2"><a href="intro.html#cb110-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb110-3"><a href="intro.html#cb110-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Age vs Vehicle Age&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Vehicle Age&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-60-1.png" alt="" width="672" /></p>
+<p>Se forma una especie de cuadrícula bastante uniforme, ya que ambas variables toman valores discretos (edades y años de antigüedad del vehículo). Los puntos se distribuyen de manera pareja en todas las combinaciones posibles, sin ninguna concentración particular ni tendencia visible, lo que indica que no existe relación entre la edad del cliente y la antigüedad de su vehículo.</p>
+<p>Age vs Credit Score:</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="intro.html#cb111-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb111-2"><a href="intro.html#cb111-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb111-3"><a href="intro.html#cb111-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Age vs Credit Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Credit Score&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-61-1.png" alt="" width="672" /></p>
+<p>Para todas las edades, los valores de Credit Score se distribuyen de manera uniforme a lo largo de todo el rango, desde 300 hasta 849, sin ninguna concentración particular en alguna zona específica. No se aprecia una relación entre la edad del cliente y su puntaje crediticio, ya que las líneas se ven prácticamente idénticas para cada edad.</p>
+<p>Age vs Insurance Duration:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="intro.html#cb112-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb112-2"><a href="intro.html#cb112-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb112-3"><a href="intro.html#cb112-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Age vs Insurance Duration&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Insurance Duration&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-62-1.png" alt="" width="672" /></p>
+<p>Se forma una cuadrícula bastante uniforme entre ambas variables, ya que la Insurance Duration toma valores discretos del 1 al 9. Los puntos se distribuyen de forma pareja en todas las combinaciones posibles de edad y duración, sin ninguna concentración particular, lo que indica que no existe relación entre la edad del cliente y la duración de su póliza.</p>
+<p>Age vs Number of Dependents:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="intro.html#cb113-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb113-2"><a href="intro.html#cb113-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb113-3"><a href="intro.html#cb113-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Age vs Number of Dependents&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Dependents&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-63-1.png" alt="" width="672" /></p>
+<p>Se forma nuevamente una cuadrícula uniforme, ya que Number of Dependents solo toma cinco valores posibles (0 a 4). Los puntos se distribuyen de manera pareja en todas las combinaciones de edad y cantidad de dependientes, sin ninguna concentración destacada, lo que confirma que no existe relación entre la edad del cliente y su número de dependientes.</p>
+<p>Annual Income vs Health Score</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="intro.html#cb114-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb114-2"><a href="intro.html#cb114-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb114-3"><a href="intro.html#cb114-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Annual Income vs Health Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Annual Income&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Health Score&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-64-1.png" alt="" width="672" /></p>
+<p>Se aprecia una línea horizontal bastante marcada alrededor de 25, con densidad notablemente mayor que el resto, lo cual coincide con los valores imputados con la mediana en Health Score. Se nota además mayor concentración de datos en la zona de ingresos bajos, entre 0 y 50,000, lo cual coincide con la distribución sesgada de Annual Income vista anteriormente. Fuera de esos dos detalles, los puntos se distribuyen de forma pareja a lo largo de todo el rango de Health Score sin importar el nivel de ingreso, por lo que no se observa una relación clara entre ambas variables.</p>
+<p>Annual Income vs Previous Claims</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="intro.html#cb115-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb115-2"><a href="intro.html#cb115-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb115-3"><a href="intro.html#cb115-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Annual Income vs Previous Claims&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Annual Income&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Previous Claims&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-65-1.png" alt="" width="672" /></p>
+<p>Se observan líneas horizontales bien marcadas en 0, 1, 2 y 3 reclamos, con mayor densidad en la zona de ingresos bajos, coincidiendo con la concentración natural de Annual Income. A medida que aumenta el número de reclamos previos (4 en adelante), las líneas se ven cada vez más tenues, lo cual es coherente con la baja frecuencia de esos valores. En general, este patrón se mantiene similar sin importar el nivel de ingreso, por lo que no se aprecia una relación entre Annual Income y Previous Claims.</p>
+<p>Annual Income vs Vehicle Age</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="intro.html#cb116-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb116-2"><a href="intro.html#cb116-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb116-3"><a href="intro.html#cb116-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Annual Income vs Vehicle Age&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Annual Income&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Vehicle Age&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-66-1.png" alt="" width="672" /></p>
+<p>Se forma una cuadrícula bastante uniforme entre ambas variables, con líneas horizontales bien definidas en cada valor de Vehicle Age. Aunque en la matriz de correlación esta pareja mostraba la relación más marcada de todo el conjunto de numéricas, aquí visualmente el patrón se ve bastante disperso y parejo a lo largo de todo el rango de ingresos, sin una tendencia evidente a simple vista.</p>
+<p>Annual Income vs Credit Score</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="intro.html#cb117-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb117-2"><a href="intro.html#cb117-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb117-3"><a href="intro.html#cb117-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Annual Income vs Credit Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Annual Income&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Credit Score&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
+<p>Se observa una línea horizontal bien marcada alrededor de 595, con densidad notablemente mayor que el resto, correspondiente a los valores imputados con la mediana en Credit Score. También se aprecia mayor concentración de puntos en la zona de ingresos bajos, entre 0 y 50,000, en línea con la distribución sesgada de Annual Income. Fuera de esos dos aspectos, los datos se distribuyen de manera uniforme a lo largo de todo el rango de Credit Score, sin importar el nivel de ingreso, por lo que no se identifica una relación clara entre ambas variables.</p>
+<p>Annual Income vs Insurance Duration</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="intro.html#cb118-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb118-2"><a href="intro.html#cb118-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb118-3"><a href="intro.html#cb118-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Annual Income vs Insurance Duration&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Annual Income&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Insurance Duration&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-68-1.png" alt="" width="672" /></p>
+<p>Se forman nueve líneas horizontales bien definidas, correspondientes a cada valor de Insurance Duration (de 1 a 9). Los puntos se distribuyen de manera pareja a lo largo de todo el rango de ingresos, con mayor densidad en la zona baja donde se concentra la mayoría de Annual Income, pero sin ninguna tendencia particular que relacione ambas variables.</p>
+<p>Annual Income vs Number of Dependents</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="intro.html#cb119-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb119-2"><a href="intro.html#cb119-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb119-3"><a href="intro.html#cb119-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Annual Income vs Number of Dependents&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Annual Income&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Dependents&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-69-1.png" alt="" width="672" /></p>
+<p>Se forman cinco líneas horizontales bien definidas, correspondientes a cada valor de Number of Dependents (0 a 4), con una densidad ligeramente mayor en el valor 0. Los puntos se reparten de forma pareja a lo largo de todo el rango de ingresos, sin que exista una tendencia que vincule el número de dependientes con el nivel de ingreso anual del cliente.</p>
+<p>Health Score vs Previous Claims</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="intro.html#cb120-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb120-2"><a href="intro.html#cb120-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb120-3"><a href="intro.html#cb120-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Health Score vs Previous Claims&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Health Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Previous Claims&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-70-1.png" alt="" width="672" /></p>
+<p>Se observan líneas horizontales bien marcadas en 0, 1, 2 y 3 reclamos, distribuidas de manera pareja a lo largo de todo el rango de Health Score. A partir de 4 reclamos en adelante, las líneas se vuelven cada vez más tenues, coincidiendo con la menor frecuencia de esos valores. En general, el comportamiento se mantiene similar sin importar el puntaje de salud del cliente, por lo que no se identifica relación entre ambas variables.</p>
+<p>Health Score vs Vehicle Age</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="intro.html#cb121-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb121-2"><a href="intro.html#cb121-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb121-3"><a href="intro.html#cb121-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Health Score vs Vehicle Age&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Health Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Vehicle Age&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-71-1.png" alt="" width="672" /></p>
+<p>Se forman veinte líneas horizontales bien definidas, correspondientes a cada valor de Vehicle Age (de 0 a 19). Los puntos se distribuyen de manera pareja a lo largo de todo el rango de Health Score, sin ninguna concentración particular, lo que indica que no existe relación entre el puntaje de salud del cliente y la antigüedad de su vehículo.</p>
+<p>Health Score vs Credit Score</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="intro.html#cb122-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb122-2"><a href="intro.html#cb122-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb122-3"><a href="intro.html#cb122-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Health Score vs Credit Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Health Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Credit Score&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-72-1.png" alt="" width="672" /></p>
+<p>Se observan dos líneas bien marcadas: una horizontal alrededor de 595 en Credit Score y otra vertical cerca de 25 en Health Score, ambas correspondientes a los valores imputados con la mediana de cada variable. Fuera de esas dos intersecciones, los puntos se distribuyen de manera uniforme a lo largo de todo el gráfico, sin ninguna tendencia particular que relacione ambas variables.</p>
+<p>Health Score vs Insurance Duration</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="intro.html#cb123-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb123-2"><a href="intro.html#cb123-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb123-3"><a href="intro.html#cb123-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Health Score vs Insurance Duration&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Health Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Insurance Duration&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-73-1.png" alt="" width="672" /></p>
+<p>Se forman nueve líneas horizontales bien definidas, correspondientes a cada valor de Insurance Duration (de 1 a 9). Los puntos se distribuyen de manera pareja a lo largo de todo el rango de Health Score, sin ninguna concentración particular, lo que indica que no existe relación entre el puntaje de salud del cliente y la duración de su póliza.</p>
+<p>Health Score vs Number of Dependents</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="intro.html#cb124-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb124-2"><a href="intro.html#cb124-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb124-3"><a href="intro.html#cb124-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Health Score vs Number of Dependents&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Health Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Dependents&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-74-1.png" alt="" width="672" /></p>
+<p>Se forman cinco líneas horizontales bien definidas, correspondientes a cada valor de Number of Dependents (0 a 4). Los puntos se distribuyen de manera pareja a lo largo de todo el rango de Health Score, sin ninguna concentración destacada, lo que confirma que no existe relación entre el puntaje de salud del cliente y su número de dependientes.</p>
+<p>Previous Claims vs Vehicle Age</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="intro.html#cb125-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb125-2"><a href="intro.html#cb125-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb125-3"><a href="intro.html#cb125-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Previous Claims vs Vehicle Age&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Previous Claims&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Vehicle Age&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-75-1.png" alt="" width="672" /></p>
+<p>Se forma una cuadrícula donde las columnas más marcadas corresponden a 0, 1, 2 y 3 reclamos previos, mientras que a partir de 4 en adelante los puntos se vuelven cada vez más tenues, coincidiendo con la baja frecuencia de esos valores. Dentro de cada columna, los puntos se reparten de forma pareja en todo el rango de Vehicle Age, por lo que no se observa relación entre ambas variables.</p>
+<p>Previous Claims vs Credit Score</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="intro.html#cb126-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb126-2"><a href="intro.html#cb126-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb126-3"><a href="intro.html#cb126-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Previous Claims vs Credit Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Previous Claims&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Credit Score&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-76-1.png" alt="" width="672" /></p>
+<p>Se forman columnas verticales bien definidas en 0, 1, 2, 3 y 4 reclamos previos, que se van desvaneciendo progresivamente a partir de 5, coincidiendo con la menor frecuencia de esos valores. Dentro de cada columna, los puntos se reparten a lo largo de todo el rango de Credit Score, sin una concentración particular, por lo que no se identifica relación entre ambas variables.</p>
+<p>Previous Claims vs Insurance Duration</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="intro.html#cb127-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb127-2"><a href="intro.html#cb127-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb127-3"><a href="intro.html#cb127-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Previous Claims vs Insurance Duration&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Previous Claims&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Insurance Duration&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-77-1.png" alt="" width="672" /></p>
+<p>Se forma una cuadrícula donde las columnas correspondientes a 0, 1, 2 y 3 reclamos previos se ven más marcadas, mientras que a partir de 4 en adelante se van desvaneciendo, en línea con la menor frecuencia de esos valores. Dentro de cada combinación, la duración de la póliza se distribuye de forma pareja entre 1 y 9 años, sin evidenciar una relación entre ambas variables.</p>
+<p>Previous Claims vs Number of Dependents</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="intro.html#cb128-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb128-2"><a href="intro.html#cb128-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb128-3"><a href="intro.html#cb128-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Previous Claims vs Number of Dependents&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Previous Claims&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Dependents&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-78-1.png" alt="" width="672" /></p>
+<p>Se forma una cuadrícula donde las columnas de 0, 1, 2 y 3 reclamos previos se ven más definidas, mientras que a partir de 4 en adelante se van desvaneciendo, coincidiendo con la menor frecuencia de esos valores. Dentro de cada columna, el número de dependientes se distribuye de forma pareja entre 0 y 4, sin evidenciar una relación entre ambas variables.</p>
+<p>Vehicle Age vs Credit Score</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="intro.html#cb129-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb129-2"><a href="intro.html#cb129-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb129-3"><a href="intro.html#cb129-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Vehicle Age vs Credit Score&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Vehicle Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Credit Score&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-79-1.png" alt="" width="672" /></p>
+<p>Se forman veinte líneas verticales bien definidas, correspondientes a cada valor de Vehicle Age (de 0 a 19). Los puntos se distribuyen de manera uniforme a lo largo de todo el rango de Credit Score, desde 300 hasta 849, sin ninguna concentración particular, lo que indica que no existe relación entre la antigüedad del vehículo y el puntaje crediticio del cliente.</p>
+<p>Vehicle Age vs Insurance Duration</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="intro.html#cb130-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb130-2"><a href="intro.html#cb130-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb130-3"><a href="intro.html#cb130-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Vehicle Age vs Insurance Duration&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Vehicle Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Insurance Duration&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-80-1.png" alt="" width="672" /></p>
+<p>Se forma una cuadrícula bastante uniforme entre ambas variables, ya que las dos toman valores discretos. Los puntos se distribuyen de forma pareja en todas las combinaciones posibles de antigüedad del vehículo y duración de la póliza, sin ninguna concentración particular, lo que indica que no existe relación entre ambas variables.</p>
+<p>Vehicle Age vs Number of Dependents</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="intro.html#cb131-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb131-2"><a href="intro.html#cb131-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb131-3"><a href="intro.html#cb131-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Vehicle Age vs Number of Dependents&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Vehicle Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Dependents&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-81-1.png" alt="" width="672" /></p>
+<p>Se forma una cuadrícula bastante uniforme entre ambas variables, ya que Number of Dependents solo toma cinco valores posibles (0 a 4). Los puntos se distribuyen de manera pareja en todas las combinaciones de antigüedad del vehículo y cantidad de dependientes, sin ninguna concentración destacada, lo que confirma que no existe relación entre ambas variables.</p>
+<p>Credit Score vs Insurance Duration</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="intro.html#cb132-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb132-2"><a href="intro.html#cb132-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb132-3"><a href="intro.html#cb132-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Credit Score vs Insurance Duration&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Credit Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Insurance Duration&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-82-1.png" alt="" width="672" /></p>
+<p>Se forman nueve líneas horizontales bien definidas, correspondientes a cada valor de Insurance Duration (de 1 a 9). Los puntos se distribuyen de manera uniforme a lo largo de todo el rango de Credit Score, sin ninguna concentración particular, lo que indica que no existe relación entre el puntaje crediticio del cliente y la duración de su póliza.</p>
+<p>Credit Score vs Number of Dependents:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="intro.html#cb133-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb133-2"><a href="intro.html#cb133-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb133-3"><a href="intro.html#cb133-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Credit Score vs Number of Dependents&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Credit Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Dependents&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-83-1.png" alt="" width="672" /></p>
+<p>Se forman cinco líneas horizontales bien definidas, correspondientes a cada valor de Number of Dependents (0 a 4). Los puntos se distribuyen de manera uniforme a lo largo de todo el rango de Credit Score, sin ninguna concentración destacada, lo que confirma que no existe relación entre el puntaje crediticio del cliente y su número de dependientes.</p>
+<p>Insurance Duration vs Number of Dependents:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="intro.html#cb134-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb134-2"><a href="intro.html#cb134-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#5B7C99&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.02</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb134-3"><a href="intro.html#cb134-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Insurance Duration vs Number of Dependents&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Insurance Duration&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Number of Dependents&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-84-1.png" alt="" width="672" /></p>
+<p>Se forma una cuadrícula uniforme entre ambas variables, ya que las dos toman pocos valores discretos. Los puntos se distribuyen de manera pareja en todas las combinaciones posibles de duración de la póliza y número de dependientes, sin ninguna concentración destacada, lo que confirma que no existe relación entre ambas variables.</p>
+<p>Tras analizar la relación entre todas las combinaciones posibles de variables numéricas independientes, se observa un patrón bastante consistente a lo largo de todo el análisis: en la mayoría de los casos no se identifica una relación clara entre las variables, ya que los datos se distribuyen de manera uniforme sin mostrar tendencias, agrupaciones o patrones particulares. Las únicas irregularidades visibles corresponden a las variables que fueron imputadas con la mediana (Health Score y Credit Score), donde se aprecia una línea de mayor densidad en el valor imputado, así como en Previous Claims, donde la menor frecuencia de reclamos altos se refleja en una disminución progresiva de la densidad de puntos. En conjunto, estos resultados respaldan lo observado previamente en la matriz de correlación, confirmando que las variables numéricas del dataset no presentan relaciones lineales fuertes entre sí.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="intro.html#cb135-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(</span>
+<span id="cb135-2"><a href="intro.html#cb135-2" tabindex="-1"></a>  df,</span>
+<span id="cb135-3"><a href="intro.html#cb135-3" tabindex="-1"></a>  <span class="at">Premium_Amount =</span> <span class="st">`</span><span class="at">Premium Amount</span><span class="st">`</span>,</span>
+<span id="cb135-4"><a href="intro.html#cb135-4" tabindex="-1"></a>  <span class="at">Smoking_Status =</span> <span class="st">`</span><span class="at">Smoking Status</span><span class="st">`</span>,</span>
+<span id="cb135-5"><a href="intro.html#cb135-5" tabindex="-1"></a>  <span class="at">Policy_Type =</span> <span class="st">`</span><span class="at">Policy Type</span><span class="st">`</span>,</span>
+<span id="cb135-6"><a href="intro.html#cb135-6" tabindex="-1"></a>  <span class="at">Health_Score =</span> <span class="st">`</span><span class="at">Health Score</span><span class="st">`</span>,</span>
+<span id="cb135-7"><a href="intro.html#cb135-7" tabindex="-1"></a>  <span class="at">Exercise_Frequency =</span> <span class="st">`</span><span class="at">Exercise Frequency</span><span class="st">`</span>,</span>
+<span id="cb135-8"><a href="intro.html#cb135-8" tabindex="-1"></a>  <span class="at">Annual_Income =</span> <span class="st">`</span><span class="at">Annual Income</span><span class="st">`</span>,</span>
+<span id="cb135-9"><a href="intro.html#cb135-9" tabindex="-1"></a>  <span class="at">Vehicle_Age =</span> <span class="st">`</span><span class="at">Vehicle Age</span><span class="st">`</span>,</span>
+<span id="cb135-10"><a href="intro.html#cb135-10" tabindex="-1"></a>  <span class="at">Marital_Status =</span> <span class="st">`</span><span class="at">Marital Status</span><span class="st">`</span>,</span>
+<span id="cb135-11"><a href="intro.html#cb135-11" tabindex="-1"></a>  <span class="at">Education_Level =</span> <span class="st">`</span><span class="at">Education Level</span><span class="st">`</span>,</span>
+<span id="cb135-12"><a href="intro.html#cb135-12" tabindex="-1"></a>  <span class="at">Customer_Feedback =</span> <span class="st">`</span><span class="at">Customer Feedback</span><span class="st">`</span>,</span>
+<span id="cb135-13"><a href="intro.html#cb135-13" tabindex="-1"></a>  <span class="at">Previous_Claims =</span> <span class="st">`</span><span class="at">Previous Claims</span><span class="st">`</span>,</span>
+<span id="cb135-14"><a href="intro.html#cb135-14" tabindex="-1"></a>  <span class="at">Credit_Score =</span> <span class="st">`</span><span class="at">Credit Score</span><span class="st">`</span>,</span>
+<span id="cb135-15"><a href="intro.html#cb135-15" tabindex="-1"></a>  <span class="at">Number_of_Dependents =</span> <span class="st">`</span><span class="at">Number of Dependents</span><span class="st">`</span>,</span>
+<span id="cb135-16"><a href="intro.html#cb135-16" tabindex="-1"></a>  <span class="at">Property_Type =</span> <span class="st">`</span><span class="at">Property Type</span><span class="st">`</span>,</span>
+<span id="cb135-17"><a href="intro.html#cb135-17" tabindex="-1"></a>  <span class="at">Insurance_Duration =</span> <span class="st">`</span><span class="at">Insurance Duration</span><span class="st">`</span></span>
+<span id="cb135-18"><a href="intro.html#cb135-18" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/2939913901/01-intro/edit/main/01-intro.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

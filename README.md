@@ -13,6 +13,18 @@ El trabajo incluye:
 
 El documento completo se genera como un libro con **bookdown**.
 
+## Versión para presentación
+
+La versión HTML lista para publicar queda en `docs/` después de compilar el
+libro. El flujo de GitHub Actions `.github/workflows/deploy-pages.yml` publica
+esa carpeta automáticamente en GitHub Pages al enviar cambios a `main`.
+
+Antes de la primera publicación, en GitHub abre **Settings → Pages** y elige
+**GitHub Actions** como fuente de despliegue. Tras el primer `push`, el enlace
+se mostrará en la ejecución del flujo y tendrá esta forma:
+
+`https://2939913901.github.io/01-intro/`
+
 ## Cómo obtener el dataset
 
 Por su tamaño (~170 MB), el archivo `train.csv` **no está incluido en este repositorio**. Para poder ejecutar el análisis, sigue estos pasos:
@@ -49,6 +61,17 @@ Por su tamaño (~170 MB), el archivo `train.csv` **no está incluido en este rep
    bookdown::render_book("index.Rmd")
    ```
    o usando el botón **Build Book** en el panel "Build" de RStudio.
+
+   Si R se ejecuta fuera de RStudio en Windows, asegúrate de que Pandoc esté
+   disponible. Con la instalación de RStudio usada en este equipo se puede hacer
+   así antes de renderizar:
+   ```r
+   Sys.setenv(RSTUDIO_PANDOC = "C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools")
+   bookdown::render_book("index.Rmd")
+   ```
+
+6. Copia el contenido generado de `_book/` a `docs/`, confirma los cambios y
+   ejecuta `git push origin main`. El flujo de Pages publicará el sitio estático.
 
 ## Librerías principales utilizadas
 

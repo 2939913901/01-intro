@@ -166,6 +166,21 @@ df <- df %>%
 
 Se convirtieron todas las variables categóricas de tipo texto a factor, ya que este formato es más adecuado para el análisis en R, tanto para tablas de frecuencia como para gráficos. En el caso de Education Level, Customer Feedback y Exercise Frequency, se declararon además como factores ordenados, respetando una jerarquía lógica en sus categorías, lo que permitirá que tanto los análisis como las visualizaciones reflejen ese orden natural en lugar de mostrarlas simplemente en orden alfabético.
 
+Para que las visualizaciones sean legibles y el documento se pueda compilar de forma eficiente, los gráficos que usan el dataset completo se generan a partir de una muestra aleatoria reproducible de 50,000 observaciones. Las tablas, estimaciones y pruebas de hipótesis continúan calculándose sobre los 1,200,000 registros.
+
+```{r muestra-graficos}
+set.seed(2026)
+df_graficos <- df %>% slice_sample(n = min(50000, nrow(df)))
+
+ggplot_original <- ggplot2::ggplot
+ggplot <- function(data = NULL, mapping = ggplot2::aes(), ..., environment = parent.frame()) {
+  if (identical(data, df)) {
+    data <- df_graficos
+  }
+  ggplot_original(data = data, mapping = mapping, ..., environment = environment)
+}
+```
+
 ##Resumen variables numéricas
 
 Ahora, veamos un resumen de las variables numéricas
@@ -1112,8 +1127,8 @@ H₁: μ₁ ≠ μ₂ (existe una diferencia entre los grupos)
 Para dar inicio al análisis, se separan los valores de Premium Amount en dos grupos según la variable Smoking Status, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.
 
 ```{r}
-no_fumadores <- df %>% filter(`Smoking Status` == "No") %>% pull(`Premium Amount`)
-fumadores <- df %>% filter(`Smoking Status` == "Yes") %>% pull(`Premium Amount`)
+no_fumadores <- df %>% filter(Smoking_Status == "No") %>% pull(Premium_Amount)
+fumadores <- df %>% filter(Smoking_Status == "Yes") %>% pull(Premium_Amount)
 ```
 
 
@@ -1154,7 +1169,7 @@ H₁: η₁ ≠ η₂
 Antes de aplicar la prueba de Mann-Whitney-Wilcoxon, se verifica la homogeneidad de varianzas entre los grupos mediante la prueba de Levene.
 
 ```{r}
-leveneTest(`Premium Amount` ~ `Smoking Status`, data = df, center = "median")
+leveneTest(Premium_Amount ~ Smoking_Status, data = df, center = "median")
 ```
 
 Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre los clientes fumadores y no fumadores (F(1) = 0.7404, p-valor = 0.3895).
