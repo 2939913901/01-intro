@@ -5,8 +5,8 @@ bookdown::gitbook:
       before: |
         <li><a href="./">Análisis Estadístico del Dataset de Seguros</a></li>
       after: |
-        <li><a href="https://github.com/2939913901/01-intro" target="_blank">Ver repositorio en GitHub</a></li>
-    edit: https://github.com/2939913901/01-intro/edit/main/%s
+        <li><a href="https://github.com/analisis-seguros-R/01-intro" target="_blank">Ver repositorio en GitHub</a></li>
+    edit: https://github.com/analisis-seguros-R/01-intro/edit/main/%s
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex

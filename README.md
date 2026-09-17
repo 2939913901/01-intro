@@ -23,7 +23,7 @@ Antes de la primera publicación, en GitHub abre **Settings → Pages** y elige
 **GitHub Actions** como fuente de despliegue. Tras el primer `push`, el enlace
 se mostrará en la ejecución del flujo y tendrá esta forma:
 
-`https://2939913901.github.io/01-intro/`
+`https://analisis-seguros-R.github.io/01-intro/`
 
 ## Cómo obtener el dataset
 
