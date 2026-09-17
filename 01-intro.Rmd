@@ -1,6 +1,6 @@
 --- 
 title: "Análisis Estadístico del Dataset de Seguros"
-author: "Fernando Cabrera y Keisy Polo"
+author: "Fernando Cabrera Marriaga y Keisy Polo Peralta"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -12,9 +12,90 @@ description: "Análisis exploratorio de datos y pruebas de hipótesis paramétri
 
 # Introducción 
 
-El presente trabajo tiene como objetivo realizar un análisis estadístico completo sobre un conjunto de datos relacionado con pólizas de seguros, el cual contiene 1,200,000 registros de clientes y 21 variables entre características demográficas, socioeconómicas, de salud y de comportamiento. Entre estas variables se encuentran, por ejemplo, la edad, el ingreso anual, el estado civil, el nivel educativo, la ocupación, el puntaje de salud, el puntaje crediticio, el historial de reclamos previos, los hábitos de fumar y de ejercicio, así como el tipo de póliza contratada, con el fin de comprender el comportamiento de estas variables y su posible relación con el monto de la prima de seguro (Premium Amount), que constituye la variable de interés principal del estudio.
+El presente trabajo tiene como objetivo realizar un análisis estadístico completo 
+sobre un conjunto de datos relacionado con pólizas de seguros, el cual contiene 
+1,200,000 registros de clientes y 21 variables entre características demográficas, 
+socioeconómicas, de salud y de comportamiento. Entre estas variables se encuentran, 
+por ejemplo, la edad, el ingreso anual, el estado civil, el nivel educativo, la 
+ocupación, el puntaje de salud, el puntaje crediticio, el historial de reclamos 
+previos, los hábitos de fumar y de ejercicio, así como el tipo de póliza contratada, 
+con el fin de comprender el comportamiento de estas variables y su posible relación 
+con el monto de la prima de seguro (Premium Amount), que constituye la variable de 
+interés principal del estudio.
 
-Para alcanzar este objetivo, se lleva a cabo inicialmente un análisis exploratorio de datos (EDA), que permite conocer la estructura del dataset, identificar y tratar los valores faltantes presentes en varias de las variables, y caracterizar tanto las variables numéricas como categóricas de forma individual, así como en conjunto con la variable respuesta y entre sí. Posteriormente, se plantean y resuelven diversas preguntas mediante pruebas de hipótesis paramétricas y no paramétricas, con el objetivo de confirmar estadísticamente algunos de los patrones observados durante el análisis exploratorio, evaluando así la posible relación entre las variables del dataset y el monto de la prima de seguro.
+Este tipo de análisis resulta relevante dentro del contexto de la industria 
+aseguradora, ya que permite identificar de manera objetiva cuáles características 
+de un cliente están efectivamente asociadas con el monto que paga por su póliza, 
+y cuáles, a pesar de parecer intuitivamente relevantes (como fumar, hacer ejercicio 
+con frecuencia, o el tipo de póliza contratada), no muestran una relación real 
+dentro de los datos disponibles.
+
+Para alcanzar este objetivo, se lleva a cabo inicialmente un análisis exploratorio 
+de datos (EDA), que permite conocer la estructura del dataset, identificar y tratar 
+los valores faltantes presentes en varias de las variables, y caracterizar tanto 
+las variables numéricas como categóricas de forma individual, así como en conjunto 
+con la variable respuesta y entre sí. Este proceso incluye la imputación de datos 
+faltantes mediante mediana (para variables numéricas continuas) y moda (para 
+variables numéricas discretas y categóricas), la conversión de variables 
+categóricas a factores, respetando el orden lógico en aquellas que lo requieren, 
+como Education Level, Customer Feedback y Exercise Frequency, y la construcción 
+de gráficos univariados y bivariados que permiten detectar visualmente posibles 
+patrones, sesgos y relaciones entre las variables.
+
+A partir de los patrones detectados durante esta etapa exploratoria, entre ellos 
+distribuciones sesgadas hacia la derecha en variables como Annual Income y Premium 
+Amount, ausencia aparente de relaciones lineales marcadas entre las variables 
+numéricas, y comportamientos visualmente muy similares entre categorías en la 
+mayoría de las variables cualitativas frente a Premium Amount, surge la necesidad 
+de confirmar dichos patrones mediante herramientas estadísticas formales, en lugar 
+de basar las conclusiones únicamente en la inspección visual de los gráficos. Es 
+precisamente en este punto donde se plantean las pruebas de hipótesis paramétricas 
+y no paramétricas que constituyen el núcleo del presente capítulo.
+
+## Objetivo
+
+El presente análisis busca responder la siguiente pregunta:
+
+> **¿Cuáles de las 18 variables predictoras del dataset (10 categóricas y 8 
+> numéricas) presentan una asociación estadísticamente significativa y, además, 
+> prácticamente relevante con el monto de la prima de seguro (Premium Amount)?**
+
+Esta pregunta parte de una distinción central a lo largo de todo el capítulo: la 
+significancia estadística y la relevancia práctica no son lo mismo. Dado el gran 
+tamaño de la muestra (1,200,000 observaciones), prácticamente cualquier diferencia 
+entre grupos o cualquier correlación distinta de cero tiene una alta probabilidad 
+de resultar estadísticamente significativa, por lo que responder únicamente si 
+una prueba rechaza o no rechaza H₀ sería insuficiente y, en varios casos, incluso 
+engañoso.
+
+Para responder la pregunta, cada variable predictora se somete a una prueba de 
+hipótesis específica frente a Premium Amount, seleccionada según su naturaleza 
+(categórica o numérica) y según se verifique o no el supuesto de normalidad 
+mediante la prueba de Lilliefors:
+
+- Categóricas de dos niveles: prueba t de Student (si hay normalidad) o 
+  Mann-Whitney-Wilcoxon (si no la hay).
+- Categóricas de tres o más niveles: ANOVA (si hay normalidad) o Kruskal-Wallis 
+  (si no la hay), con comparaciones post-hoc por pares cuando el resultado global 
+  es significativo.
+- Numéricas: correlación de Pearson (si ambas son normales) o de Spearman (en caso 
+  contrario).
+- Relación entre dos variables categóricas: prueba de Chi-cuadrado de independencia.
+
+En todos los casos donde la prueba resulta significativa, el resultado se 
+complementa con el cálculo del tamaño del efecto correspondiente (r de Wilcoxon, 
+η² de Kruskal-Wallis, o ρ de Spearman), lo que permite cuantificar qué tan grande 
+es realmente la asociación detectada, más allá del p-valor. Esta combinación entre 
+prueba de hipótesis y tamaño del efecto es la que finalmente permite responder si 
+una variable no solo está relacionada con Premium Amount de forma estadísticamente 
+detectable, sino si esa relación tiene algún peso real dentro del comportamiento 
+de la prima.
+
+De forma complementaria, se seleccionan tres relaciones adicionales entre variables 
+independientes, identificadas en el EDA como potencialmente interesantes o 
+relevantes para descartar problemas de multicolinealidad, con el fin de enriquecer 
+la comprensión del comportamiento conjunto de los clientes, sin que esto constituya 
+el foco principal del análisis.
 
 
 <!--chapter:end:index.Rmd-->
@@ -22,7 +103,7 @@ Para alcanzar este objetivo, se lleva a cabo inicialmente un análisis explorato
 # Análisis Exploratorio de Datos (EDA) {#intro}
 
 
-**Primeramente, haremos un análisis exploratorio de los datos**
+Primeramente, haremos un análisis exploratorio de los datos
 
 Librerias
 ```{r librerias}
@@ -38,6 +119,10 @@ library(car)
 library(rstatix)
 library(coin)
 library(nortest)
+```
+
+```{r}
+theme_set(theme_bw())
 ```
 
 Importemos el dataframe
@@ -67,7 +152,10 @@ str(df)
 
 El dataset contiene 1,200,000 observaciones y 21 variables en total: 10 categóricas (Gender, Marital Status, Education Level, Occupation, Location, Policy Type, Customer Feedback, Smoking Status, Exercise Frequency, Property Type), 9 numéricas continuas (Age, Annual Income, Number of Dependents, Health Score, Previous Claims, Vehicle Age, Credit Score, Insurance Duration, Premium Amount), 1 entera (id) y 1 de tipo fecha/hora (Policy Start Date).
 
-Veamos si hay datos faltantes en las variables numéricas.
+## Revisión de datos faltantes en las variables numéricas
+
+Veamos si hay datos faltantes en estas variables.
+
 ```{r faltantes}
 df %>%
   summarise(across(everything(),~ sum(is.na(.)), .names = "NA_{.col}"))
@@ -75,6 +163,8 @@ df %>%
 
 
 El análisis de valores faltantes muestra que las variables id, Gender, Marital Status, Education Level y Occupation están completas (0 NA), mientras que las variables numéricas presentan cantidades considerables de datos faltantes: Age con 18,705, Annual Income con 44,949, Number of Dependents con 109,672 (la más afectada) y Health Score con 74,076, lo que indica que será necesario aplicar algún tratamiento de imputación antes de continuar con el análisis.
+
+##Ingeniería de características en variables numéricas
 
 Ahora, imputemos los datos faltantes
 ```{r imputacion}
@@ -109,8 +199,10 @@ df %>%
 
 En efecto, la imputación resultó exitosa y no tenemos ningún NA en las variables numéricas.
 
+## Revisión de datos faltantes en variables categóricas 
 
-Ahora, verifiquemos los NA en las variables categóricas
+Ahora, verifiquemos los NA en estas variables.
+
 ```{r}
 df %>%
   select(where(is.character)) %>%
@@ -120,6 +212,7 @@ df %>%
 
 Al verificar los valores faltantes en las variables categóricas, se identificó que Marital Status (18,529), Occupation (358,075) y Customer Feedback (77,824) presentan datos faltantes, mientras que el resto de las variables categóricas (Gender, Education Level, Location, Policy Type, Smoking Status, Exercise Frequency y Property Type) están completas. Destaca el caso de Occupation, cuyo porcentaje de faltantes es considerablemente alto (cerca del 30% del total de registros), por lo que su tratamiento requerirá un enfoque distinto al resto, como la creación de una categoría independiente en lugar de una imputación por moda.
 
+## Ingeniería de características en variables categóricas
 
 ```{r}
 moda_cat <- function(x) {
@@ -146,6 +239,7 @@ df %>%
 
 Verificamos la cantidad de NA en las variables categóricas después de la imputación y efectivamente es 0 en todas, es decir, la imputación fue exitosa. 
 
+##Conversión de las variables categóricas a factor
 
 El paso siguiente es convertir las variables categóricas a factor para realizar los gráficos más facilmente.
 
@@ -173,6 +267,7 @@ df <- df %>%
 
 Se convirtieron todas las variables categóricas de tipo texto a factor, ya que este formato es más adecuado para el análisis en R, tanto para tablas de frecuencia como para gráficos. En el caso de Education Level, Customer Feedback y Exercise Frequency, se declararon además como factores ordenados, respetando una jerarquía lógica en sus categorías, lo que permitirá que tanto los análisis como las visualizaciones reflejen ese orden natural en lugar de mostrarlas simplemente en orden alfabético.
 
+##Resumen variables numéricas
 
 Ahora, veamos un resumen de las variables numéricas
 
