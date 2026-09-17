@@ -62,7 +62,7 @@ df %>%
 
 El análisis de valores faltantes muestra que las variables id, Gender, Marital Status, Education Level y Occupation están completas (0 NA), mientras que las variables numéricas presentan cantidades considerables de datos faltantes: Age con 18,705, Annual Income con 44,949, Number of Dependents con 109,672 (la más afectada) y Health Score con 74,076, lo que indica que será necesario aplicar algún tratamiento de imputación antes de continuar con el análisis.
 
-##Ingeniería de características en variables numéricas
+## Ingeniería de características en variables numéricas
 
 Ahora, imputemos los datos faltantes
 ```{r imputacion}
@@ -138,7 +138,7 @@ df %>%
 
 Verificamos la cantidad de NA en las variables categóricas después de la imputación y efectivamente es 0 en todas, es decir, la imputación fue exitosa. 
 
-##Conversión de las variables categóricas a factor
+## Conversión de las variables categóricas a factor
 
 El paso siguiente es convertir las variables categóricas a factor para realizar los gráficos más facilmente.
 
@@ -181,7 +181,7 @@ ggplot <- function(data = NULL, mapping = ggplot2::aes(), ..., environment = par
 }
 ```
 
-##Resumen variables numéricas
+## Resumen variables numéricas
 
 Ahora, veamos un resumen de las variables numéricas
 
@@ -554,7 +554,7 @@ Se observa que, para prácticamente todos los niveles de ingreso anual, los valo
 Opción extra para el profe:
 ```{r}
 ggplot(df, aes(x = `Annual Income`, y = `Premium Amount`)) +
-  geom_hex(bins = 50) +
+  geom_bin2d(bins = 50) +
   scale_fill_gradient(low = "#D6E4EA", high = "#2C4A5E") +
   labs(title = "Annual Income vs Premium Amount", x = "Annual Income", y = "Premium Amount", fill = "Cantidad")
 ```

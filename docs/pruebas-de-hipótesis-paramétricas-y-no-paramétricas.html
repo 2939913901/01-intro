@@ -147,12 +147,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Análisis Exploratorio de Datos (EDA)</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="01-intro.html"><a href="#revisi%C3%B3n-de-datos-faltantes-en-las-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>2.1</b> Revisión de datos faltantes en las variables numéricas</a></li>
-<li class="chapter" data-level="2.2" data-path="01-intro.html"><a href="#revisi%C3%B3n-de-datos-faltantes-en-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>2.2</b> Revisión de datos faltantes en variables categóricas</a></li>
-<li class="chapter" data-level="2.3" data-path="01-intro.html"><a href="#ingenier%C3%ADa-de-caracter%C3%ADsticas-en-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>2.3</b> Ingeniería de características en variables categóricas</a></li>
-<li class="chapter" data-level="2.4" data-path="01-intro.html"><a href="#an%C3%A1lisis-variable-respuesta-premium-amount"><i class="fa fa-check"></i><b>2.4</b> Análisis variable respuesta (Premium Amount)</a></li>
-<li class="chapter" data-level="2.5" data-path="01-intro.html"><a href="#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>2.5</b> Análisis de las variables independientes (características)</a></li>
-<li class="chapter" data-level="2.6" data-path="01-intro.html"><a href="#an%C3%A1lisis-bivariado-variable-caracter%C3%ADstica-vs-variable-respuesta"><i class="fa fa-check"></i><b>2.6</b> Análisis bivariado (Variable característica vs Variable respuesta)</a></li>
-<li class="chapter" data-level="2.7" data-path="01-intro.html"><a href="#an%C3%A1lisis-bivariado-independienets-vs-independientes"><i class="fa fa-check"></i><b>2.7</b> Análisis bivariado independienets vs independientes</a></li>
+<li class="chapter" data-level="2.2" data-path="01-intro.html"><a href="#ingenier%C3%ADa-de-caracter%C3%ADsticas-en-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>2.2</b> Ingeniería de características en variables numéricas</a></li>
+<li class="chapter" data-level="2.3" data-path="01-intro.html"><a href="#revisi%C3%B3n-de-datos-faltantes-en-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>2.3</b> Revisión de datos faltantes en variables categóricas</a></li>
+<li class="chapter" data-level="2.4" data-path="01-intro.html"><a href="#ingenier%C3%ADa-de-caracter%C3%ADsticas-en-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>2.4</b> Ingeniería de características en variables categóricas</a></li>
+<li class="chapter" data-level="2.5" data-path="01-intro.html"><a href="#conversi%C3%B3n-de-las-variables-categ%C3%B3ricas-a-factor"><i class="fa fa-check"></i><b>2.5</b> Conversión de las variables categóricas a factor</a></li>
+<li class="chapter" data-level="2.6" data-path="01-intro.html"><a href="#resumen-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>2.6</b> Resumen variables numéricas</a></li>
+<li class="chapter" data-level="2.7" data-path="01-intro.html"><a href="#an%C3%A1lisis-variable-respuesta-premium-amount"><i class="fa fa-check"></i><b>2.7</b> Análisis variable respuesta (Premium Amount)</a></li>
+<li class="chapter" data-level="2.8" data-path="01-intro.html"><a href="#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>2.8</b> Análisis de las variables independientes (características)</a></li>
+<li class="chapter" data-level="2.9" data-path="01-intro.html"><a href="#an%C3%A1lisis-bivariado-variable-caracter%C3%ADstica-vs-variable-respuesta"><i class="fa fa-check"></i><b>2.9</b> Análisis bivariado (Variable característica vs Variable respuesta)</a></li>
+<li class="chapter" data-level="2.10" data-path="01-intro.html"><a href="#an%C3%A1lisis-bivariado-independienets-vs-independientes"><i class="fa fa-check"></i><b>2.10</b> Análisis bivariado independienets vs independientes</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="01-intro.html"><a href="#pruebas-de-hip%C3%B3tesis-param%C3%A9tricas-y-no-param%C3%A9tricas"><i class="fa fa-check"></i><b>3</b> Pruebas de hipótesis paramétricas y no paramétricas</a>
 <ul>
@@ -186,17 +189,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>H₀: μ₁ = μ₂ (no hay diferencia entre los grupos)
 H₁: μ₁ ≠ μ₂ (existe una diferencia entre los grupos)</p>
 <p>Para dar inicio al análisis, se separan los valores de Premium Amount en dos grupos según la variable Smoking Status, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb136-1" tabindex="-1"></a>no_fumadores <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Smoking_Status <span class="sc">==</span> <span class="st">&quot;No&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb136-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb136-2" tabindex="-1"></a>fumadores <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Smoking_Status <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb135-1" tabindex="-1"></a>no_fumadores <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Smoking_Status <span class="sc">==</span> <span class="st">&quot;No&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb135-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb135-2" tabindex="-1"></a>fumadores <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Smoking_Status <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
 <p>Antes de decidir qué tipo de prueba aplicar para comparar los dos grupos, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad. Dado el gran tamaño de la muestra, se emplea inicialmente la prueba de Lilliefors, ya que no presenta restricciones en cuanto al número de observaciones y permite empates.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb137-1" tabindex="-1"></a><span class="fu">library</span>(nortest)</span>
-<span id="cb137-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb137-2" tabindex="-1"></a><span class="fu">lillie.test</span>(no_fumadores)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb136-1" tabindex="-1"></a><span class="fu">library</span>(nortest)</span>
+<span id="cb136-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb136-2" tabindex="-1"></a><span class="fu">lillie.test</span>(no_fumadores)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  no_fumadores
 ## D = 0.11591, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb139-1" tabindex="-1"></a><span class="fu">lillie.test</span>(fumadores)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb138-1" tabindex="-1"></a><span class="fu">lillie.test</span>(fumadores)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -204,17 +207,17 @@ H₁: μ₁ ≠ μ₂ (existe una diferencia entre los grupos)</p>
 ## D = 0.11656, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que las distribuciones del Premium Amount para los clientes no fumadores (D = 0.11591, p-valor &lt; 0.001) y fumadores (D = 0.11656, p-valor &lt; 0.001) no provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Como complemento a la prueba anterior, se aplica también la prueba de Shapiro-Wilk sobre una muestra aleatoria de 5,000 observaciones por grupo, debido a que esta prueba tiene un límite máximo de observaciones permitidas.</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb141-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb141-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb141-2" tabindex="-1"></a>muestra_no <span class="ot">&lt;-</span> <span class="fu">sample</span>(no_fumadores, <span class="dv">5000</span>)</span>
-<span id="cb141-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb141-3" tabindex="-1"></a>muestra_yes <span class="ot">&lt;-</span> <span class="fu">sample</span>(fumadores, <span class="dv">5000</span>)</span>
-<span id="cb141-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb141-4" tabindex="-1"></a></span>
-<span id="cb141-5"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb141-5" tabindex="-1"></a><span class="fu">shapiro.test</span>(muestra_no)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb140-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb140-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb140-2" tabindex="-1"></a>muestra_no <span class="ot">&lt;-</span> <span class="fu">sample</span>(no_fumadores, <span class="dv">5000</span>)</span>
+<span id="cb140-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb140-3" tabindex="-1"></a>muestra_yes <span class="ot">&lt;-</span> <span class="fu">sample</span>(fumadores, <span class="dv">5000</span>)</span>
+<span id="cb140-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb140-4" tabindex="-1"></a></span>
+<span id="cb140-5"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb140-5" tabindex="-1"></a><span class="fu">shapiro.test</span>(muestra_no)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  muestra_no
 ## W = 0.89415, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb143-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(muestra_yes)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb142-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(muestra_yes)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -226,22 +229,22 @@ H₁: μ₁ ≠ μ₂ (existe una diferencia entre los grupos)</p>
 <p>H₀: η₁ = η₂
 H₁: η₁ ≠ η₂</p>
 <p>Antes de aplicar la prueba de Mann-Whitney-Wilcoxon, se verifica la homogeneidad de varianzas entre los grupos mediante la prueba de Levene.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb145-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Smoking_Status, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb144-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Smoking_Status, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##            Df F value Pr(&gt;F)
 ## group       1  0.7404 0.3895
 ##       1199998</code></pre>
 <p>Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre los clientes fumadores y no fumadores (F(1) = 0.7404, p-valor = 0.3895).</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb147-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb147-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb147-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">wilcox_test</span>(Premium_Amount <span class="sc">~</span> Smoking_Status, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb146-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb146-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb146-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">wilcox_test</span>(Premium_Amount <span class="sc">~</span> Smoking_Status, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##   .y.            group1 group2     n1     n2    statistic     p
 ## * &lt;chr&gt;          &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;  &lt;int&gt;        &lt;dbl&gt; &lt;dbl&gt;
 ## 1 Premium_Amount No     Yes    598127 601873 179920076580 0.680</code></pre>
 <p>Con una confianza del 95%, la prueba de Mann-Whitney-Wilcoxon indica que no hay evidencia estadísticamente significativa de una diferencia en la mediana del Premium Amount entre clientes fumadores y no fumadores (U = 179920076580, p-valor = 0.6803), por lo que no se rechaza H₀.</p>
 <p>A pesar de no encontrar una diferencia estadísticamente significativa, se calcula el tamaño del efecto para complementar el análisis.</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb149-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb149-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb149-2" tabindex="-1"></a>  <span class="fu">wilcox_effsize</span>(Premium_Amount <span class="sc">~</span> Smoking_Status, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb148-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb148-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb148-2" tabindex="-1"></a>  <span class="fu">wilcox_effsize</span>(Premium_Amount <span class="sc">~</span> Smoking_Status, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##   .y.            group1 group2  effsize     n1     n2 magnitude
 ## * &lt;chr&gt;          &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt; &lt;ord&gt;    
@@ -251,23 +254,23 @@ H₁: η₁ ≠ η₂</p>
 <p>H₀: las tres poblaciones (Basic, Comprehensive, Premium) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
 <p>Antes de decidir qué tipo de prueba aplicar para comparar los tres tipos de póliza, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada uno de los tres grupos. Para ello, se utiliza la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb151-1" tabindex="-1"></a>basic <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Policy_Type <span class="sc">==</span> <span class="st">&quot;Basic&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb151-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb151-2" tabindex="-1"></a>comprehensive <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Policy_Type <span class="sc">==</span> <span class="st">&quot;Comprehensive&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb151-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb151-3" tabindex="-1"></a>premium <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Policy_Type <span class="sc">==</span> <span class="st">&quot;Premium&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb151-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb151-4" tabindex="-1"></a></span>
-<span id="cb151-5"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb151-5" tabindex="-1"></a><span class="fu">lillie.test</span>(basic)</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb150-1" tabindex="-1"></a>basic <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Policy_Type <span class="sc">==</span> <span class="st">&quot;Basic&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb150-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb150-2" tabindex="-1"></a>comprehensive <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Policy_Type <span class="sc">==</span> <span class="st">&quot;Comprehensive&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb150-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb150-3" tabindex="-1"></a>premium <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Policy_Type <span class="sc">==</span> <span class="st">&quot;Premium&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb150-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb150-4" tabindex="-1"></a></span>
+<span id="cb150-5"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb150-5" tabindex="-1"></a><span class="fu">lillie.test</span>(basic)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  basic
 ## D = 0.11591, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb153-1" tabindex="-1"></a><span class="fu">lillie.test</span>(comprehensive)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb152-1" tabindex="-1"></a><span class="fu">lillie.test</span>(comprehensive)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  comprehensive
 ## D = 0.11593, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb155-1" tabindex="-1"></a><span class="fu">lillie.test</span>(premium)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb154-1" tabindex="-1"></a><span class="fu">lillie.test</span>(premium)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -275,14 +278,14 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 ## D = 0.11687, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que las distribuciones del Premium Amount para los tipos de póliza Basic (D = 0.11591, p-valor &lt; 0.001), Comprehensive (D = 0.11593, p-valor &lt; 0.001) y Premium (D = 0.11687, p-valor &lt; 0.001) no provienen de una distribución normal, ya que en los tres casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los tres grupos mediante la prueba de Levene.</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb157-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Policy_Type, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb156-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Policy_Type, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##            Df F value Pr(&gt;F)
 ## group       2  0.0703 0.9321
 ##       1199997</code></pre>
 <p>Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre los tres tipos de póliza (F(2) = 0.0703, p-valor = 0.9321).</p>
 <p>Una vez verificados los supuestos, se procede a aplicar la prueba de Kruskal-Wallis para determinar si existen diferencias significativas en el Premium Amount entre los tres tipos de póliza.</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb159-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Policy_Type, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb158-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Policy_Type, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -290,8 +293,8 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 ## Kruskal-Wallis chi-squared = 1.9075, df = 2, p-value = 0.3853</code></pre>
 <p>Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre los tres tipos de póliza (χ²(2) = 1.9075, p-valor = 0.3853).</p>
 <p>A pesar de no encontrar una diferencia estadísticamente significativa, se calcula el tamaño del efecto para complementar el análisis.</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb161-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb161-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb161-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Policy_Type)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb160-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb160-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb160-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Policy_Type)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
 ##   .y.                  n effsize method  magnitude
 ## * &lt;chr&gt;            &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
@@ -302,13 +305,13 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: ρ = 0 (no existe correlación entre las variables)
 H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Para ello, se aplica la prueba de Lilliefors sobre cada una.</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb163-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Health_Score)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb162-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Health_Score)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  df$Health_Score
 ## D = 0.064144, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb165-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Premium_Amount)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb164-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Premium_Amount)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -316,7 +319,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 ## D = 0.11624, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que ni Health Score (D = 0.047379, p-valor &lt; 0.001) ni Premium Amount (D = 0.11624, p-valor &lt; 0.001) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Health Score y Premium Amount.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb167-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Health_Score, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb166-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Health_Score, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(df$Health_Score, df$Premium_Amount, method =
 ## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -333,22 +336,22 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>H₀: Smoking Status y Policy Type son independientes (no hay relación entre ellas).
 H₁: Smoking Status y Policy Type no son independientes (existe relación entre ellas).</p>
 <p>Para evaluar si existe relación entre Smoking Status y Policy Type, se construye primero una tabla de contingencia que muestra la frecuencia de cada combinación posible entre ambas variables.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb170-1" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>Smoking_Status, df<span class="sc">$</span>Policy_Type)</span>
-<span id="cb170-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb170-2" tabindex="-1"></a>tabla</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb169-1" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>Smoking_Status, df<span class="sc">$</span>Policy_Type)</span>
+<span id="cb169-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb169-2" tabindex="-1"></a>tabla</span></code></pre></div>
 <pre><code>##      
 ##        Basic Comprehensive Premium
 ##   No  198061        199509  200557
 ##   Yes 200493        200091  201289</code></pre>
 <p>La tabla de contingencia muestra la distribución de frecuencias entre Smoking Status y Policy Type. Se observa que las frecuencias son bastante similares entre las combinaciones, oscilando entre 198,061 y 201,289 clientes en cada celda, sin que se note a simple vista una concentración marcada en alguna combinación en particular.</p>
 <p>Antes de aplicar la prueba de Chi-cuadrado, es necesario verificar que los valores esperados en cada celda sean mayores o iguales a 5, ya que este es un supuesto fundamental para la validez de la prueba.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb172-1" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla)<span class="sc">$</span>expected</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb171-1" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla)<span class="sc">$</span>expected</span></code></pre></div>
 <pre><code>##      
 ##          Basic Comprehensive  Premium
 ##   No  198654.9      199176.3 200295.8
 ##   Yes 199899.1      200423.7 201550.2</code></pre>
 <p>Se verifica que todos los valores esperados en la tabla de contingencia son considerablemente mayores a 5 (el valor más bajo es 198,654.9), por lo que se cumple el supuesto necesario para aplicar la prueba de Chi-cuadrado con validez.</p>
 <p>Aplicamos la prueba chi-cuadrado</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb174-1" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla)</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb173-1" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
@@ -360,16 +363,16 @@ H₁: Smoking Status y Policy Type no son independientes (existe relación entre
 <p>H₀: μ₁ = μ₂
 H₁: μ₁ ≠ μ₂</p>
 <p>Antes de decidir qué tipo de prueba aplicar, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada grupo. Para ello, se separan los valores de Premium Amount según Gender y se aplica la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb176-1" tabindex="-1"></a>female <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb176-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb176-2" tabindex="-1"></a>male <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb176-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb176-3" tabindex="-1"></a></span>
-<span id="cb176-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb176-4" tabindex="-1"></a><span class="fu">lillie.test</span>(female)</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb175-1" tabindex="-1"></a>female <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb175-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb175-2" tabindex="-1"></a>male <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb175-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb175-3" tabindex="-1"></a></span>
+<span id="cb175-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb175-4" tabindex="-1"></a><span class="fu">lillie.test</span>(female)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  female
 ## D = 0.11638, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb178-1" tabindex="-1"></a><span class="fu">lillie.test</span>(male)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb177-1" tabindex="-1"></a><span class="fu">lillie.test</span>(male)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -377,17 +380,17 @@ H₁: μ₁ ≠ μ₂</p>
 ## D = 0.1161, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que las distribuciones del Premium Amount para clientes Female y Male no provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Como complemento, se aplica también la prueba de Shapiro-Wilk sobre una muestra aleatoria de 5,000 observaciones por grupo:</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb180-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb180-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb180-2" tabindex="-1"></a>muestra_female <span class="ot">&lt;-</span> <span class="fu">sample</span>(female, <span class="dv">5000</span>)</span>
-<span id="cb180-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb180-3" tabindex="-1"></a>muestra_male <span class="ot">&lt;-</span> <span class="fu">sample</span>(male, <span class="dv">5000</span>)</span>
-<span id="cb180-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb180-4" tabindex="-1"></a></span>
-<span id="cb180-5"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb180-5" tabindex="-1"></a><span class="fu">shapiro.test</span>(muestra_female)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb179-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb179-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb179-2" tabindex="-1"></a>muestra_female <span class="ot">&lt;-</span> <span class="fu">sample</span>(female, <span class="dv">5000</span>)</span>
+<span id="cb179-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb179-3" tabindex="-1"></a>muestra_male <span class="ot">&lt;-</span> <span class="fu">sample</span>(male, <span class="dv">5000</span>)</span>
+<span id="cb179-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb179-4" tabindex="-1"></a></span>
+<span id="cb179-5"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb179-5" tabindex="-1"></a><span class="fu">shapiro.test</span>(muestra_female)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  muestra_female
 ## W = 0.89798, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb182-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(muestra_male)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb181-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(muestra_male)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -399,22 +402,22 @@ H₁: μ₁ ≠ μ₂</p>
 <p>H₀: η₁ = η₂
 H₁: η₁ ≠ η₂</p>
 <p>Antes de aplicar Mann-Whitney-Wilcoxon, se verifica la homogeneidad de varianzas mediante Levene:</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb184-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Gender, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb183-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Gender, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##            Df F value Pr(&gt;F)
 ## group       1  1.2907 0.2559
 ##       1199998</code></pre>
 <p>Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre clientes Female y Male (F(1) = 1.2907, p-valor = 0.2559), ya que el p-valor es mayor al nivel de significancia establecido (0.05). Esto significa que se cumple el supuesto de homogeneidad de varianzas, por lo que se puede continuar con la prueba de Mann-Whitney-Wilcoxon sin inconvenientes.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb186-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb186-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb186-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">wilcox_test</span>(Premium_Amount <span class="sc">~</span> Gender, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb185-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb185-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb185-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">wilcox_test</span>(Premium_Amount <span class="sc">~</span> Gender, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##   .y.            group1 group2     n1     n2    statistic     p
 ## * &lt;chr&gt;          &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;  &lt;int&gt;        &lt;dbl&gt; &lt;dbl&gt;
 ## 1 Premium_Amount Female Male   597429 602571 179971290482 0.893</code></pre>
 <p>Con una confianza del 95%, la prueba de Mann-Whitney-Wilcoxon indica que no hay evidencia estadísticamente significativa de una diferencia en la mediana del Premium Amount entre clientes Female y Male (U = 179,971,290,482, p-valor = 0.8935), ya que el p-valor es considerablemente mayor al nivel de significancia establecido (0.05). Por lo tanto, no se rechaza H₀.</p>
 <p>Y finalmente el tamaño del efecto:</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb188-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb188-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb188-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">wilcox_effsize</span>(Premium_Amount <span class="sc">~</span> Gender, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb187-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb187-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb187-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">wilcox_effsize</span>(Premium_Amount <span class="sc">~</span> Gender, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##   .y.            group1 group2  effsize     n1     n2 magnitude
 ## * &lt;chr&gt;          &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt; &lt;ord&gt;    
@@ -425,30 +428,30 @@ H₁: η₁ ≠ η₂</p>
 <p>H₀: las cuatro poblaciones (Rarely, Monthly, Weekly, Daily) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
 <p>Antes de decidir qué tipo de prueba aplicar para comparar los cuatro grupos, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada uno de ellos. Para ello, se utiliza la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb190-1" tabindex="-1"></a>rarely <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Exercise_Frequency <span class="sc">==</span> <span class="st">&quot;Rarely&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb190-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb190-2" tabindex="-1"></a>monthly <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Exercise_Frequency <span class="sc">==</span> <span class="st">&quot;Monthly&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb190-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb190-3" tabindex="-1"></a>weekly <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Exercise_Frequency <span class="sc">==</span> <span class="st">&quot;Weekly&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb190-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb190-4" tabindex="-1"></a>daily <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Exercise_Frequency <span class="sc">==</span> <span class="st">&quot;Daily&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb190-5"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb190-5" tabindex="-1"></a></span>
-<span id="cb190-6"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb190-6" tabindex="-1"></a><span class="fu">lillie.test</span>(rarely)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb189-1" tabindex="-1"></a>rarely <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Exercise_Frequency <span class="sc">==</span> <span class="st">&quot;Rarely&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb189-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb189-2" tabindex="-1"></a>monthly <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Exercise_Frequency <span class="sc">==</span> <span class="st">&quot;Monthly&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb189-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb189-3" tabindex="-1"></a>weekly <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Exercise_Frequency <span class="sc">==</span> <span class="st">&quot;Weekly&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb189-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb189-4" tabindex="-1"></a>daily <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Exercise_Frequency <span class="sc">==</span> <span class="st">&quot;Daily&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb189-5"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb189-5" tabindex="-1"></a></span>
+<span id="cb189-6"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb189-6" tabindex="-1"></a><span class="fu">lillie.test</span>(rarely)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  rarely
 ## D = 0.11657, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb192-1" tabindex="-1"></a><span class="fu">lillie.test</span>(monthly)</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb191-1" tabindex="-1"></a><span class="fu">lillie.test</span>(monthly)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  monthly
 ## D = 0.1169, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb194-1" tabindex="-1"></a><span class="fu">lillie.test</span>(weekly)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb193-1" tabindex="-1"></a><span class="fu">lillie.test</span>(weekly)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  weekly
 ## D = 0.11577, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb196-1" tabindex="-1"></a><span class="fu">lillie.test</span>(daily)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb195-1" tabindex="-1"></a><span class="fu">lillie.test</span>(daily)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -456,13 +459,13 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 ## D = 0.11574, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que las distribuciones del Premium Amount para las cuatro frecuencias de ejercicio (Rarely, Monthly, Weekly, Daily) no provienen de una distribución normal, ya que en los cuatro casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los cuatro grupos mediante la prueba de Levene</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb198-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Exercise_Frequency, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb197-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Exercise_Frequency, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##            Df F value Pr(&gt;F)
 ## group       3  0.8489 0.4669
 ##       1199996</code></pre>
 <p>Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre las cuatro frecuencias de ejercicio (F(3) = 0.8489, p-valor = 0.4669), ya que el p-valor es mayor al nivel de significancia establecido. Esto confirma que se cumple el supuesto de homogeneidad de varianzas, por lo que se puede continuar con la prueba de Kruskal-Wallis sin inconvenientes.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb200-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Exercise_Frequency, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb199-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Exercise_Frequency, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -470,8 +473,8 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 ## Kruskal-Wallis chi-squared = 2.7564, df = 3, p-value = 0.4307</code></pre>
 <p>Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre las cuatro frecuencias de ejercicio (χ²(3) = 2.7564, p-valor = 0.4307), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀.</p>
 <p>A pesar de no encontrar una diferencia estadísticamente significativa, se calcula el tamaño del efecto para complementar el análisis.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb202-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb202-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb202-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Exercise_Frequency)</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb201-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb201-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb201-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Exercise_Frequency)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
 ##   .y.                  n effsize method  magnitude
 ## * &lt;chr&gt;            &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
@@ -483,13 +486,13 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: ρ = 0 (no existe correlación entre las variables)
 H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Para ello, se aplica la prueba de Lilliefors sobre cada una.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb204-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Annual_Income)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb203-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Annual_Income)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  df$Annual_Income
 ## D = 0.15271, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb206-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Vehicle_Age)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb205-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Vehicle_Age)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -497,7 +500,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 ## D = 0.083798, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que ni Annual Income (D = 0.15453, p-valor &lt; 0.001) ni Vehicle Age (D = 0.083797, p-valor &lt; 0.001) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Annual Income y Vehicle Age.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb208-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Annual_Income, df<span class="sc">$</span>Vehicle_Age, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb207-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Annual_Income, df<span class="sc">$</span>Vehicle_Age, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(df$Annual_Income, df$Vehicle_Age, method =
 ## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -514,21 +517,21 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>H₀: Smoking Status y Exercise Frequency son independientes (no hay relación entre ellas).
 H₁: Smoking Status y Exercise Frequency no son independientes (existe relación entre ellas).</p>
 <p>Para evaluar si existe relación entre Smoking Status y Exercise Frequency, se construye primero una tabla de contingencia que muestra la frecuencia de cada combinación posible entre ambas variables.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb211-1" tabindex="-1"></a>tabla2 <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>Smoking_Status, df<span class="sc">$</span>Exercise_Frequency)</span>
-<span id="cb211-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb211-2" tabindex="-1"></a>tabla2</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb210-1" tabindex="-1"></a>tabla2 <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>Smoking_Status, df<span class="sc">$</span>Exercise_Frequency)</span>
+<span id="cb210-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb210-2" tabindex="-1"></a>tabla2</span></code></pre></div>
 <pre><code>##      
 ##       Rarely Monthly Weekly  Daily
 ##   No  148910  149477 152513 147227
 ##   Yes 150510  150353 153666 147344</code></pre>
 <p>La tabla de contingencia muestra la distribución de frecuencias entre Smoking Status y Exercise Frequency. Se observa que las frecuencias son bastante similares entre las combinaciones, oscilando entre 147,227 y 153,666 clientes en cada celda, sin que se note a simple vista una concentración marcada en alguna combinación en particular. Tanto fumadores como no fumadores se distribuyen de forma prácticamente pareja entre las cuatro frecuencias de ejercicio.</p>
 <p>Antes de aplicar la prueba de Chi-cuadrado, es necesario verificar que los valores esperados en cada celda sean mayores o iguales a 5, ya que este es un supuesto fundamental para la validez de la prueba.</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb213-1" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla2)<span class="sc">$</span>expected</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb212-1" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla2)<span class="sc">$</span>expected</span></code></pre></div>
 <pre><code>##      
 ##         Rarely Monthly   Weekly    Daily
 ##   No  149242.7  149447 152611.6 146825.7
 ##   Yes 150177.3  150383 153567.4 147745.3</code></pre>
 <p>Se verifica que todos los valores esperados en la tabla de contingencia son considerablemente mayores a 5 (el valor más bajo es 146,825.7), por lo que se cumple el supuesto necesario para aplicar la prueba de Chi-cuadrado con validez.</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb215-1" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla2)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb214-1" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla2)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
@@ -539,23 +542,23 @@ H₁: Smoking Status y Exercise Frequency no son independientes (existe relació
 <p>H₀: las tres poblaciones (Divorced, Married, Single) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
 <p>Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Marital Status, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb217-1" tabindex="-1"></a>divorced <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Marital_Status <span class="sc">==</span> <span class="st">&quot;Divorced&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb217-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb217-2" tabindex="-1"></a>married  <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Marital_Status <span class="sc">==</span> <span class="st">&quot;Married&quot;</span>)  <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb217-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb217-3" tabindex="-1"></a>single   <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Marital_Status <span class="sc">==</span> <span class="st">&quot;Single&quot;</span>)   <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb216-1" tabindex="-1"></a>divorced <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Marital_Status <span class="sc">==</span> <span class="st">&quot;Divorced&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb216-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb216-2" tabindex="-1"></a>married  <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Marital_Status <span class="sc">==</span> <span class="st">&quot;Married&quot;</span>)  <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb216-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb216-3" tabindex="-1"></a>single   <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Marital_Status <span class="sc">==</span> <span class="st">&quot;Single&quot;</span>)   <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
 <p>Antes de decidir qué tipo de prueba aplicar para comparar los tres estados civiles, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada grupo. Para ello, se emplea la prueba de Lilliefors, ya que no presenta restricciones en cuanto al número de observaciones y permite empates.</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb218-1" tabindex="-1"></a><span class="fu">lillie.test</span>(divorced)</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb217-1" tabindex="-1"></a><span class="fu">lillie.test</span>(divorced)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  divorced
 ## D = 0.11686, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb220-1" tabindex="-1"></a><span class="fu">lillie.test</span>(married)</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb219-1" tabindex="-1"></a><span class="fu">lillie.test</span>(married)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  married
 ## D = 0.11649, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb222-1" tabindex="-1"></a><span class="fu">lillie.test</span>(single)</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb221-1" tabindex="-1"></a><span class="fu">lillie.test</span>(single)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -567,13 +570,13 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: η₁ = η₂ = η₃
 H₁: al menos una mediana es diferente</p>
 <p>Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los tres grupos mediante la prueba de Levene.</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb224-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Marital_Status, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb223-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Marital_Status, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##            Df F value Pr(&gt;F)
 ## group       2   2.135 0.1182
 ##       1199997</code></pre>
 <p>Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre los tres estados civiles (F(2) = 0.8382, p-valor = 0.4325), ya que el p-valor es mayor al nivel de significancia establecido. Esto confirma que se cumple el supuesto de homogeneidad de varianzas, por lo que se puede continuar con la prueba de Kruskal-Wallis sin inconvenientes.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb226-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Marital_Status, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb225-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Marital_Status, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -581,8 +584,8 @@ H₁: al menos una mediana es diferente</p>
 ## Kruskal-Wallis chi-squared = 18.974, df = 2, p-value = 7.582e-05</code></pre>
 <p>Con una confianza del 95%, la prueba de Kruskal-Wallis indica que sí existen diferencias estadísticamente significativas en el Premium Amount entre los tres estados civiles (χ²(2) = 18.974, p-valor &lt; 0.001), ya que el p-valor es considerablemente menor al nivel de significancia establecido. Por lo tanto, se rechaza H₀.</p>
 <p>Dado que la prueba resultó significativa, se calcula el tamaño del efecto para complementar el análisis.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb228-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb228-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb228-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Marital_Status)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb227-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb227-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb227-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Marital_Status)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
 ##   .y.                  n   effsize method  magnitude
 ## * &lt;chr&gt;            &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
@@ -593,30 +596,30 @@ H₁: al menos una mediana es diferente</p>
 <p>H₀: las cuatro poblaciones (High School, Bachelor’s, Master’s, PhD) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
 <p>Para dar inicio al análisis, se separan los valores de Premium Amount en cuatro grupos según la variable Education Level, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb230-1" tabindex="-1"></a>hs <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Education_Level <span class="sc">==</span> <span class="st">&quot;High School&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb230-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb230-2" tabindex="-1"></a>bachelors <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Education_Level <span class="sc">==</span> <span class="st">&quot;Bachelor&#39;s&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb230-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb230-3" tabindex="-1"></a>masters <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Education_Level <span class="sc">==</span> <span class="st">&quot;Master&#39;s&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb230-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb230-4" tabindex="-1"></a>phd <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Education_Level <span class="sc">==</span> <span class="st">&quot;PhD&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb229-1" tabindex="-1"></a>hs <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Education_Level <span class="sc">==</span> <span class="st">&quot;High School&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb229-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb229-2" tabindex="-1"></a>bachelors <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Education_Level <span class="sc">==</span> <span class="st">&quot;Bachelor&#39;s&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb229-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb229-3" tabindex="-1"></a>masters <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Education_Level <span class="sc">==</span> <span class="st">&quot;Master&#39;s&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb229-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb229-4" tabindex="-1"></a>phd <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Education_Level <span class="sc">==</span> <span class="st">&quot;PhD&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
 <p>Antes de decidir qué tipo de prueba aplicar para comparar los cuatro niveles educativos, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada uno de los cuatro grupos. Para ello, se emplea la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb231-1" tabindex="-1"></a><span class="fu">lillie.test</span>(hs)</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb230-1" tabindex="-1"></a><span class="fu">lillie.test</span>(hs)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  hs
 ## D = 0.11531, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb233-1" tabindex="-1"></a><span class="fu">lillie.test</span>(bachelors)</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb232-1" tabindex="-1"></a><span class="fu">lillie.test</span>(bachelors)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  bachelors
 ## D = 0.11557, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb235-1" tabindex="-1"></a><span class="fu">lillie.test</span>(masters)</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb234-1" tabindex="-1"></a><span class="fu">lillie.test</span>(masters)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  masters
 ## D = 0.11667, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb237-1" tabindex="-1"></a><span class="fu">lillie.test</span>(phd)</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb236-1" tabindex="-1"></a><span class="fu">lillie.test</span>(phd)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -628,7 +631,7 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: η₁ = η₂ = η₃ = η₄
 H₁: al menos una mediana es diferente</p>
 <p>Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los cuatro grupos mediante la prueba de Levene.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb239-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Education_Level, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb238-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Education_Level, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##            Df F value  Pr(&gt;F)  
 ## group       3  2.1127 0.09627 .
@@ -636,7 +639,7 @@ H₁: al menos una mediana es diferente</p>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre los cuatro niveles educativos (F(3) = 2.1127, p-valor = 0.09627), ya que el p-valor es mayor al nivel de significancia establecido. Esto confirma que se cumple el supuesto de homogeneidad de varianzas, por lo que se puede continuar con la prueba de Kruskal-Wallis sin inconvenientes.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb241-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Education_Level, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb240-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Education_Level, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -644,8 +647,8 @@ H₁: al menos una mediana es diferente</p>
 ## Kruskal-Wallis chi-squared = 3.8043, df = 3, p-value = 0.2834</code></pre>
 <p>Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre los cuatro niveles educativos (χ²(3) = 3.8043, p-valor = 0.2834), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀.</p>
 <p>Calculamos el tamaño del efecto:</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb243-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb243-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb243-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Education_Level)</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb242-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb242-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb242-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Education_Level)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
 ##   .y.                  n     effsize method  magnitude
 ## * &lt;chr&gt;            &lt;int&gt;       &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
@@ -656,30 +659,30 @@ H₁: al menos una mediana es diferente</p>
 <p>H₀: las cuatro poblaciones (Employed, Self-Employed, Unemployed, No especificado) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
 <p>Para dar inicio al análisis, se separan los valores de Premium Amount en cuatro grupos según la variable Occupation, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb245-1" tabindex="-1"></a>empleado <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Occupation <span class="sc">==</span> <span class="st">&quot;Employed&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb245-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb245-2" tabindex="-1"></a>independiente <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Occupation <span class="sc">==</span> <span class="st">&quot;Self-Employed&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb245-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb245-3" tabindex="-1"></a>desempleado <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Occupation <span class="sc">==</span> <span class="st">&quot;Unemployed&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb245-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb245-4" tabindex="-1"></a>noespecificado <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Occupation <span class="sc">==</span> <span class="st">&quot;No especificado&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb244-1" tabindex="-1"></a>empleado <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Occupation <span class="sc">==</span> <span class="st">&quot;Employed&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb244-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb244-2" tabindex="-1"></a>independiente <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Occupation <span class="sc">==</span> <span class="st">&quot;Self-Employed&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb244-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb244-3" tabindex="-1"></a>desempleado <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Occupation <span class="sc">==</span> <span class="st">&quot;Unemployed&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb244-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb244-4" tabindex="-1"></a>noespecificado <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Occupation <span class="sc">==</span> <span class="st">&quot;No especificado&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
 <p>Antes de decidir qué tipo de prueba aplicar para comparar las cuatro categorías de ocupación, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada una. Para ello, se emplea la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb246-1" tabindex="-1"></a><span class="fu">lillie.test</span>(empleado)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb245-1" tabindex="-1"></a><span class="fu">lillie.test</span>(empleado)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  empleado
 ## D = 0.11518, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb248-1" tabindex="-1"></a><span class="fu">lillie.test</span>(independiente)</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb247-1" tabindex="-1"></a><span class="fu">lillie.test</span>(independiente)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  independiente
 ## D = 0.11603, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb250-1" tabindex="-1"></a><span class="fu">lillie.test</span>(desempleado)</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb249-1" tabindex="-1"></a><span class="fu">lillie.test</span>(desempleado)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  desempleado
 ## D = 0.11644, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb252-1" tabindex="-1"></a><span class="fu">lillie.test</span>(noespecificado)</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb251-1" tabindex="-1"></a><span class="fu">lillie.test</span>(noespecificado)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -691,7 +694,7 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: η₁ = η₂ = η₃ = η₄
 H₁: al menos una mediana es diferente</p>
 <p>Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los cuatro grupos mediante la prueba de Levene.</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb254-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Occupation, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb253-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Occupation, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##            Df F value    Pr(&gt;F)    
 ## group       3  14.607 1.648e-09 ***
@@ -702,7 +705,7 @@ H₁: al menos una mediana es diferente</p>
 <p>Dado que no se cumple el supuesto de normalidad ni el de homogeneidad de varianzas entre los cuatro grupos, la interpretación de la prueba de Kruskal-Wallis se mantiene en términos de distribución general y no específicamente de medianas:</p>
 <p>H₀: las cuatro poblaciones (Employed, Self-Employed, Unemployed, No especificado) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb256-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Occupation, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb255-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Occupation, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -710,18 +713,18 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 ## Kruskal-Wallis chi-squared = 58.061, df = 3, p-value = 1.525e-12</code></pre>
 <p>Con una confianza del 95%, la prueba de Kruskal-Wallis indica que existen diferencias estadísticamente significativas en el Premium Amount entre las cuatro categorías de ocupación (χ²(3) = 58.061, p-valor &lt; 0.001), ya que el p-valor es considerablemente menor al nivel de significancia establecido. Por lo tanto, se rechaza H₀.</p>
 <p>Calculamos el tamaño del efecto:</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb258-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb258-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb258-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Occupation)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb257-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb257-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb257-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Occupation)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
 ##   .y.                  n   effsize method  magnitude
 ## * &lt;chr&gt;            &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
 ## 1 Premium_Amount 1200000 0.0000459 eta2[H] small</code></pre>
 <p>El tamaño del efecto obtenido fue prácticamente nulo (0.0000459), lo que indica que, a pesar de la significancia estadística encontrada, la diferencia entre las categorías de ocupación no tiene relevancia práctica sobre el Premium Amount. Esto es consistente con lo observado en preguntas anteriores (como Health Score): con un tamaño de muestra tan grande (1,200,000 observaciones), incluso diferencias mínimas pueden resultar estadísticamente significativas sin que esto implique una asociación relevante en la práctica.</p>
 <p>Sin embargo, dado que la prueba de Kruskal-Wallis resultó significativa, se procede a realizar una prueba post-hoc de comparaciones múltiples por pares (Wilcoxon), con ajuste de Bonferroni, con el fin de identificar cuál o cuáles pares específicos de categorías presentan diferencias significativas entre sí.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb260-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> df<span class="sc">$</span>Premium_Amount,</span>
-<span id="cb260-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb260-2" tabindex="-1"></a>                      <span class="at">g =</span> df<span class="sc">$</span>Occupation,</span>
-<span id="cb260-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb260-3" tabindex="-1"></a>                      <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb260-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb260-4" tabindex="-1"></a>                      <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb259-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> df<span class="sc">$</span>Premium_Amount,</span>
+<span id="cb259-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb259-2" tabindex="-1"></a>                      <span class="at">g =</span> df<span class="sc">$</span>Occupation,</span>
+<span id="cb259-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb259-3" tabindex="-1"></a>                      <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb259-4"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb259-4" tabindex="-1"></a>                      <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
 ## 
@@ -740,23 +743,23 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: las tres poblaciones (Rural, Suburban, Urban) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
 <p>Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Location, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb262-1" tabindex="-1"></a>rural <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Location <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb262-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb262-2" tabindex="-1"></a>suburbano <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Location <span class="sc">==</span> <span class="st">&quot;Suburban&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb262-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb262-3" tabindex="-1"></a>urbano <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Location <span class="sc">==</span> <span class="st">&quot;Urban&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb261-1" tabindex="-1"></a>rural <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Location <span class="sc">==</span> <span class="st">&quot;Rural&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb261-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb261-2" tabindex="-1"></a>suburbano <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Location <span class="sc">==</span> <span class="st">&quot;Suburban&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb261-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb261-3" tabindex="-1"></a>urbano <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Location <span class="sc">==</span> <span class="st">&quot;Urban&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
 <p>Antes de decidir qué tipo de prueba aplicar para comparar las tres ubicaciones, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada una. Para ello, se emplea la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb263-1" tabindex="-1"></a><span class="fu">lillie.test</span>(rural)</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb262-1" tabindex="-1"></a><span class="fu">lillie.test</span>(rural)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  rural
 ## D = 0.11651, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb265-1" tabindex="-1"></a><span class="fu">lillie.test</span>(suburbano)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb264-1" tabindex="-1"></a><span class="fu">lillie.test</span>(suburbano)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  suburbano
 ## D = 0.11614, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb267-1" tabindex="-1"></a><span class="fu">lillie.test</span>(urbano)</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb266-1" tabindex="-1"></a><span class="fu">lillie.test</span>(urbano)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -768,13 +771,13 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: η₁ = η₂ = η₃
 H₁: al menos una mediana es diferente</p>
 <p>Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los tres grupos mediante la prueba de Levene.</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb269-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Location, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb268-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Location, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##            Df F value Pr(&gt;F)
 ## group       2  0.5194 0.5949
 ##       1199997</code></pre>
 <p>Con una confianza del 95%, la prueba de Levene indica que no se encuentran diferencias estadísticamente significativas en la varianza del Premium Amount entre las tres ubicaciones (F(2) = 0.5194, p-valor = 0.5949), ya que el p-valor es mayor al nivel de significancia establecido. Esto confirma que se cumple el supuesto de homogeneidad de varianzas, por lo que se puede continuar con la prueba de Kruskal-Wallis sin inconvenientes.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb271-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Location, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb270-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Location, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -782,8 +785,8 @@ H₁: al menos una mediana es diferente</p>
 ## Kruskal-Wallis chi-squared = 3.4297, df = 2, p-value = 0.18</code></pre>
 <p>Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre las tres ubicaciones (χ²(2) = 3.4297, p-valor = 0.18), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀.</p>
 <p>Ahora calculamos el tamaño del efecto:</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb273-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb273-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb273-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Location)</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb272-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb272-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb272-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Location)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
 ##   .y.                  n    effsize method  magnitude
 ## * &lt;chr&gt;            &lt;int&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
@@ -794,23 +797,23 @@ H₁: al menos una mediana es diferente</p>
 <p>H₀: las tres poblaciones (Poor, Average, Good) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
 <p>Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Customer Feedback, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb275-1" tabindex="-1"></a>malo <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Customer_Feedback <span class="sc">==</span> <span class="st">&quot;Poor&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb275-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb275-2" tabindex="-1"></a>promedio <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Customer_Feedback <span class="sc">==</span> <span class="st">&quot;Average&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb275-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb275-3" tabindex="-1"></a>bueno <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Customer_Feedback <span class="sc">==</span> <span class="st">&quot;Good&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb274-1" tabindex="-1"></a>malo <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Customer_Feedback <span class="sc">==</span> <span class="st">&quot;Poor&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb274-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb274-2" tabindex="-1"></a>promedio <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Customer_Feedback <span class="sc">==</span> <span class="st">&quot;Average&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb274-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb274-3" tabindex="-1"></a>bueno <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Customer_Feedback <span class="sc">==</span> <span class="st">&quot;Good&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
 <p>Antes de decidir qué tipo de prueba aplicar para comparar las tres categorías de Customer Feedback, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada una. Para ello, se emplea la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb276-1" tabindex="-1"></a><span class="fu">lillie.test</span>(malo)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb275-1" tabindex="-1"></a><span class="fu">lillie.test</span>(malo)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  malo
 ## D = 0.11688, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb278-1" tabindex="-1"></a><span class="fu">lillie.test</span>(promedio)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb277-1" tabindex="-1"></a><span class="fu">lillie.test</span>(promedio)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  promedio
 ## D = 0.11484, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb280-1" tabindex="-1"></a><span class="fu">lillie.test</span>(bueno)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb279-1" tabindex="-1"></a><span class="fu">lillie.test</span>(bueno)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -822,7 +825,7 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: η₁ = η₂ = η₃
 H₁: al menos una mediana es diferente</p>
 <p>Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los tres grupos mediante la prueba de Levene.</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb282-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Customer_Feedback, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb281-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Customer_Feedback, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##            Df F value   Pr(&gt;F)    
 ## group       2   7.126 0.000804 ***
@@ -833,7 +836,7 @@ H₁: al menos una mediana es diferente</p>
 <p>Dado que no se cumple el supuesto de normalidad ni el de homogeneidad de varianzas entre los tres grupos, la interpretación de la prueba de Kruskal-Wallis se mantiene en términos de distribución general y no específicamente de medianas:</p>
 <p>H₀: las tres poblaciones (Poor, Average, Good) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb284-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Customer_Feedback, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb283-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Customer_Feedback, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -841,15 +844,15 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 ## Kruskal-Wallis chi-squared = 88.009, df = 2, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Kruskal-Wallis indica que existen diferencias estadísticamente significativas en el Premium Amount entre las tres categorías de Customer Feedback (χ²(2) = 88.009, p-valor &lt; 0.001), ya que el p-valor es considerablemente menor al nivel de significancia establecido. Por lo tanto, se rechaza H₀.</p>
 <p>Calculamos el tamaño del efecto:</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb286-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb286-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb286-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Customer_Feedback)</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb285-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb285-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb285-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Customer_Feedback)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
 ##   .y.                  n   effsize method  magnitude
 ## * &lt;chr&gt;            &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
 ## 1 Premium_Amount 1200000 0.0000717 eta2[H] small</code></pre>
 <p>El tamaño del efecto obtenido fue prácticamente nulo (0.0000717), lo que indica que, a pesar de la significancia estadística encontrada, la diferencia entre las categorías de Customer Feedback no tiene relevancia práctica sobre el Premium Amount. Esto es consistente con el patrón observado en Occupation: con un tamaño de muestra tan grande (1,200,000 observaciones), incluso diferencias mínimas pueden resultar estadísticamente significativas sin que esto implique una asociación relevante en la práctica.</p>
 <p>Dado que la prueba de Kruskal-Wallis resultó significativa, se procede a realizar una prueba post-hoc de comparaciones múltiples por pares (Wilcoxon), con ajuste de Bonferroni, con el fin de identificar cuál o cuáles pares específicos de categorías presentan diferencias significativas entre sí.</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb288-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> df<span class="sc">$</span>Premium_Amount, <span class="at">g =</span> df<span class="sc">$</span>Customer_Feedback, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb287-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> df<span class="sc">$</span>Premium_Amount, <span class="at">g =</span> df<span class="sc">$</span>Customer_Feedback, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
 ## 
@@ -867,23 +870,23 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: las tres poblaciones (Apartment, Condo, House) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
 <p>Para dar inicio al análisis, se separan los valores de Premium Amount en tres grupos según la variable Property Type, con el fin de trabajar con cada uno de forma independiente en las pruebas posteriores.</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb290-1" tabindex="-1"></a>apartamento <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Property_Type <span class="sc">==</span> <span class="st">&quot;Apartment&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb290-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb290-2" tabindex="-1"></a>condominio <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Property_Type <span class="sc">==</span> <span class="st">&quot;Condo&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
-<span id="cb290-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb290-3" tabindex="-1"></a>casa <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Property_Type <span class="sc">==</span> <span class="st">&quot;House&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb289-1" tabindex="-1"></a>apartamento <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Property_Type <span class="sc">==</span> <span class="st">&quot;Apartment&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb289-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb289-2" tabindex="-1"></a>condominio <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Property_Type <span class="sc">==</span> <span class="st">&quot;Condo&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span>
+<span id="cb289-3"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb289-3" tabindex="-1"></a>casa <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Property_Type <span class="sc">==</span> <span class="st">&quot;House&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Premium_Amount)</span></code></pre></div>
 <p>Antes de decidir qué tipo de prueba aplicar para comparar los tres tipos de propiedad, es necesario verificar si la variable Premium Amount cumple con el supuesto de normalidad en cada uno. Para ello, se emplea la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb291-1" tabindex="-1"></a><span class="fu">lillie.test</span>(apartamento)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb290-1" tabindex="-1"></a><span class="fu">lillie.test</span>(apartamento)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  apartamento
 ## D = 0.11589, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb293-1" tabindex="-1"></a><span class="fu">lillie.test</span>(condominio)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb292-1" tabindex="-1"></a><span class="fu">lillie.test</span>(condominio)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  condominio
 ## D = 0.11701, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb295-1" tabindex="-1"></a><span class="fu">lillie.test</span>(casa)</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb294-1" tabindex="-1"></a><span class="fu">lillie.test</span>(casa)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -895,7 +898,7 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: η₁ = η₂ = η₃
 H₁: al menos una mediana es diferente</p>
 <p>Antes de aplicar la prueba de Kruskal-Wallis, se verifica la homogeneidad de varianzas entre los tres grupos mediante la prueba de Levene.</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb297-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Property_Type, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb296-1" tabindex="-1"></a><span class="fu">leveneTest</span>(Premium_Amount <span class="sc">~</span> Property_Type, <span class="at">data =</span> df, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##            Df F value   Pr(&gt;F)   
 ## group       2  5.7774 0.003097 **
@@ -906,7 +909,7 @@ H₁: al menos una mediana es diferente</p>
 <p>Dado que no se cumple el supuesto de normalidad ni el de homogeneidad de varianzas entre los tres grupos, la interpretación de la prueba de Kruskal-Wallis se mantiene en términos de distribución general y no específicamente de medianas:</p>
 <p>H₀: las tres poblaciones (Apartment, Condo, House) provienen de la misma distribución.
 H₁: al menos una población proviene de una distribución distinta.</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb299-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Property_Type, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb298-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(Premium_Amount <span class="sc">~</span> Property_Type, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -914,8 +917,8 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 ## Kruskal-Wallis chi-squared = 1.7384, df = 2, p-value = 0.4193</code></pre>
 <p>Con una confianza del 95%, la prueba de Kruskal-Wallis indica que no existen diferencias estadísticamente significativas en el Premium Amount entre los tres tipos de propiedad (χ²(2) = 1.7384, p-valor = 0.4193), ya que el p-valor es considerablemente mayor al nivel de significancia establecido. Por lo tanto, no se rechaza H₀.</p>
 <p>Sin embargo, calculamos el tamaño del efecto:</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb301-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb301-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb301-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Property_Type)</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb300-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb300-2"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb300-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(Premium_Amount <span class="sc">~</span> Property_Type)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
 ##   .y.                  n effsize method  magnitude
 ## * &lt;chr&gt;            &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
@@ -927,7 +930,7 @@ H₁: al menos una población proviene de una distribución distinta.</p>
 <p>H₀: ρ = 0 (no existe correlación entre las variables)
 H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>Como Premium Amount ya sabemos que no es normal (lo hemos confirmado en todas las preguntas anteriores), solo falta verificar Age. Esto decide si usamos Pearson o Spearman.</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb303-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Age)</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb302-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Age)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -935,7 +938,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 ## D = 0.06621, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que ni Age (D = 0.06621, p-valor &lt; 0.001) ni Premium Amount (D = 0.11624, p-valor &lt; 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Age y Premium Amount.</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb305-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Age, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb304-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Age, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(df$Age, df$Premium_Amount, method = &quot;spearman&quot;):
 ## Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -954,7 +957,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>H₀: ρ = 0 (no existe correlación entre las variables)
 H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Annual Income. Para ello, se aplica la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb308-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Annual_Income)</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb307-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Annual_Income)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -962,7 +965,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 ## D = 0.15271, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que ni Annual Income (D = 0.15271, p-valor &lt; 0.001) ni Premium Amount (D = 0.11624, p-valor &lt; 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Annual Income y Premium Amount.</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb310-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Annual_Income, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb309-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Annual_Income, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(df$Annual_Income, df$Premium_Amount, method =
 ## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -981,7 +984,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>H₀: ρ = 0 (no existe correlación entre las variables)
 H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Previous Claims. Para ello, se aplica la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb313-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Previous_Claims)</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb312-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Previous_Claims)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -989,7 +992,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 ## D = 0.32895, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que ni Previous Claims (D = 0.32895, p-valor &lt; 0.001) ni Premium Amount (D = 0.11624, p-valor &lt; 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido. El valor de D en Previous Claims es notablemente más alto que en las variables anteriores, lo cual es coherente con su fuerte sesgo hacia la derecha observado en el EDA (la mayoría de los clientes concentrados en 0 reclamos).</p>
 <p>Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Previous Claims y Premium Amount.</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb315-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Previous_Claims, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb314-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Previous_Claims, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(df$Previous_Claims, df$Premium_Amount, method =
 ## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -1008,7 +1011,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>H₀: ρ = 0 (no existe correlación entre las variables)
 H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Vehicle Age. Para ello, se aplica la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb318-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Vehicle_Age)</span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb317-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Vehicle_Age)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -1016,7 +1019,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 ## D = 0.083798, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que ni Vehicle Age (D = 0.083798, p-valor &lt; 0.001) ni Premium Amount (D = 0.11624, p-valor &lt; 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Vehicle Age y Premium Amount.</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb320-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Vehicle_Age, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb319-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Vehicle_Age, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(df$Vehicle_Age, df$Premium_Amount, method =
 ## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -1035,7 +1038,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>H₀: ρ = 0 (no existe correlación entre las variables)
 H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Credit Score. Para ello, se aplica la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb323-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Credit_Score)</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb322-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Credit_Score)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -1043,7 +1046,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 ## D = 0.064415, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que ni Credit Score (D = 0.064415, p-valor &lt; 0.001) ni Premium Amount (D = 0.11624, p-valor &lt; 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Credit Score y Premium Amount.</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb325-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Credit_Score, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb324-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Credit_Score, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(df$Credit_Score, df$Premium_Amount, method =
 ## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -1062,7 +1065,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>H₀: ρ = 0 (no existe correlación entre las variables)
 H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Insurance Duration. Para ello, se aplica la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb328-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Insurance_Duration)</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb327-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Insurance_Duration)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -1070,7 +1073,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 ## D = 0.11518, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que ni Insurance Duration (D = 0.11518, p-valor &lt; 0.001) ni Premium Amount (D = 0.11624, p-valor &lt; 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Insurance Duration y Premium Amount.</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb330-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Insurance_Duration, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb329-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Insurance_Duration, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(df$Insurance_Duration, df$Premium_Amount, method =
 ## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 
@@ -1089,7 +1092,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>H₀: ρ = 0 (no existe correlación entre las variables)
 H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 <p>Antes de decidir qué coeficiente de correlación utilizar (Pearson o Spearman), es necesario verificar si ambas variables cumplen el supuesto de normalidad. Dado que Premium Amount ya se confirmó como no normal en preguntas anteriores, resta verificar Number of Dependents. Para ello, se aplica la prueba de Lilliefors.</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb333-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Number_of_Dependents)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb332-1" tabindex="-1"></a><span class="fu">lillie.test</span>(df<span class="sc">$</span>Number_of_Dependents)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -1097,7 +1100,7 @@ H₁: ρ ≠ 0 (existe correlación entre las variables)</p>
 ## D = 0.20221, p-value &lt; 2.2e-16</code></pre>
 <p>Con una confianza del 95%, la prueba de Lilliefors muestra que ni Number of Dependents (D = 0.20221, p-valor &lt; 0.001) ni Premium Amount (D = 0.11624, p-valor &lt; 0.001, ya verificado previamente) provienen de una distribución normal, ya que en ambos casos el p-valor es considerablemente menor al nivel de significancia establecido.</p>
 <p>Dado que ninguna de las dos variables cumple el supuesto de normalidad, se utiliza el coeficiente de correlación de Spearman para evaluar la relación entre Number of Dependents y Premium Amount.</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb335-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Number_of_Dependents, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="pruebas-de-hipótesis-paramétricas-y-no-paramétricas.html#cb334-1" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Number_of_Dependents, df<span class="sc">$</span>Premium_Amount, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in cor.test.default(df$Number_of_Dependents, df$Premium_Amount, :
 ## Cannot compute exact p-value with ties</code></pre>
 <pre><code>## 

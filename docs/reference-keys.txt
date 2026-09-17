@@ -3,8 +3,11 @@ introducción
 objetivo
 intro
 revisión-de-datos-faltantes-en-las-variables-numéricas
+ingeniería-de-características-en-variables-numéricas
 revisión-de-datos-faltantes-en-variables-categóricas
 ingeniería-de-características-en-variables-categóricas
+conversión-de-las-variables-categóricas-a-factor
+resumen-variables-numéricas
 análisis-variable-respuesta-premium-amount
 análisis-de-las-variables-independientes-características
 análisis-bivariado-variable-característica-vs-variable-respuesta
